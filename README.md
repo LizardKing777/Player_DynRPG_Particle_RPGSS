@@ -1,128 +1,97 @@
-# EasyRPG Player
+Severity	Code	Description	Project	File	Line	Suppression State	Details
+Error	C2665	'std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find': no overloaded function could convert all the argument types
+        with
+        [
+            _Kty=std::string,
+            _Ty=ParticleEffect *,
+            _Pr=std::less<std::string>,
+            _Alloc=std::allocator<std::pair<const std::string,ParticleEffect *>>
+        ]	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_particle.cpp	1093		
+        
+Error	C2665	'std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find': no overloaded function could convert all the argument types
+        with
+        [
+            _Kty=std::string,
+            _Ty=ParticleEffect *,
+            _Pr=std::less<std::string>,
+            _Alloc=std::allocator<std::pair<const std::string,ParticleEffect *>>
+        ]	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_particle.cpp	1190		
+        
+Error	C2665	'std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find': no overloaded function could convert all the argument types
+        with
+        [
+            _Kty=std::string,
+            _Ty=ParticleEffect *,
+            _Pr=std::less<std::string>,
+            _Alloc=std::allocator<std::pair<const std::string,ParticleEffect *>>
+        ]	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_particle.cpp	1528		
+        
+Error	C2664	'void RpgssSprite::SetAngle(int)': cannot convert argument 1 from 'std::tuple<float>' to 'int'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	670		
 
-EasyRPG Player is a game interpreter to play RPG Maker 2000, 2003 and EasyRPG
-games. It uses the LCF parser library (liblcf) to read RPG Maker game data.
+Error	C2664	'void RpgssSprite::SetZoomX(double)': cannot convert argument 1 from 'std::tuple<float>' to 'double'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	678		
 
-EasyRPG Player is part of the EasyRPG Project. More information is
-available at the project website: https://easyrpg.org/
+Error	C2664	'void RpgssSprite::SetZoomY(double)': cannot convert argument 1 from 'std::tuple<float>' to 'double'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	679		
 
+Error	C2664	'void RpgssSprite::SetY(int)': cannot convert argument 1 from 'std::tuple<int>' to 'int'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	687		
 
-## Documentation
+Error	C2664	'void RpgssSprite::SetX(int)': cannot convert argument 1 from 'std::tuple<int>' to 'int'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	695		
 
-Documentation is available at the documentation wiki: https://wiki.easyrpg.org
+Error	C2679	binary '-': no operator found which takes a right-hand operand of type 'std::tuple<int>' (or there is no acceptable conversion)	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	703		
 
+Error	C2678	binary '>': no operator found which takes a left-hand operand of type 'std::tuple<int>' (or there is no acceptable conversion)	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	711		
 
-## Requirements
+Error	C2665	'std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find': no overloaded function could convert all the argument types
+        with
+        [
+            _Kty=std::string,
+            _Ty=std::unique_ptr<RpgssSprite,std::default_delete<RpgssSprite>>,
+            _Pr=std::less<std::string>,
+            _Alloc=std::allocator<std::pair<const std::string,std::unique_ptr<RpgssSprite,std::default_delete<RpgssSprite>>>>
+        ]	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	731		
+        
+Error	C2664	'void RpgssSprite::SetRelativeMovementXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	849		
 
-### minimal / required
+Error	C2664	'void RpgssSprite::SetRelativeMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	855		
 
-- [liblcf] for RPG Maker data reading.
-- SDL2 >= 2.0.5 for screen backend support.
-- Pixman for low level pixel manipulation.
-- libpng for PNG image support.
-- zlib for XYZ image and ZIP archive support.
-- fmtlib >= 6 for text formatting/coloring and interal logging.
+Error	C2664	'void RpgssSprite::SetRelativeMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	857		
 
-### extended / recommended
+Error	C2664	'void RpgssSprite::SetRelativeMovementXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	884		
 
-- FreeType2 for external font support (+ HarfBuzz for Unicode text shaping).
-- mpg123 for MP3 audio support.
-- WildMIDI for MIDI audio support using GUS patches.
-- FluidSynth for MIDI audio support using soundfonts.
-- Libvorbis / Tremor for Ogg Vorbis audio support.
-- opusfile for Opus audio support.
-- libsndfile for better WAVE audio support.
-- libxmp for tracker music support.
-- SpeexDSP or libsamplerate for proper audio resampling.
-- lhasa for LHA (.lzh) archive support.
-- nlohmann_json for processing JSON files (required when targetting Emscripten)
+Error	C2664	'void RpgssSprite::SetRelativeMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	909		
 
-The older SDL version 1.2 is still supported, but deprecated.
-Please do not add new platform code for this library.
+Error	C2664	'void RpgssSprite::SetMovementXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	934		
 
+Error	C2664	'void RpgssSprite::SetMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	940		
 
-## Daily builds
+Error	C2664	'void RpgssSprite::SetMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	942		
 
-Up to date binaries for assorted platforms are available at our continuous
-integration service:
+Error	C2664	'void RpgssSprite::SetMovementXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	969		
 
-https://ci.easyrpg.org/view/Player/
+Error	C2664	'void RpgssSprite::SetMovementYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	994		
 
+Error	C2664	'void RpgssSprite::SetZoomXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1019		
 
-## Source code
+Error	C2664	'void RpgssSprite::SetZoomYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1025		
 
-EasyRPG Player development is hosted by GitHub, project files are available
-in this git repository:
+Error	C2664	'void RpgssSprite::SetZoomYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1027		
 
-https://github.com/EasyRPG/Player
+Error	C2664	'void RpgssSprite::SetZoomXEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1055		
 
-Released versions are also available at our Download Archive:
+Error	C2664	'void RpgssSprite::SetZoomYEffect(int,int,const std::string &)': cannot convert argument 3 from 'std::tuple<std::string>' to 'const std::string &'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1081		
 
-https://easyrpg.org/downloads/player/
+Error	C2665	'std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::find': no overloaded function could convert all the argument types
+        with
+        [
+            _Kty=std::string,
+            _Ty=std::unique_ptr<RpgssSprite,std::default_delete<RpgssSprite>>,
+            _Pr=std::less<std::string>,
+            _Alloc=std::allocator<std::pair<const std::string,std::unique_ptr<RpgssSprite,std::default_delete<RpgssSprite>>>>
+        ]	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1150		
+        
+Error	C2088	built-in operator '==' cannot be applied to an operand of type 'std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::string,std::unique_ptr<RpgssSprite,std::default_delete<RpgssSprite>>>>>>'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1150		
 
+Error	C2679	binary '[': no operator found which takes a right-hand operand of type 'std::tuple<std::string>' (or there is no acceptable conversion)	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1154		
 
-## Building
+Error	C2440	'=': cannot convert from 'std::tuple<int>' to 'int'	EasyRPG_Player	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\src\dynrpg_rpgss.cpp	1211		
 
-See [BUILDING document].
-
-
-## Running EasyRPG Player
-
-Run the `easyrpg-player` executable from a RPG Maker 2000 or 2003 game
-project folder (same place as `RPG_RT.exe`).
-
-
-## Bug reporting
-
-Available options:
-
-* File an issue at https://github.com/EasyRPG/Player/issues
-* Open a thread at https://community.easyrpg.org/
-* Chat with us via IRC: [#easyrpg at irc.libera.chat]
-
-
-## License
-
-EasyRPG Player is free software available under the GPLv3 license. See the file
-[COPYING] for license conditions. For Author information see [AUTHORS document].
-
-EasyRPG [Logo] and [Logo2] are licensed under the CC-BY-SA 4.0 license.
-
-
-### 3rd party software
-
-EasyRPG Player makes use of the following 3rd party software:
-
-* [FMMidi] YM2608 FM synthesizer emulator - Copyright (c) 2003-2006 yuno
-  (Yoshio Uno), provided under the (3-clause) BSD license
-* [dr_wav] WAV audio loader and writer - Copyright (c) David Reid, provided
-  under public domain or MIT-0
-
-### 3rd party resources
-
-* [Baekmuk] font family (Korean) - Copyright (c) 1986-2002 Kim Jeong-Hwan,
-  provided under the Baekmuk License
-* [Shinonome] font family (Japanese) - Copyright (c) 1999-2000 Yasuyuki
-  Furukawa and contributors, provided under public domain. Glyphs were added
-  and modified for use in EasyRPG Player, all changes under public domain.
-* [ttyp0] font family - Copyright (c) 2012-2015 Uwe Waldmann, provided under
-  ttyp0 license
-* [WenQuanYi] font family (CJK) - Copyright (c) 2004-2010 WenQuanYi Project
-  Contributors provided under the GPLv2 or later with Font Exception
-* [Teenyicons] Tiny minimal 1px icons - Copyright (c) 2020 Anja van Staden,
-  provided under the MIT license (only used by the Emscripten web shell)
-
-[liblcf]: https://github.com/EasyRPG/liblcf
-[BUILDING document]: docs/BUILDING.md
-[#easyrpg at irc.libera.chat]: https://kiwiirc.com/nextclient/#ircs://irc.libera.chat/#easyrpg?nick=rpgguest??
-[COPYING]: COPYING
-[AUTHORS document]: docs/AUTHORS.md
-[Logo]: resources/logo.png
-[Logo2]: resources/logo2.png
-[FMMidi]: http://unhaut.epizy.com/fmmidi
-[dr_wav]: https://github.com/mackron/dr_libs
-[baekmuk]: https://kldp.net/baekmuk
-[Shinonome]: http://openlab.ring.gr.jp/efont/shinonome
-[ttyp0]: https://people.mpi-inf.mpg.de/~uwe/misc/uw-ttyp0
-[WenQuanYi]: http://wenq.org
-[Teenyicons]: https://github.com/teenyicons/teenyicons
+Error	LNK1104	cannot open file 'K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\build\EasyRPG_Player.dir\Debug\dynrpg_particle.obj'	EasyRPG_Player_exe	K:\Games\rpg2003\EasyRPG\Player-master + DynParticles + RPGSS take 2\build\LINK	1		
