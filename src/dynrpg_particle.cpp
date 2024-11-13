@@ -35,6 +35,8 @@
 #include "main_data.h"
 #include "graphics.h"
 
+	static void load() = 0;
+
 // Lowest Z-order is drawn above. wtf
 // Follows the logic of RPGSS to prevent confusion
 constexpr int layer_mask = (5 << 16);
@@ -76,6 +78,7 @@ public:
 	virtual void setAccelerationPoint(float x, float y, float factor);
 	virtual void setColor0(uint8_t r, uint8_t g, uint8_t b);
 	virtual void setColor1(uint8_t r, uint8_t g, uint8_t b);
+
 	static void create_trig_lut();
 
 	std::array<Color, 256> palette;
@@ -376,6 +379,7 @@ public:
 	void setTexture(std::string filename) override;
 	void setGeneratingFunction(std::string type) override;
 	void setPosition(std::string tag, int x, int y);
+
 
 private:
 	// Drawing Counters
@@ -1082,10 +1086,11 @@ static bool create_effect(dyn_arg_list args) {
 	return true;
 }
 
+
 static bool destroy_effect(dyn_arg_list args) {
 	auto func = "pfx_destroy_effect";
 	bool okay;
-	auto tag = DynRpg::ParseArgs<std::string>(func, args, &okay);
+	auto [tag] = DynRpg::ParseArgs<std::string>(func, args, &okay);
 	if (!okay) {
 		return true;
 	}
@@ -1182,7 +1187,7 @@ static bool stop(dyn_arg_list args) {
 static bool stopall(dyn_arg_list args) {
 	auto func = "pfx_stopall";
 	bool okay;
-	auto tag = DynRpg::ParseArgs<std::string>(func, args, &okay);
+	auto [tag] = DynRpg::ParseArgs<std::string>(func, args, &okay);
 	if (!okay) {
 		return true;
 	}
@@ -1520,7 +1525,7 @@ static bool unload_texture(dyn_arg_list args) {
 	auto func = "pfx_unload_texture";
 	bool okay;
 
-	auto tag = DynRpg::ParseArgs<std::string>(func, args, &okay);
+	auto [tag] = DynRpg::ParseArgs<std::string>(func, args, &okay);
 	if (!okay) {
 		return true;
 	}
@@ -1804,3 +1809,6 @@ void DynRpg::Particle::OnMapChange() {
 		itr++;
 	}
 }
+
+
+

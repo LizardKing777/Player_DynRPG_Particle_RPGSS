@@ -723,7 +723,7 @@ static bool RemoveSprite(dyn_arg_list args) {
 	auto func = "remove_sprite";
 	bool okay;
 
-	auto id = DynRpg::ParseArgs<std::string>(func, args, &okay);
+	auto [id] = DynRpg::ParseArgs<std::string>(func, args, &okay);
 	if (!okay) {
 		return true;
 	}

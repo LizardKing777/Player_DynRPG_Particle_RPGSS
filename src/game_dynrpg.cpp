@@ -31,7 +31,7 @@
 #include "dynrpg_easyrpg.h"
 #include "dynrpg_textplugin.h"
 #include "dynrpg_particle.h"
-#include "dynrpg_rpgss.h"
+// #include "dynrpg_rpgss.h"
 
 enum DynRpg_ParseMode {
 	ParseMode_Function,
