@@ -189,6 +189,10 @@ void Game_DynRpg::InitPlugins() {
 		plugins.emplace_back(new DynRpg::TextPlugin(*this));
 	}
 
+
+	if (Player::IsPatchDynRpg()) {
+		plugins.emplace_back(new DynRpg::Particle(*this));
+	}
 	plugins_loaded = true;
 }
 
