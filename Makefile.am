@@ -88,8 +88,8 @@ libeasyrpg_player_a_SOURCES = \
 	src/dynrpg_textplugin.cpp \
 	src/dynrpg_particle.cpp \
 	src/dynrpg_particle.h \
-	src/dynrpg_rpgss.h \
-	src/dynrpg_rpgss.cpp \
+#	src/dynrpg_rpgss.h \
+#	src/dynrpg_rpgss.cpp \
 	src/enemyai.cpp \
 	src/enemyai.h \
 	src/exe_reader.cpp \
