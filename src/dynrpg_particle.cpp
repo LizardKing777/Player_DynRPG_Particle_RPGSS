@@ -1740,6 +1740,10 @@ bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_In
                 return set_radius(args);
                 }
     else
+    if (func == "pfx_set_texture") {
+                return set_texture(args);
+                }
+    else
       if (func == "pfx_set_acceleration_point") {
                 return set_acceleration_point(args);
                 }
