@@ -42,8 +42,8 @@ namespace DynRpg {
         bool Invoke(StringView func, dyn_arg_list args, bool& do_yield, Game_Interpreter* interpreter) override;
 
 		void Update() override;
-		void Load(const std::vector<uint8_t>&) override;
-		std::vector<uint8_t> Save() override;
+//		void Load(const std::vector<uint8_t>&) override;
+//		std::vector<uint8_t> Save() override;
 
 
 		void OnMapChange();

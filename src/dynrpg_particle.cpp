@@ -35,7 +35,7 @@
 #include "main_data.h"
 #include "graphics.h"
 
-	static void load() = 0;
+//	static void load() = 0;
 
 // Lowest Z-order is drawn above. wtf
 // Follows the logic of RPGSS to prevent confusion
