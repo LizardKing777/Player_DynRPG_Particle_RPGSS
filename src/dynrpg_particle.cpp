@@ -222,9 +222,9 @@ alpha(0), theta(0), fade(30), delay(0), amount(50) {
 
 void ParticleEffect::setTexture(std::string filename) {
 	// When the name ends with .png, remove it
-	if (StringView(filename).ends_with(".png")) {
-		filename = filename.substr(0, filename.length() - 4);
-	}
+//	if (StringView(filename).ends_with(".png")) {
+//		filename = filename.substr(0, filename.length() - 4);
+//	}
 	FileRequestAsync* req = AsyncHandler::RequestFile("Picture", filename);
 	req->Start();
 	image = Cache::Picture(filename, true);
@@ -990,9 +990,9 @@ void Burst::draw_texture(Bitmap& dst, int cam_x, int cam_y) {
 
 void Burst::setTexture(std::string filename) {
 	// When the name ends with .png, remove it
-	if (StringView(filename).ends_with(".png")) {
-		filename = filename.substr(0, filename.length() - 4);
-	}
+//	if (StringView(filename).ends_with(".png")) {
+//		filename = filename.substr(0, filename.length() - 4);
+//	}
 	FileRequestAsync* req = AsyncHandler::RequestFile("Picture", filename);
 	req->Start();
 
@@ -1134,7 +1134,7 @@ static bool does_effect_exist(dyn_arg_list args) {
 	return true;
 }
 
-static bool burst(dyn_arg_list args) {
+static bool newBurst(dyn_arg_list args) {
 	auto func = "pfx_burst";
 	bool okay;
 	std::string tag;
@@ -1184,7 +1184,7 @@ static bool stop(dyn_arg_list args) {
 	return true;
 }
 
-static bool stopall(dyn_arg_list args) {
+static bool stopAll(dyn_arg_list args) {
 	auto func = "pfx_stopall";
 	bool okay;
 	auto [tag] = DynRpg::ParseArgs<std::string>(func, args, &okay);
@@ -1199,7 +1199,7 @@ static bool stopall(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_simul(dyn_arg_list args) {
+static bool setSimul(dyn_arg_list args) {
 	auto func = "pfx_set_simul";
 	bool okay;
 	std::string tag;
@@ -1216,7 +1216,7 @@ static bool set_simul(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_amount(dyn_arg_list args) {
+static bool setAmount(dyn_arg_list args) {
 	auto func = "pfx_set_amount";
 	bool okay;
 	std::string tag;
@@ -1233,7 +1233,7 @@ static bool set_amount(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_timeout(dyn_arg_list args) {
+static bool setTimeout(dyn_arg_list args) {
 	auto func = "pfx_set_timeout";
 	bool okay;
 	std::string tag;
@@ -1250,7 +1250,7 @@ static bool set_timeout(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_initial_color(dyn_arg_list args) {
+static bool setColor0(dyn_arg_list args) {
 	auto func = "pfx_set_initial_color";
 	bool okay;
 	std::string tag;
@@ -1267,7 +1267,7 @@ static bool set_initial_color(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_final_color(dyn_arg_list args) {
+static bool setColor1(dyn_arg_list args) {
 	auto func = "pfx_set_final_color";
 	bool okay;
 	std::string tag;
@@ -1284,7 +1284,7 @@ static bool set_final_color(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_growth(dyn_arg_list args) {
+static bool setGrowth(dyn_arg_list args) {
 	auto func = "pfx_set_growth";
 	bool okay;
 	std::string tag;
@@ -1301,7 +1301,7 @@ static bool set_growth(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_position(dyn_arg_list args) {
+static bool setPosition(dyn_arg_list args) {
 	auto func = "pfx_set_position";
 	bool okay;
 	std::string tag1, tag2;
@@ -1318,7 +1318,7 @@ static bool set_position(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_random_position(dyn_arg_list args) {
+static bool setRandPos(dyn_arg_list args) {
 	auto func = "pfx_set_random_position";
 	bool okay;
 	std::string tag;
@@ -1335,7 +1335,7 @@ static bool set_random_position(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_random_radius(dyn_arg_list args) {
+static bool setRandRad(dyn_arg_list args) {
 	auto func = "pfx_set_random_radius";
 	bool okay;
 	std::string tag;
@@ -1352,7 +1352,7 @@ static bool set_random_radius(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_radius(dyn_arg_list args) {
+static bool setRad(dyn_arg_list args) {
 	auto func = "pfx_set_radius";
 	bool okay;
 	std::string tag;
@@ -1369,7 +1369,7 @@ static bool set_radius(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_texture(dyn_arg_list args) {
+static bool setTexture(dyn_arg_list args) {
 	auto func = "pfx_set_texture";
 	bool okay;
 	std::string tag, txt;
@@ -1385,7 +1385,7 @@ static bool set_texture(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_acceleration_point(dyn_arg_list args) {
+static bool setAccelerationPoint(dyn_arg_list args) {
 	auto func = "pfx_set_acceleration_point";
 	bool okay;
 	std::string tag;
@@ -1402,7 +1402,7 @@ static bool set_acceleration_point(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_gravity_direction(dyn_arg_list args) {
+static bool setGravityDirection(dyn_arg_list args) {
 	auto func = "pfx_set_gravity_direction";
 	bool okay;
 	std::string tag;
@@ -1437,7 +1437,7 @@ static bool set_velocity(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_angle(dyn_arg_list args) {
+static bool setAngle(dyn_arg_list args) {
 	auto func = "pfx_set_angle";
 	bool okay;
 	std::string tag;
@@ -1454,7 +1454,7 @@ static bool set_angle(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_interval(dyn_arg_list args) {
+static bool setInterval(dyn_arg_list args) {
 	auto func = "pfx_set_interval";
 	bool okay;
 	std::string tag;
@@ -1471,7 +1471,7 @@ static bool set_interval(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_secondary_angle(dyn_arg_list args) {
+static bool setSecondaryAngle(dyn_arg_list args) {
 	auto func = "pfx_set_secondary_angle";
 	bool okay;
 	std::string tag;
@@ -1488,7 +1488,7 @@ static bool set_secondary_angle(dyn_arg_list args) {
 	return true;
 }
 
-static bool set_generating_function(dyn_arg_list args) {
+static bool setGeneratingFunction(dyn_arg_list args) {
 	auto func = "pfx_set_generating_function";
 	bool okay;
 	std::string tag, genfn;
@@ -1504,7 +1504,7 @@ static bool set_generating_function(dyn_arg_list args) {
 	return true;
 }
 
-static bool use_screen_relative(dyn_arg_list args) {
+static bool useScreenRelative(dyn_arg_list args) {
 	auto func = "pfx_use_screen_relative";
 	bool okay;
 	std::string tag, bol;
@@ -1521,7 +1521,7 @@ static bool use_screen_relative(dyn_arg_list args) {
 	return true;
 }
 
-static bool unload_texture(dyn_arg_list args) {
+static bool unloadTexture(dyn_arg_list args) {
 	auto func = "pfx_unload_texture";
 	bool okay;
 
@@ -1685,7 +1685,7 @@ bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_In
                 }
     else
     if (func == "pfx_burst") {
-                return burst(args);
+                return newBurst(args);
                 }
     else
     if (func == "pfx_start") {
@@ -1697,59 +1697,59 @@ bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_In
                 }
     else
     if (func == "pfx_stopall") {
-                return stopall(args);
+                return stopAll(args);
                 }
     else
     if (func == "pfx_set_simul_effects") {
-                return set_simul(args);
+                return setSimul(args);
                 }
     else
     if (func == "pfx_set_amount") {
-                return set_amount(args);
+                return setAmount(args);
                 }
     else
       if (func == "pfx_set_timeout") {
-                return set_timeout(args);
+                return setTimeout(args);
                 }
     else
     if (func == "pfx_set_initial_color") {
-                return set_initial_color(args);
+                return setColor0(args);
                 }
     else
     if (func == "pfx_set_final_color") {
-                return set_final_color(args);
+                return setColor1(args);
                 }
     else
     if (func == "pfx_set_growth") {
-                return set_growth(args);
+                return setGrowth(args);
                 }
     else
       if (func == "pfx_set_position") {
-                return set_position(args);
+                return setPosition(args);
                 }
     else
     if (func == "pfx_set_random_position") {
-                return set_random_position(args);
+                return setRandPos(args);
                 }
     else
         if (func == "pfx_set_random_radius") {
-                return set_random_radius(args);
+                return setRandRad(args);
                 }
     else
     if (func == "pfx_set_radius") {
-                return set_radius(args);
+                return setRad(args);
                 }
     else
     if (func == "pfx_set_texture") {
-                return set_texture(args);
+                return setTexture(args);
                 }
     else
       if (func == "pfx_set_acceleration_point") {
-                return set_acceleration_point(args);
+                return setAccelerationPoint(args);
                 }
     else
     if (func == "pfx_set_gravity_direction") {
-                return set_gravity_direction(args);
+                return setGravityDirection(args);
                 }
     else
     if (func == "pfx_set_velocity") {
@@ -1757,27 +1757,27 @@ bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_In
                 }
     else
     if (func == "pfx_set_angle") {
-                return set_angle(args);
+                return setAngle(args);
                 }
     else
       if (func == "pfx_set_interval") {
-                return set_interval(args);
+                return setInterval(args);
                 }
     else
     if (func == "pfx_set_secondary_angle") {
-                return set_secondary_angle(args);
+                return setSecondaryAngle(args);
                 }
     else
     if (func == "pfx_set_generating_function") {
-                return set_generating_function(args);
+                return setGeneratingFunction(args);
                 }
     else
     if (func == "pfx_use_screen_relative") {
-                return use_screen_relative(args);
+                return useScreenRelative(args);
                 }
     else
       if (func == "pfx_unload_texture") {
-                return unload_texture(args);
+                return unloadTexture(args);
                 }
     else
     if (func == "pfx_load_effect") {

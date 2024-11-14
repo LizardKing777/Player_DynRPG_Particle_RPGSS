@@ -58,7 +58,7 @@ namespace Cache {
 	BitmapRef Tile(StringView filename, int tile_id);
 	BitmapRef SpriteEffect(const BitmapRef& src_bitmap, const Rect& rect, bool flip_x, bool flip_y, const Tone& tone, const Color& blend);
 
-	BitmapRef Image(StringView filename);
+	BitmapRef Image(StringView filename, bool transparent);
 
 	void Clear();
 	void ClearAll();
