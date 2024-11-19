@@ -88,8 +88,8 @@ libeasyrpg_player_a_SOURCES = \
 	src/dynrpg_textplugin.cpp \
 	src/dynrpg_particle.cpp \
 	src/dynrpg_particle.h \
-#	src/dynrpg_rpgss.h \
-#	src/dynrpg_rpgss.cpp \
+	src/dynrpg_rpgss.h \
+	src/dynrpg_rpgss.cpp \
 	src/enemyai.cpp \
 	src/enemyai.h \
 	src/exe_reader.cpp \
@@ -145,8 +145,6 @@ libeasyrpg_player_a_SOURCES = \
 	src/game_config.h \
 	src/game_config_game.cpp \
 	src/game_config_game.h \
-	src/game_destiny.cpp \
-	src/game_destiny.h \
 	src/game_dynrpg.cpp \
 	src/game_dynrpg.h \
 	src/game_enemy.cpp \
@@ -742,7 +740,6 @@ test_runner_SOURCES = \
 	tests/game_character_flash.cpp \
 	tests/game_character_move.cpp \
 	tests/game_character_moveto.cpp \
-	tests/game_destiny.cpp \
 	tests/game_enemy.cpp \
 	tests/game_event.cpp \
 	tests/game_player_input.cpp \
