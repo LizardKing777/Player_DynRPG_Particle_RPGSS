@@ -317,7 +317,7 @@ static bool AppendLine(dyn_arg_list args) {
 }
 
 static bool AppendText(dyn_arg_list args) {
-	auto func = "append_line";
+	auto func = "append_text";
 	bool okay;
 	std::string id, text;
 

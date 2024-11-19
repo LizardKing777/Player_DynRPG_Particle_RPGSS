@@ -30,6 +30,7 @@
 #include "bitmap.h"
 #include "cache.h"
 #include "game_screen.h"
+#include "game_pictures.h"
 #include "game_map.h"
 #include "game_switches.h"
 #include "main_data.h"
@@ -39,8 +40,8 @@
 
 // Lowest Z-order is drawn above. wtf
 // Follows the logic of RPGSS to prevent confusion
-constexpr int layer_mask = (5 << 16);
-constexpr int default_priority = Priority_Timer + layer_mask;
+constexpr Drawable::Z_t layer_mask = (5 << 16);
+constexpr Drawable::Z_t default_priority = Priority_Timer + layer_mask;
 
 class ParticleEffect;
 
@@ -53,31 +54,33 @@ namespace {
 void linear_fade(ParticleEffect* effect, uint32_t color0, uint32_t color1, int fade, int delay);
 void linear_fade_texture(uint32_t color0, uint32_t color1, int fade, int delay, uint8_t* dst_r, uint8_t* dst_g, uint8_t* dst_b);
 
+
+
 class ParticleEffect : public Drawable {
 public:
 	ParticleEffect();
-	virtual void Draw(Bitmap& dst) override {}
-	virtual void clear() {}
-	virtual void setSimul(int newSimul) {}
+	void Draw(Bitmap& dst) override {};
+	virtual void clear() {};
+	virtual void setSimul(int newSimul) {};
 	virtual void setAmount(int newAmount);
-	virtual void setAngle(float v1, float v2);
-	virtual void setSecondaryAngle(float v);
+	void setAngle(float v1, float v2);
+	void setSecondaryAngle(float v);
 	virtual void setTimeout(int fade, int delay);
-	virtual void setRad(int new_rad);
-	virtual void setSpd(float new_spd);
-	virtual void setGrowth(float ini_size, float end_size);
-	virtual void setRandRad(int new_rnd_rad);
-	virtual void setRandSpd(float new_rnd_spd);
-	virtual void setRandPos(int new_rnd_x, int new_rnd_y);
+	void setRad(int new_rad);
+	void setSpd(float new_spd);
+	void setGrowth(float ini_size, float end_size);
+	void setRandRad(int new_rnd_rad);
+	void setRandSpd(float new_rnd_spd);
+	void setRandPos(int new_rnd_x, int new_rnd_y);
 	void setInterval(uint32_t new_interval);
 	virtual void setTexture(std::string filename);
 	virtual void unloadTexture();
-	virtual void useScreenRelative(bool enabled);
+	void useScreenRelative(bool enabled);
 	virtual void setGeneratingFunction(std::string type) {}
-	virtual void setGravityDirection(float angle, float factor);
-	virtual void setAccelerationPoint(float x, float y, float factor);
-	virtual void setColor0(uint8_t r, uint8_t g, uint8_t b);
-	virtual void setColor1(uint8_t r, uint8_t g, uint8_t b);
+	void setGravityDirection(float angle, float factor);
+	void setAccelerationPoint(float x, float y, float factor);
+	void setColor0(uint8_t r, uint8_t g, uint8_t b);
+	void setColor1(uint8_t r, uint8_t g, uint8_t b);
 
 	static void create_trig_lut();
 
@@ -215,7 +218,8 @@ alpha(0), theta(0), fade(30), delay(0), amount(50) {
 	isScreenRelative = false;
 
 	image = Bitmap::Create(1, 1, true);
-	tone_image = Bitmap::Create(image->GetWidth(), image->GetHeight(), true);
+     tone_image = Bitmap::Create(image->GetWidth(), image->GetHeight(), true);
+
 
 	DrawableMgr::Register(this);
 }
@@ -1104,6 +1108,7 @@ static bool destroy_effect(dyn_arg_list args) {
 }
 
 static bool destroy_all(dyn_arg_list args) {
+    	auto func = "pfx_destroy_all";
 	ptag_t::iterator itr = pfx_list.begin();
 	while (itr != pfx_list.end()) {
 		delete itr->second;
@@ -1784,7 +1789,7 @@ bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_In
                 return load_effect(args);
                 }
     else
-    if (func == "pfx_pfx_set_z") {
+    if (func == "pfx_set_z") {
                 return SetZ(args);
                 }
     else

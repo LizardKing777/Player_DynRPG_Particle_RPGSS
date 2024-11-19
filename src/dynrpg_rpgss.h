@@ -36,6 +36,7 @@ namespace DynRpg {
 //		void RegisterFunctions();
         bool Invoke(StringView func, dyn_arg_list args, bool& do_yield, Game_Interpreter* interpreter) override;
 		void Update();
+//		void Load(const std::vector<uint8_t>&) override;
 		void Load(const std::vector<uint8_t>& in);
 		std::vector<uint8_t> Save();
 

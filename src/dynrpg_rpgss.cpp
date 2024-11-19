@@ -41,8 +41,8 @@
 class RpgssSprite;
 
 // Lowest Z-order is drawn above. wtf
-constexpr int layer_mask = (5 << 16);
-constexpr int default_priority = Priority_Timer + layer_mask;
+constexpr Drawable::Z_t layer_mask = (5 << 16);
+constexpr Drawable::Z_t default_priority = Priority_Timer + layer_mask;
 
 namespace {
 	std::map<std::string, std::unique_ptr<RpgssSprite>> graphics;
@@ -590,7 +590,10 @@ private:
 		}
 
 		sprite.reset(new Sprite());
+//		sprite->SetBitmap(Bitmap::Create(FileFinder::Game().OpenInputStream(file)));
 		sprite->SetBitmap(Cache::Image(file));
+//		sprite->SetBitmap(Cache::Picture(file, true));
+
 		image_loaded = true;
 		return true;
 	}
@@ -663,7 +666,7 @@ static bool AddSprite(dyn_arg_list args) {
 	switch (args.size()) {
 		case 9:
 		{
-			auto angle = DynRpg::ParseArgs<float>(func, args.subspan(8), &okay);
+			auto [angle] = DynRpg::ParseArgs<float>(func, args.subspan(8), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -671,7 +674,7 @@ static bool AddSprite(dyn_arg_list args) {
 		}
 		case 8:
 		{
-			auto scale = DynRpg::ParseArgs<float>(func, args.subspan(7), &okay);
+			auto [scale] = DynRpg::ParseArgs<float>(func, args.subspan(7), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -680,7 +683,7 @@ static bool AddSprite(dyn_arg_list args) {
 		}
 		case 7:
 		{
-			auto y = DynRpg::ParseArgs<int>(func, args.subspan(6), &okay);
+			auto [y] = DynRpg::ParseArgs<int>(func, args.subspan(6), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -688,7 +691,7 @@ static bool AddSprite(dyn_arg_list args) {
 		}
 		case 6:
 		{
-			auto x = DynRpg::ParseArgs<int>(func, args.subspan(5), &okay);
+			auto [x] = DynRpg::ParseArgs<int>(func, args.subspan(5), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -696,7 +699,7 @@ static bool AddSprite(dyn_arg_list args) {
 		}
 		case 5:
 		{
-			auto z = DynRpg::ParseArgs<int>(func, args.subspan(4), &okay);
+			auto [z] = DynRpg::ParseArgs<int>(func, args.subspan(4), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -704,7 +707,7 @@ static bool AddSprite(dyn_arg_list args) {
 		}
 		case 4:
 		{
-			auto visible = DynRpg::ParseArgs<int>(func, args.subspan(3), &okay);
+			auto [visible] = DynRpg::ParseArgs<int>(func, args.subspan(3), &okay);
 			if (!okay) {
 				return true;
 			}
@@ -843,13 +846,13 @@ static bool MoveSpriteBy(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 5) {
-		auto easing_x = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
+		auto [easing_x] = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetRelativeMovementXEffect(ox, ms, easing_x);
 
 		if (args.size() >= 6) {
-			auto easing_y = DynRpg::ParseArgs<std::string>(func, args.subspan(5), &okay);
+			auto [easing_y] = DynRpg::ParseArgs<std::string>(func, args.subspan(5), &okay);
 			if (!okay)
 				return true;
 			graphics[id]->SetRelativeMovementYEffect(oy, ms, easing_y);
@@ -878,7 +881,7 @@ static bool MoveXSpriteBy(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetRelativeMovementXEffect(ox, ms, easing);
@@ -903,7 +906,7 @@ static bool MoveYSpriteBy(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetRelativeMovementYEffect(oy, ms, easing);
@@ -928,13 +931,13 @@ static bool MoveSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 5) {
-		auto easing_x = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
+		auto [easing_x] = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetMovementXEffect(ox, ms, easing_x);
 
 		if (args.size() >= 6) {
-			auto easing_y = DynRpg::ParseArgs<std::string>(func, args.subspan(5), &okay);
+			auto [easing_y] = DynRpg::ParseArgs<std::string>(func, args.subspan(5), &okay);
 			if (!okay)
 				return true;
 			graphics[id]->SetMovementYEffect(oy, ms, easing_y);
@@ -963,7 +966,7 @@ static bool MoveXSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetMovementXEffect(ox, ms, easing);
@@ -988,7 +991,7 @@ static bool MoveYSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetMovementYEffect(oy, ms, easing);
@@ -1013,13 +1016,13 @@ static bool ScaleSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing_x = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing_x] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetZoomXEffect(scale, ms, easing_x);
 
 		if (args.size() >= 5) {
-			auto easing_y = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
+			auto [easing_y] = DynRpg::ParseArgs<std::string>(func, args.subspan(4), &okay);
 			if (!okay)
 				return true;
 			graphics[id]->SetZoomYEffect(scale, ms, easing_y);
@@ -1049,7 +1052,7 @@ static bool ScaleXSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetZoomXEffect(scale, ms, easing);
@@ -1075,7 +1078,7 @@ static bool ScaleYSpriteTo(dyn_arg_list args) {
 	}
 
 	if (args.size() >= 4) {
-		auto easing = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
+		auto [easing] = DynRpg::ParseArgs<std::string>(func, args.subspan(3), &okay);
 		if (!okay)
 			return true;
 		graphics[id]->SetZoomYEffect(scale, ms, easing);
@@ -1143,7 +1146,7 @@ static bool RotateSpriteForever(dyn_arg_list args) {
 static bool StopSpriteRotation(dyn_arg_list args) {
 	auto func = "stop_sprite_rotation";
 	bool okay;
-	auto id = DynRpg::ParseArgs<std::string>(func, args, &okay);
+	auto [id] = DynRpg::ParseArgs<std::string>(func, args, &okay);
 	if (!okay) {
 		return true;
 	}
@@ -1208,7 +1211,7 @@ static bool SetSpriteColor(dyn_arg_list args) {
 	int sat = 100;
 
 	if (args.size() > 4) {
-		sat = DynRpg::ParseArgs<int>(func, args.subspan(4), &okay);
+		std::tie(sat) = DynRpg::ParseArgs<int>(func, args.subspan(4), &okay);
 		if (!okay) {
 			return true;
 		}
@@ -1313,7 +1316,7 @@ static bool SetLayer(dyn_arg_list args) {
 			z = 0;
 	}
 
-	int old_z = graphics[id]->GetZ() & 0x0000FFFF;
+	Drawable::Z_t old_z = graphics[id]->GetZ() & 0x0000FFFF;
 
 	graphics[id]->SetZ(z + layer_mask + old_z);
 

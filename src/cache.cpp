@@ -463,16 +463,8 @@ BitmapRef Cache::Tile(StringView filename, int tile_id) {
 }
 
 BitmapRef Cache::SpriteEffect(const BitmapRef& src_bitmap, const Rect& rect, bool flip_x, bool flip_y, const Tone& tone, const Color& blend) {
-	std::string id = ToString(src_bitmap->GetId());
-
-	if (id.empty()) {
-		// assert caused too many regressions, use the pointer as the unique key and log instead
-		Output::Debug("Bitmap has no ID. Please report a bug!");
-		id = fmt::format("{}", (void*)(src_bitmap.get()));
-	}
-
 	const effect_key_type key {
-		id,
+		src_bitmap->GetId(),
 		src_bitmap->GetTransparent(),
 		rect,
 		flip_x,
@@ -480,6 +472,8 @@ BitmapRef Cache::SpriteEffect(const BitmapRef& src_bitmap, const Rect& rect, boo
 		tone,
 		blend
 	};
+
+	assert(!src_bitmap->GetId().empty());
 
 	const auto it = cache_effects.find(key);
 
@@ -580,4 +574,42 @@ BitmapRef Cache::System2() {
 	} else {
 		return nullptr;
 	}
+}
+
+BitmapRef Cache::Image(StringView filename) {
+	BitmapRef bmp;
+
+		const auto key = MakeHashKey("File", filename, true);
+	auto it = cache.find(key);
+	if (it == cache.end()) {
+		if (!bmp) {
+			auto is = FileFinder::Game().OpenFile(filename);
+
+			FreeBitmapMemory();
+
+			if (!is) {
+				Output::Warning("Image not found: {}", filename);
+			} else {
+				auto flags = Bitmap::Flag_ReadOnly;
+				bmp = Bitmap::Create(std::move(is), true, flags);
+				if (!bmp) {
+					Output::Warning("Invalid image: {}", filename);
+				}
+			}
+		}
+
+		if (!bmp) {
+			// Even for images without "warn_missing" this still creates a checkboard for invalid images
+			bmp = LoadDummyBitmap<Material::Picture>("File", filename, true);
+		}
+
+		bmp = AddToCache(key, bmp);
+	} else {
+		it->second.last_access = Game_Clock::GetFrameTime();
+		bmp = it->second.bitmap;
+	}
+
+	assert(bmp);
+
+	return bmp;
 }

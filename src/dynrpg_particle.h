@@ -49,7 +49,7 @@ namespace DynRpg {
 		void OnMapChange();
 
 
-// Not sure if this is needed or not
+ // Not sure if this is needed or not
 
 //        private:
 //  		bool EasyCall(dyn_arg_list args, bool& do_yield, Game_Interpreter* interpreter);
