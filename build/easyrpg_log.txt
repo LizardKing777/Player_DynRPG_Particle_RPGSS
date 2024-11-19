@@ -1,0 +1,1325 @@
+[2024-11-13 10:55:18] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 10:55:18] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 10:55:19] Debug: RTP is "Official English" (675/675)
+[2024-11-13 10:55:19] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 10:55:20] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 10:55:20] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 10:55:20] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 10:55:20] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 10:55:20] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 10:55:20] Debug: Cannot find: Font/Font
+[2024-11-13 10:55:20] Debug: Cannot find: Font/Font2
+[2024-11-13 10:55:20] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 10:55:20] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 10:55:22] Debug: Resolution changed to 320x240
+[2024-11-13 10:55:22] Debug: Loaded Map Map0001.lmu
+[2024-11-13 10:55:22] Debug: Tree: Demonstration
+[2024-11-13 10:55:22] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 10:55:22] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 10:55:23] Warning: Unsupported DynRPG function: pfx_set_texture
+[2024-11-13 10:55:25] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 10:55:25] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:04:39] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:04:39] Debug: =======================================
+[2024-11-13 12:04:39] Debug: CLI: 
+[2024-11-13 12:04:39] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:04:39] Debug: Seeded the RNG with 1731524678.
+[2024-11-13 12:04:39] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:04:39] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:04:39] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:04:39] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:04:39] Debug: Game and Save Directory:
+[2024-11-13 12:04:39] Debug: 1: [Native] 
+[2024-11-13 12:04:39] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:04:39] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:04:39] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:04:39] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:04:40] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:04:40] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:04:44] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:04:44] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:04:44] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:04:44] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:04:44] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:04:44] Debug: Cannot find: Font/Font
+[2024-11-13 12:04:44] Debug: Cannot find: Font/Font2
+[2024-11-13 12:04:44] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:04:44] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:04:46] Debug: Resolution changed to 320x240
+[2024-11-13 12:04:46] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:04:46] Debug: Tree: Demonstration
+[2024-11-13 12:04:46] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:04:46] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:04:48] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:04:48] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:04:54] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:04:54] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:05:17] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:05:17] Debug: =======================================
+[2024-11-13 12:05:17] Debug: CLI: 
+[2024-11-13 12:05:17] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:05:17] Debug: Seeded the RNG with 1731524717.
+[2024-11-13 12:05:17] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:05:17] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:05:17] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:05:17] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:05:17] Debug: Game and Save Directory:
+[2024-11-13 12:05:17] Debug: 1: [Native] 
+[2024-11-13 12:05:18] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:05:18] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:05:18] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:05:18] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:05:18] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:05:18] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:05:20] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:05:20] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:05:20] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:05:20] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:05:20] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:05:20] Debug: Cannot find: Font/Font
+[2024-11-13 12:05:20] Debug: Cannot find: Font/Font2
+[2024-11-13 12:05:20] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:05:20] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:05:21] Debug: Resolution changed to 320x240
+[2024-11-13 12:05:21] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:05:21] Debug: Tree: Demonstration
+[2024-11-13 12:05:21] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:05:21] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:05:22] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:05:22] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:05:25] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:05:25] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:05:40] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:05:40] Debug: =======================================
+[2024-11-13 12:05:40] Debug: CLI: 
+[2024-11-13 12:05:40] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:05:40] Debug: Seeded the RNG with 1731524740.
+[2024-11-13 12:05:40] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:05:40] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:05:40] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:05:40] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:05:40] Debug: Game and Save Directory:
+[2024-11-13 12:05:40] Debug: 1: [Native] 
+[2024-11-13 12:05:40] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:05:40] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:05:40] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:05:40] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:05:41] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:05:41] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:05:42] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:05:42] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:05:42] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:05:42] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:05:42] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:05:42] Debug: Cannot find: Font/Font
+[2024-11-13 12:05:42] Debug: Cannot find: Font/Font2
+[2024-11-13 12:05:42] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:05:42] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:05:43] Debug: Resolution changed to 320x240
+[2024-11-13 12:05:43] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:05:43] Debug: Tree: Demonstration
+[2024-11-13 12:05:43] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:05:43] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:05:45] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:05:45] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:05:57] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:05:57] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:06:09] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:06:09] Debug: =======================================
+[2024-11-13 12:06:09] Debug: CLI: 
+[2024-11-13 12:06:09] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:06:09] Debug: Seeded the RNG with 1731524769.
+[2024-11-13 12:06:09] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:06:09] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:06:09] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:06:09] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:06:09] Debug: Game and Save Directory:
+[2024-11-13 12:06:09] Debug: 1: [Native] 
+[2024-11-13 12:06:09] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:06:09] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:06:09] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:06:09] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:06:10] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:06:10] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:06:12] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:06:12] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:06:12] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:06:12] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:06:12] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:06:12] Debug: Cannot find: Font/Font
+[2024-11-13 12:06:12] Debug: Cannot find: Font/Font2
+[2024-11-13 12:06:12] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:06:12] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:06:13] Debug: Resolution changed to 320x240
+[2024-11-13 12:06:13] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:06:13] Debug: Tree: Demonstration
+[2024-11-13 12:06:13] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:06:13] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:06:14] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:06:14] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:06:19] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:06:19] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:06:31] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:06:31] Debug: =======================================
+[2024-11-13 12:06:31] Debug: CLI: 
+[2024-11-13 12:06:31] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:06:31] Debug: Seeded the RNG with 1731524791.
+[2024-11-13 12:06:31] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:06:31] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:06:31] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:06:31] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:06:31] Debug: Game and Save Directory:
+[2024-11-13 12:06:31] Debug: 1: [Native] 
+[2024-11-13 12:06:31] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:06:31] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:06:31] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:06:31] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:06:32] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:06:32] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:06:33] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:06:33] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:06:33] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:06:33] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:06:33] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:06:33] Debug: Cannot find: Font/Font
+[2024-11-13 12:06:33] Debug: Cannot find: Font/Font2
+[2024-11-13 12:06:33] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:06:33] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:06:34] Debug: Resolution changed to 320x240
+[2024-11-13 12:06:34] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:06:34] Debug: Tree: Demonstration
+[2024-11-13 12:06:34] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:06:34] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:06:36] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:06:36] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:07:13] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:07:13] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:07:19] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:07:19] Debug: =======================================
+[2024-11-13 12:07:19] Debug: CLI: 
+[2024-11-13 12:07:19] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:07:19] Debug: Seeded the RNG with 1731524838.
+[2024-11-13 12:07:19] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:07:19] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:07:19] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:07:19] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:07:19] Debug: Game and Save Directory:
+[2024-11-13 12:07:19] Debug: 1: [Native] 
+[2024-11-13 12:07:19] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:07:19] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:07:19] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:07:19] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:07:19] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:07:19] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:07:21] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:07:21] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:07:21] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:07:21] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:07:21] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:07:21] Debug: Cannot find: Font/Font
+[2024-11-13 12:07:21] Debug: Cannot find: Font/Font2
+[2024-11-13 12:07:21] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:07:21] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:07:22] Debug: Resolution changed to 320x240
+[2024-11-13 12:07:22] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:07:22] Debug: Tree: Demonstration
+[2024-11-13 12:07:22] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:07:22] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:07:24] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:07:24] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:07:39] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:07:39] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:08:25] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:08:25] Debug: =======================================
+[2024-11-13 12:08:25] Debug: CLI: 
+[2024-11-13 12:08:25] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:08:25] Debug: Seeded the RNG with 1731524905.
+[2024-11-13 12:08:25] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:08:25] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:08:25] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:08:25] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:08:25] Debug: Game and Save Directory:
+[2024-11-13 12:08:25] Debug: 1: [Native] 
+[2024-11-13 12:08:26] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:08:26] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:08:26] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:08:26] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:08:26] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:08:26] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:08:28] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:08:28] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:08:28] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:08:28] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:08:28] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:08:28] Debug: Cannot find: Font/Font
+[2024-11-13 12:08:28] Debug: Cannot find: Font/Font2
+[2024-11-13 12:08:28] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:08:28] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:08:29] Debug: Resolution changed to 320x240
+[2024-11-13 12:08:29] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:08:29] Debug: Tree: Demonstration
+[2024-11-13 12:08:29] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:08:29] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:08:30] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:08:30] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:08:33] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:08:33] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:09:27] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 12:09:27] Debug: =======================================
+[2024-11-13 12:09:27] Debug: CLI: 
+[2024-11-13 12:09:27] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 12:09:27] Debug: Seeded the RNG with 1731524967.
+[2024-11-13 12:09:27] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 12:09:27] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 12:09:27] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 12:09:27] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 12:09:27] Debug: Game and Save Directory:
+[2024-11-13 12:09:27] Debug: 1: [Native] 
+[2024-11-13 12:09:28] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 12:09:28] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 12:09:28] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 12:09:28] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 12:09:28] Debug: RTP is "Official English" (675/675)
+[2024-11-13 12:09:28] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 12:09:30] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 12:09:30] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 12:09:30] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:09:30] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 12:09:30] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 12:09:30] Debug: Cannot find: Font/Font
+[2024-11-13 12:09:30] Debug: Cannot find: Font/Font2
+[2024-11-13 12:09:30] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 12:09:30] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 12:09:31] Debug: Resolution changed to 320x240
+[2024-11-13 12:09:31] Debug: Loaded Map Map0001.lmu
+[2024-11-13 12:09:31] Debug: Tree: Demonstration
+[2024-11-13 12:09:31] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 12:09:31] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 12:09:32] Debug: Cannot find: Picture/particle.png
+[2024-11-13 12:09:32] Warning: Image not found: Picture/particle.png
+[2024-11-13 12:09:35] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 12:09:35] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:26:34] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 14:26:34] Debug: =======================================
+[2024-11-13 14:26:34] Debug: CLI: 
+[2024-11-13 14:26:34] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 14:26:34] Debug: Seeded the RNG with 1731533194.
+[2024-11-13 14:26:34] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 14:26:34] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 14:26:34] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 14:26:34] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 14:26:34] Debug: Game and Save Directory:
+[2024-11-13 14:26:34] Debug: 1: [Native] 
+[2024-11-13 14:26:34] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 14:26:34] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 14:26:34] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 14:26:34] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 14:26:35] Debug: RTP is "Official English" (675/675)
+[2024-11-13 14:26:35] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 14:26:36] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 14:26:36] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 14:26:36] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:26:36] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:26:36] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 14:26:36] Debug: Cannot find: Font/Font
+[2024-11-13 14:26:36] Debug: Cannot find: Font/Font2
+[2024-11-13 14:26:36] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 14:26:36] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 14:26:37] Debug: Resolution changed to 320x240
+[2024-11-13 14:26:38] Debug: Loaded Map Map0001.lmu
+[2024-11-13 14:26:38] Debug: Tree: Demonstration
+[2024-11-13 14:26:38] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 14:26:38] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 14:27:21] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:27:21] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:45:22] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 14:45:22] Debug: =======================================
+[2024-11-13 14:45:22] Debug: CLI: 
+[2024-11-13 14:45:22] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 14:45:22] Debug: Seeded the RNG with 1731534322.
+[2024-11-13 14:45:22] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 14:45:22] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 14:45:22] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 14:45:22] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 14:45:22] Debug: Game and Save Directory:
+[2024-11-13 14:45:22] Debug: 1: [Native] 
+[2024-11-13 14:45:22] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 14:45:22] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 14:45:22] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 14:45:22] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 14:45:23] Debug: RTP is "Official English" (675/675)
+[2024-11-13 14:45:23] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 14:45:24] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 14:45:24] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 14:45:24] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:45:24] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:45:24] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 14:45:24] Debug: Cannot find: Font/Font
+[2024-11-13 14:45:24] Debug: Cannot find: Font/Font2
+[2024-11-13 14:45:24] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 14:45:24] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 14:45:25] Debug: Resolution changed to 320x240
+[2024-11-13 14:45:25] Debug: Loaded Map Map0001.lmu
+[2024-11-13 14:45:25] Debug: Tree: Demonstration
+[2024-11-13 14:45:25] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 14:45:25] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 14:45:46] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:45:46] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:57:08] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 14:57:08] Debug: =======================================
+[2024-11-13 14:57:08] Debug: CLI: 
+[2024-11-13 14:57:08] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 14:57:08] Debug: Seeded the RNG with 1731535027.
+[2024-11-13 14:57:08] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 14:57:08] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 14:57:08] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 14:57:08] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 14:57:08] Debug: Game and Save Directory:
+[2024-11-13 14:57:08] Debug: 1: [Native] 
+[2024-11-13 14:57:08] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 14:57:08] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 14:57:08] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 14:57:08] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 14:57:08] Debug: RTP is "Official English" (675/675)
+[2024-11-13 14:57:08] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 14:57:10] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 14:57:10] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 14:57:10] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:57:10] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 14:57:10] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 14:57:10] Debug: Cannot find: Font/Font
+[2024-11-13 14:57:10] Debug: Cannot find: Font/Font2
+[2024-11-13 14:57:10] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 14:57:10] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 14:57:11] Debug: Resolution changed to 320x240
+[2024-11-13 14:57:11] Debug: Loaded Map Map0001.lmu
+[2024-11-13 14:57:11] Debug: Tree: Demonstration
+[2024-11-13 14:57:11] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 14:57:11] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 14:57:16] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 14:57:16] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 15:39:52] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 15:39:52] Debug: =======================================
+[2024-11-13 15:39:52] Debug: CLI: 
+[2024-11-13 15:39:52] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 15:39:52] Debug: Seeded the RNG with 1731537591.
+[2024-11-13 15:39:52] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 15:39:52] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 15:39:52] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 15:39:52] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 15:39:52] Debug: Game and Save Directory:
+[2024-11-13 15:39:52] Debug: 1: [Native] 
+[2024-11-13 15:39:52] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 15:39:52] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 15:39:52] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 15:39:52] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 15:39:53] Debug: RTP is "Official English" (675/675)
+[2024-11-13 15:39:53] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 15:39:54] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 15:39:54] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 15:39:54] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 15:39:54] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 15:39:54] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 15:39:54] Debug: Cannot find: Font/Font
+[2024-11-13 15:39:54] Debug: Cannot find: Font/Font2
+[2024-11-13 15:39:54] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 15:39:54] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 15:39:55] Debug: Resolution changed to 320x240
+[2024-11-13 15:39:55] Debug: Loaded Map Map0001.lmu
+[2024-11-13 15:39:55] Debug: Tree: Demonstration
+[2024-11-13 15:39:55] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 15:39:55] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 15:40:09] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 15:40:09] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 21:53:14] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 21:53:14] Debug: =======================================
+[2024-11-13 21:53:14] Debug: CLI: 
+[2024-11-13 21:53:14] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 21:53:14] Debug: Seeded the RNG with 1731559994.
+[2024-11-13 21:53:14] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 21:53:14] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 21:53:14] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 21:53:14] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 21:53:14] Debug: Game and Save Directory:
+[2024-11-13 21:53:14] Debug: 1: [Native] 
+[2024-11-13 21:53:14] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 21:53:14] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 21:53:14] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 21:53:14] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 21:53:15] Debug: RTP is "Official English" (675/675)
+[2024-11-13 21:53:15] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 21:53:18] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 21:53:18] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 21:53:18] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 21:53:18] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 21:53:18] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 21:53:18] Debug: Cannot find: Font/Font
+[2024-11-13 21:53:18] Debug: Cannot find: Font/Font2
+[2024-11-13 21:53:18] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 21:53:18] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 21:53:20] Debug: Resolution changed to 320x240
+[2024-11-13 21:53:20] Debug: Loaded Map Map0001.lmu
+[2024-11-13 21:53:20] Debug: Tree: Demonstration
+[2024-11-13 21:53:20] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 21:53:20] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 21:53:22] Debug: Cannot find: Picture/pixel.png
+[2024-11-13 21:53:22] Warning: Image not found: Picture/pixel.png
+[2024-11-13 21:53:49] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 21:53:49] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 21:54:24] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 21:54:24] Debug: =======================================
+[2024-11-13 21:54:24] Debug: CLI: 
+[2024-11-13 21:54:24] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 21:54:24] Debug: Seeded the RNG with 1731560064.
+[2024-11-13 21:54:24] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 21:54:24] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 21:54:24] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 21:54:24] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 21:54:24] Debug: Game and Save Directory:
+[2024-11-13 21:54:24] Debug: 1: [Native] 
+[2024-11-13 21:54:24] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 21:54:24] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 21:54:24] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 21:54:24] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 21:54:25] Debug: RTP is "Official English" (675/675)
+[2024-11-13 21:54:25] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 21:54:26] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 21:54:26] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 21:54:26] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 21:54:26] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 21:54:26] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 21:54:26] Debug: Cannot find: Font/Font
+[2024-11-13 21:54:26] Debug: Cannot find: Font/Font2
+[2024-11-13 21:54:26] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 21:54:26] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 21:54:27] Debug: Resolution changed to 320x240
+[2024-11-13 21:54:27] Debug: Loaded Map Map0001.lmu
+[2024-11-13 21:54:27] Debug: Tree: Demonstration
+[2024-11-13 21:54:27] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 21:54:27] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 21:54:48] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 21:54:48] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 22:06:09] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 22:06:09] Debug: =======================================
+[2024-11-13 22:06:09] Debug: CLI: 
+[2024-11-13 22:06:09] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 22:06:09] Debug: Seeded the RNG with 1731560769.
+[2024-11-13 22:06:09] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 22:06:09] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 22:06:09] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 22:06:09] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 22:06:09] Debug: Game and Save Directory:
+[2024-11-13 22:06:09] Debug: 1: [Native] 
+[2024-11-13 22:06:09] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 22:06:09] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 22:06:09] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 22:06:09] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 22:06:10] Debug: RTP is "Official English" (675/675)
+[2024-11-13 22:06:10] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 22:06:13] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 22:06:13] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 22:06:13] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 22:06:13] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 22:06:13] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 22:06:13] Debug: Cannot find: Font/Font
+[2024-11-13 22:06:13] Debug: Cannot find: Font/Font2
+[2024-11-13 22:06:13] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 22:06:13] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 22:06:14] Debug: Resolution changed to 320x240
+[2024-11-13 22:06:14] Debug: Loaded Map Map0001.lmu
+[2024-11-13 22:06:14] Debug: Tree: Demonstration
+[2024-11-13 22:06:14] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 22:06:14] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 22:06:34] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 22:06:34] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:15:43] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 23:15:43] Debug: =======================================
+[2024-11-13 23:15:43] Debug: CLI: 
+[2024-11-13 23:15:43] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 23:15:43] Debug: Seeded the RNG with 1731564942.
+[2024-11-13 23:15:43] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 23:15:43] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 23:15:43] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 23:15:43] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 23:15:43] Debug: Game and Save Directory:
+[2024-11-13 23:15:43] Debug: 1: [Native] 
+[2024-11-13 23:15:43] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 23:15:43] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 23:15:43] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 23:15:43] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 23:15:44] Debug: RTP is "Official English" (675/675)
+[2024-11-13 23:15:44] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 23:15:46] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 23:15:46] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 23:15:46] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:15:46] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:15:46] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 23:15:46] Debug: Cannot find: Font/Font
+[2024-11-13 23:15:46] Debug: Cannot find: Font/Font2
+[2024-11-13 23:15:46] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 23:15:46] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 23:15:48] Debug: Resolution changed to 320x240
+[2024-11-13 23:15:48] Debug: Loaded Map Map0001.lmu
+[2024-11-13 23:15:48] Debug: Tree: Demonstration
+[2024-11-13 23:15:48] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 23:15:48] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 23:16:05] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:16:05] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:27:22] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 23:27:22] Debug: =======================================
+[2024-11-13 23:27:22] Debug: CLI: 
+[2024-11-13 23:27:22] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 23:27:22] Debug: Seeded the RNG with 1731565641.
+[2024-11-13 23:27:22] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 23:27:22] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 23:27:22] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 23:27:22] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 23:27:22] Debug: Game and Save Directory:
+[2024-11-13 23:27:22] Debug: 1: [Native] 
+[2024-11-13 23:27:22] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 23:27:22] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 23:27:22] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 23:27:22] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 23:27:24] Debug: RTP is "Official English" (675/675)
+[2024-11-13 23:27:24] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 23:27:26] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 23:27:26] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 23:27:26] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:27:26] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:27:26] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 23:27:26] Debug: Cannot find: Font/Font
+[2024-11-13 23:27:26] Debug: Cannot find: Font/Font2
+[2024-11-13 23:27:26] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 23:27:26] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 23:27:29] Debug: Resolution changed to 320x240
+[2024-11-13 23:27:29] Debug: Loaded Map Map0001.lmu
+[2024-11-13 23:27:29] Debug: Tree: Demonstration
+[2024-11-13 23:27:29] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 23:27:29] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 23:27:46] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:27:46] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:46:34] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 23:46:34] Debug: =======================================
+[2024-11-13 23:46:34] Debug: CLI: 
+[2024-11-13 23:46:34] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 23:46:34] Debug: Seeded the RNG with 1731566794.
+[2024-11-13 23:46:34] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 23:46:34] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 23:46:34] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 23:46:34] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 23:46:34] Debug: Game and Save Directory:
+[2024-11-13 23:46:34] Debug: 1: [Native] 
+[2024-11-13 23:46:35] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 23:46:35] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 23:46:35] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 23:46:35] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 23:46:35] Debug: RTP is "Official English" (675/675)
+[2024-11-13 23:46:35] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 23:46:38] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 23:46:38] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 23:46:38] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:46:38] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:46:38] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 23:46:38] Debug: Cannot find: Font/Font
+[2024-11-13 23:46:38] Debug: Cannot find: Font/Font2
+[2024-11-13 23:46:38] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 23:46:38] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 23:46:39] Debug: Resolution changed to 320x240
+[2024-11-13 23:46:39] Debug: Loaded Map Map0001.lmu
+[2024-11-13 23:46:39] Debug: Tree: Demonstration
+[2024-11-13 23:46:39] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 23:46:39] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 23:46:43] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:46:43] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:47:06] Debug: EasyRPG Player 0.8 (2024-11-12) started
+[2024-11-13 23:47:06] Debug: =======================================
+[2024-11-13 23:47:06] Debug: CLI: 
+[2024-11-13 23:47:06] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-13 23:47:06] Debug: Seeded the RNG with 1731566826.
+[2024-11-13 23:47:06] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-13 23:47:06] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-13 23:47:06] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-13 23:47:06] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-13 23:47:06] Debug: Game and Save Directory:
+[2024-11-13 23:47:06] Debug: 1: [Native] 
+[2024-11-13 23:47:07] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-13 23:47:07] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-13 23:47:07] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-13 23:47:07] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-13 23:47:07] Debug: RTP is "Official English" (675/675)
+[2024-11-13 23:47:07] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-13 23:47:09] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-13 23:47:09] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-13 23:47:09] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:47:09] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-13 23:47:09] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-13 23:47:09] Debug: Cannot find: Font/Font
+[2024-11-13 23:47:09] Debug: Cannot find: Font/Font2
+[2024-11-13 23:47:09] Debug: Cannot find: Logo/LOGO1
+[2024-11-13 23:47:09] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-13 23:47:10] Debug: Resolution changed to 320x240
+[2024-11-13 23:47:10] Debug: Loaded Map Map0001.lmu
+[2024-11-13 23:47:10] Debug: Tree: Demonstration
+[2024-11-13 23:47:10] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-13 23:47:10] Debug: WildMidi: Could not find configuration file.
+[2024-11-13 23:47:12] Debug: Cannot find: Picture/pixel.png
+[2024-11-13 23:47:12] Warning: Image not found: Picture/pixel.png
+[2024-11-13 23:47:16] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-13 23:47:16] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:42:52] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 12:42:52] Debug: =======================================
+[2024-11-18 12:42:52] Debug: CLI: 
+[2024-11-18 12:42:52] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 12:42:52] Debug: Seeded the RNG with 1731958971.
+[2024-11-18 12:42:52] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 12:42:52] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 12:42:52] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 12:42:52] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 12:42:52] Debug: Game and Save Directory:
+[2024-11-18 12:42:52] Debug: 1: [Native] 
+[2024-11-18 12:42:52] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 12:42:52] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 12:42:52] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 12:42:52] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 12:42:53] Debug: RTP is "Official English" (675/675)
+[2024-11-18 12:42:53] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 12:42:58] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 12:42:58] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 12:42:58] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:42:58] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:42:58] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 12:42:58] Debug: Cannot find: Font/Font
+[2024-11-18 12:42:58] Debug: Cannot find: Font/Font2
+[2024-11-18 12:42:58] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 12:42:58] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 12:42:59] Debug: Resolution changed to 320x240
+[2024-11-18 12:42:59] Debug: Loaded Map Map0001.lmu
+[2024-11-18 12:42:59] Debug: Tree: Demonstration
+[2024-11-18 12:42:59] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 12:42:59] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 12:43:11] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:43:11] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:45:09] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 12:45:09] Debug: =======================================
+[2024-11-18 12:45:09] Debug: CLI: 
+[2024-11-18 12:45:09] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 12:45:09] Debug: Seeded the RNG with 1731959109.
+[2024-11-18 12:45:09] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 12:45:09] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 12:45:09] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 12:45:09] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 12:45:09] Debug: Game and Save Directory:
+[2024-11-18 12:45:09] Debug: 1: [Native] 
+[2024-11-18 12:45:10] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 12:45:10] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 12:45:10] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 12:45:10] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 12:45:10] Debug: RTP is "Official English" (675/675)
+[2024-11-18 12:45:10] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 12:45:12] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 12:45:12] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 12:45:12] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:45:12] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:45:12] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 12:45:12] Debug: Cannot find: Font/Font
+[2024-11-18 12:45:12] Debug: Cannot find: Font/Font2
+[2024-11-18 12:45:12] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 12:45:12] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 12:45:13] Debug: Resolution changed to 320x240
+[2024-11-18 12:45:13] Debug: Loaded Map Map0001.lmu
+[2024-11-18 12:45:13] Debug: Tree: Demonstration
+[2024-11-18 12:45:13] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 12:45:13] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 12:45:31] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:45:31] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:49:34] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 12:49:34] Debug: =======================================
+[2024-11-18 12:49:34] Debug: CLI: 
+[2024-11-18 12:49:34] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 12:49:34] Debug: Seeded the RNG with 1731959374.
+[2024-11-18 12:49:34] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 12:49:34] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 12:49:34] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 12:49:34] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 12:49:34] Debug: Game and Save Directory:
+[2024-11-18 12:49:34] Debug: 1: [Native] 
+[2024-11-18 12:49:34] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 12:49:34] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 12:49:34] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 12:49:34] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 12:49:35] Debug: RTP is "Official English" (675/675)
+[2024-11-18 12:49:35] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 12:49:36] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 12:49:36] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 12:49:36] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:49:36] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:49:36] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 12:49:36] Debug: Cannot find: Font/Font
+[2024-11-18 12:49:36] Debug: Cannot find: Font/Font2
+[2024-11-18 12:49:36] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 12:49:36] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 12:49:37] Debug: Resolution changed to 320x240
+[2024-11-18 12:49:37] Debug: Loaded Map Map0001.lmu
+[2024-11-18 12:49:37] Debug: Tree: Demonstration
+[2024-11-18 12:49:37] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 12:49:37] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 12:49:47] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:49:47] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:58:31] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 12:58:31] Debug: =======================================
+[2024-11-18 12:58:31] Debug: CLI: 
+[2024-11-18 12:58:31] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 12:58:31] Debug: Seeded the RNG with 1731959910.
+[2024-11-18 12:58:31] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 12:58:31] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 12:58:31] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 12:58:31] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 12:58:31] Debug: Game and Save Directory:
+[2024-11-18 12:58:31] Debug: 1: [Native] 
+[2024-11-18 12:58:31] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 12:58:31] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 12:58:31] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 12:58:31] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 12:58:32] Debug: RTP is "Official English" (675/675)
+[2024-11-18 12:58:32] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 12:58:33] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 12:58:33] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 12:58:33] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:58:33] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 12:58:33] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 12:58:33] Debug: Cannot find: Font/Font
+[2024-11-18 12:58:33] Debug: Cannot find: Font/Font2
+[2024-11-18 12:58:33] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 12:58:33] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 12:58:34] Debug: Resolution changed to 320x240
+[2024-11-18 12:58:34] Debug: Loaded Map Map0001.lmu
+[2024-11-18 12:58:34] Debug: Tree: Demonstration
+[2024-11-18 12:58:34] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 12:58:34] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 12:58:43] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 12:58:43] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:07:29] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 13:07:29] Debug: =======================================
+[2024-11-18 13:07:29] Debug: CLI: 
+[2024-11-18 13:07:29] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 13:07:29] Debug: Seeded the RNG with 1731960448.
+[2024-11-18 13:07:29] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 13:07:29] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 13:07:29] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 13:07:29] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 13:07:29] Debug: Game and Save Directory:
+[2024-11-18 13:07:29] Debug: 1: [Native] 
+[2024-11-18 13:07:29] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 13:07:29] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 13:07:29] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 13:07:29] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 13:07:29] Debug: RTP is "Official English" (675/675)
+[2024-11-18 13:07:29] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 13:07:31] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 13:07:31] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 13:07:31] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:07:31] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:07:31] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 13:07:31] Debug: Cannot find: Font/Font
+[2024-11-18 13:07:31] Debug: Cannot find: Font/Font2
+[2024-11-18 13:07:31] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 13:07:31] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 13:07:32] Debug: Resolution changed to 320x240
+[2024-11-18 13:07:32] Debug: Loaded Map Map0001.lmu
+[2024-11-18 13:07:32] Debug: Tree: Demonstration
+[2024-11-18 13:07:32] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 13:07:32] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 13:07:43] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:07:43] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:50:07] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 13:50:07] Debug: =======================================
+[2024-11-18 13:50:07] Debug: CLI: 
+[2024-11-18 13:50:07] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 13:50:07] Debug: Seeded the RNG with 1731963007.
+[2024-11-18 13:50:07] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 13:50:07] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 13:50:07] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 13:50:07] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 13:50:07] Debug: Game and Save Directory:
+[2024-11-18 13:50:07] Debug: 1: [Native] 
+[2024-11-18 13:50:07] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 13:50:07] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 13:50:07] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 13:50:07] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 13:50:08] Debug: RTP is "Official English" (675/675)
+[2024-11-18 13:50:08] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 13:50:10] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 13:50:10] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 13:50:10] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:50:10] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:50:10] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 13:50:10] Debug: Cannot find: Font/Font
+[2024-11-18 13:50:10] Debug: Cannot find: Font/Font2
+[2024-11-18 13:50:10] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 13:50:10] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 13:50:11] Debug: Resolution changed to 320x240
+[2024-11-18 13:50:11] Debug: Loaded Map Map0001.lmu
+[2024-11-18 13:50:11] Debug: Tree: Demonstration
+[2024-11-18 13:50:11] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 13:50:11] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 13:50:44] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:50:44] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:51:55] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 13:51:55] Debug: =======================================
+[2024-11-18 13:51:55] Debug: CLI: 
+[2024-11-18 13:51:55] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 13:51:55] Debug: Seeded the RNG with 1731963114.
+[2024-11-18 13:51:55] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 13:51:55] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 13:51:55] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 13:51:55] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 13:51:55] Debug: Game and Save Directory:
+[2024-11-18 13:51:55] Debug: 1: [Native] 
+[2024-11-18 13:51:55] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 13:51:55] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 13:51:55] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 13:51:55] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 13:51:55] Debug: RTP is "Official English" (675/675)
+[2024-11-18 13:51:55] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 13:51:57] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 13:51:57] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 13:51:57] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:51:57] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:51:57] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 13:51:57] Debug: Cannot find: Font/Font
+[2024-11-18 13:51:57] Debug: Cannot find: Font/Font2
+[2024-11-18 13:51:57] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 13:51:57] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 13:51:58] Debug: Resolution changed to 320x240
+[2024-11-18 13:51:58] Debug: Loaded Map Map0001.lmu
+[2024-11-18 13:51:58] Debug: Tree: Demonstration
+[2024-11-18 13:51:58] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 13:51:58] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 13:52:00] Warning: Unsupported DynRPG function: pfx_set_z
+[2024-11-18 13:52:06] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:52:06] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:55:39] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 13:55:39] Debug: =======================================
+[2024-11-18 13:55:39] Debug: CLI: 
+[2024-11-18 13:55:39] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 13:55:39] Debug: Seeded the RNG with 1731963339.
+[2024-11-18 13:55:39] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 13:55:39] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 13:55:39] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 13:55:39] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 13:55:39] Debug: Game and Save Directory:
+[2024-11-18 13:55:39] Debug: 1: [Native] 
+[2024-11-18 13:55:39] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 13:55:39] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 13:55:39] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 13:55:39] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 13:55:40] Debug: RTP is "Official English" (675/675)
+[2024-11-18 13:55:40] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 13:55:43] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 13:55:43] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 13:55:43] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:55:43] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 13:55:43] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 13:55:43] Debug: Cannot find: Font/Font
+[2024-11-18 13:55:43] Debug: Cannot find: Font/Font2
+[2024-11-18 13:55:43] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 13:55:43] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 13:55:44] Debug: Resolution changed to 320x240
+[2024-11-18 13:55:44] Debug: Loaded Map Map0001.lmu
+[2024-11-18 13:55:44] Debug: Tree: Demonstration
+[2024-11-18 13:55:44] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 13:55:44] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 13:56:21] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 13:56:21] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:00:30] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 14:00:30] Debug: =======================================
+[2024-11-18 14:00:30] Debug: CLI: 
+[2024-11-18 14:00:30] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:00:30] Debug: Seeded the RNG with 1731963630.
+[2024-11-18 14:00:30] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:00:30] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:00:30] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:00:30] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:00:30] Debug: Game and Save Directory:
+[2024-11-18 14:00:30] Debug: 1: [Native] 
+[2024-11-18 14:00:30] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:00:31] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:00:31] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:00:31] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:00:31] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:00:31] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:00:33] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:00:33] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:00:33] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:00:33] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:00:33] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:00:33] Debug: Cannot find: Font/Font
+[2024-11-18 14:00:33] Debug: Cannot find: Font/Font2
+[2024-11-18 14:00:33] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:00:33] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:00:34] Debug: Resolution changed to 320x240
+[2024-11-18 14:00:34] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:00:34] Debug: Tree: Demonstration
+[2024-11-18 14:00:34] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:00:34] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:01:17] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:01:17] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:05:02] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 14:05:02] Debug: =======================================
+[2024-11-18 14:05:02] Debug: CLI: 
+[2024-11-18 14:05:02] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:05:02] Debug: Seeded the RNG with 1731963901.
+[2024-11-18 14:05:02] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:05:02] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:05:02] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:05:02] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:05:02] Debug: Game and Save Directory:
+[2024-11-18 14:05:02] Debug: 1: [Native] 
+[2024-11-18 14:05:02] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:05:02] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:05:02] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:05:02] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:05:03] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:05:03] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:05:04] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:05:04] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:05:04] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:05:04] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:05:04] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:05:04] Debug: Cannot find: Font/Font
+[2024-11-18 14:05:04] Debug: Cannot find: Font/Font2
+[2024-11-18 14:05:04] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:05:04] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:05:05] Debug: Resolution changed to 320x240
+[2024-11-18 14:05:05] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:05:05] Debug: Tree: Demonstration
+[2024-11-18 14:05:05] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:05:05] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:05:15] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:05:15] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:05:18] Debug: EasyRPG Player 0.8 (2024-11-09) started
+[2024-11-18 14:05:18] Debug: =======================================
+[2024-11-18 14:05:18] Debug: CLI: 
+[2024-11-18 14:05:18] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:05:18] Debug: Seeded the RNG with 1731963917.
+[2024-11-18 14:05:18] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:05:18] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:05:18] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:05:18] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:05:18] Debug: Game and Save Directory:
+[2024-11-18 14:05:18] Debug: 1: [Native] 
+[2024-11-18 14:05:18] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:05:18] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:05:18] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:05:18] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:05:19] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:05:19] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:05:20] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:05:20] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:05:20] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:05:20] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:05:20] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:05:20] Debug: Cannot find: Font/Font
+[2024-11-18 14:05:20] Debug: Cannot find: Font/Font2
+[2024-11-18 14:05:20] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:05:20] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:05:22] Debug: Resolution changed to 320x240
+[2024-11-18 14:05:22] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:05:22] Debug: Tree: Demonstration
+[2024-11-18 14:05:22] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:05:22] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_layer
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_z
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_generating_function
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_radius
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_secondary_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_acceleration_point
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_gravity_direction
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_texture
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_gravity_direction
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_acceleration_point
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_generating_function
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_radius
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_radius
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_create_effect
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_random_position
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_angle
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_growth
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_initial_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_final_color
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_velocity
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_timeout
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_set_amount
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_use_screen_relative
+[2024-11-18 14:05:23] Warning: Unsupported DynRPG function: pfx_start
+[2024-11-18 14:05:24] Warning: Unsupported DynRPG function: pfx_start [5x]
+[2024-11-18 14:05:24] Warning: Unsupported DynRPG function: pfx_burst
+[2024-11-18 14:05:29] Warning: Unsupported DynRPG function: pfx_burst [19x]
+[2024-11-18 14:05:29] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:05:29] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:21:25] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 14:21:25] Debug: =======================================
+[2024-11-18 14:21:25] Debug: CLI: 
+[2024-11-18 14:21:25] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:21:25] Debug: Seeded the RNG with 1731964885.
+[2024-11-18 14:21:25] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:21:25] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:21:25] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:21:25] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:21:25] Debug: Game and Save Directory:
+[2024-11-18 14:21:25] Debug: 1: [Native] 
+[2024-11-18 14:21:25] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:21:25] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:21:25] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:21:25] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:21:26] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:21:26] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:21:30] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:21:30] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:21:30] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:21:30] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:21:30] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:21:30] Debug: Cannot find: Font/Font
+[2024-11-18 14:21:30] Debug: Cannot find: Font/Font2
+[2024-11-18 14:21:30] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:21:30] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:21:32] Debug: Resolution changed to 320x240
+[2024-11-18 14:21:32] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:21:32] Debug: Tree: Demonstration
+[2024-11-18 14:21:32] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:21:32] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:21:59] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:21:59] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:37:03] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 14:37:03] Debug: =======================================
+[2024-11-18 14:37:03] Debug: CLI: 
+[2024-11-18 14:37:03] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:37:03] Debug: Seeded the RNG with 1731965823.
+[2024-11-18 14:37:03] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:37:03] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:37:03] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:37:03] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:37:03] Debug: Game and Save Directory:
+[2024-11-18 14:37:03] Debug: 1: [Native] 
+[2024-11-18 14:37:03] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:37:03] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:37:03] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:37:03] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:37:04] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:37:04] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:37:06] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:37:06] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:37:06] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:37:06] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:37:06] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:37:06] Debug: Cannot find: Font/Font
+[2024-11-18 14:37:06] Debug: Cannot find: Font/Font2
+[2024-11-18 14:37:06] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:37:06] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:37:07] Debug: Resolution changed to 320x240
+[2024-11-18 14:37:07] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:37:07] Debug: Tree: Demonstration
+[2024-11-18 14:37:07] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:37:07] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:37:38] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:37:38] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:38:25] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 14:38:25] Debug: =======================================
+[2024-11-18 14:38:25] Debug: CLI: 
+[2024-11-18 14:38:25] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 14:38:25] Debug: Seeded the RNG with 1731965905.
+[2024-11-18 14:38:25] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 14:38:25] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 14:38:25] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 14:38:25] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 14:38:25] Debug: Game and Save Directory:
+[2024-11-18 14:38:25] Debug: 1: [Native] 
+[2024-11-18 14:38:25] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 14:38:25] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 14:38:25] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 14:38:25] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 14:38:26] Debug: RTP is "Official English" (675/675)
+[2024-11-18 14:38:26] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 14:38:28] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 14:38:28] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 14:38:28] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:38:28] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 14:38:28] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 14:38:28] Debug: Cannot find: Font/Font
+[2024-11-18 14:38:28] Debug: Cannot find: Font/Font2
+[2024-11-18 14:38:28] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 14:38:28] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 14:38:29] Debug: Resolution changed to 320x240
+[2024-11-18 14:38:29] Debug: Loaded Map Map0001.lmu
+[2024-11-18 14:38:29] Debug: Tree: Demonstration
+[2024-11-18 14:38:29] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 14:38:29] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 14:39:22] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 14:39:22] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 16:39:54] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 16:39:54] Debug: =======================================
+[2024-11-18 16:39:54] Debug: CLI: 
+[2024-11-18 16:39:54] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 16:39:54] Debug: Seeded the RNG with 1731973193.
+[2024-11-18 16:39:54] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 16:39:54] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 16:39:54] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 16:39:54] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 16:39:54] Debug: Game and Save Directory:
+[2024-11-18 16:39:54] Debug: 1: [Native] 
+[2024-11-18 16:39:54] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 16:39:54] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 16:39:54] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 16:39:54] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 16:39:55] Debug: RTP is "Official English" (675/675)
+[2024-11-18 16:39:55] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 16:39:59] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 16:39:59] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 16:39:59] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 16:39:59] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 16:39:59] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 16:39:59] Debug: Cannot find: Font/Font
+[2024-11-18 16:39:59] Debug: Cannot find: Font/Font2
+[2024-11-18 16:39:59] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 16:39:59] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 16:40:00] Debug: Resolution changed to 320x240
+[2024-11-18 16:40:00] Debug: Loaded Map Map0001.lmu
+[2024-11-18 16:40:00] Debug: Tree: Demonstration
+[2024-11-18 16:40:00] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 16:40:00] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 16:40:38] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 16:40:38] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 16:41:13] Debug: EasyRPG Player 0.8 (2024-11-18) started
+[2024-11-18 16:41:13] Debug: =======================================
+[2024-11-18 16:41:13] Debug: CLI: 
+[2024-11-18 16:41:13] Debug: Clock: StdSteady steady=true period=ns (1 / 1000000000)
+[2024-11-18 16:41:13] Debug: Seeded the RNG with 1731973272.
+[2024-11-18 16:41:13] Debug: SDL2: RendererInfo hw=true sw=false vsync=true
+[2024-11-18 16:41:13] Debug: SDL2: Detected format (0) SDL_PIXELFORMAT_ARGB8888 : rank=(2)
+[2024-11-18 16:41:13] Debug: SDL2: Selected Pixel Format SDL_PIXELFORMAT_ARGB8888
+[2024-11-18 16:41:13] Debug: Detected encoding: ibm-5348_P100-1997
+[2024-11-18 16:41:13] Debug: Game and Save Directory:
+[2024-11-18 16:41:13] Debug: 1: [Native] 
+[2024-11-18 16:41:13] Debug: Loading game DynRPG Particle Effects Version 2
+[2024-11-18 16:41:13] Debug: EXEReader: EXFONT resource found (DE 0xde2a0; 0xe1718; len 0x2168)
+[2024-11-18 16:41:13] Debug: Engine configured as: 2k=false 2k3=true MajorUpdated=true Eng=true
+[2024-11-18 16:41:13] Debug: Adding K:\Games\RPG Maker 2003 v1.12 ZIPPYRELEASE\RTP to RTP path
+[2024-11-18 16:41:13] Debug: RTP is "Official English" (675/675)
+[2024-11-18 16:41:13] Debug: Adding K:\Games\rpg2003\RTP to RTP path
+[2024-11-18 16:41:15] Debug: RTP is "RPG Advocate English Translation" (675/675)
+[2024-11-18 16:41:15] Debug: Patch configuration: EasyRPG, DynRPG, Common This Event, Unlock Pictures, Ineluki Key Patch, Maniac Patch (1)
+[2024-11-18 16:41:15] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 16:41:15] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
+[2024-11-18 16:41:15] Debug: Game uses RTP "RPG Advocate English Translation"
+[2024-11-18 16:41:15] Debug: Cannot find: Font/Font
+[2024-11-18 16:41:15] Debug: Cannot find: Font/Font2
+[2024-11-18 16:41:15] Debug: Cannot find: Logo/LOGO1
+[2024-11-18 16:41:15] Debug: EXEReader: LOGO1 resource found (DE 0xde140; 0xde768; len 0x11ae)
+[2024-11-18 16:41:16] Debug: Resolution changed to 320x240
+[2024-11-18 16:41:16] Debug: Loaded Map Map0001.lmu
+[2024-11-18 16:41:16] Debug: Tree: Demonstration
+[2024-11-18 16:41:16] Debug: Fluidsynth: Could not load soundfont.
+[2024-11-18 16:41:16] Debug: WildMidi: Could not find configuration file.
+[2024-11-18 16:42:15] Debug: Actor 1: Removing item 44 from equipment slot 2 (Not equippable by this actor)
+[2024-11-18 16:42:15] Debug: Actor 1: Removing item 67 from equipment slot 4 (Not equippable by this actor)
