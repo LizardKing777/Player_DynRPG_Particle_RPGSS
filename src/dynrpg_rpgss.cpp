@@ -439,7 +439,7 @@ public:
 		return z;
 	}
 
-	void SetZ(int z) {
+	void SetZ(Drawable::Z_t) {
 		this->z = z;
 	}
 
@@ -616,7 +616,8 @@ private:
 	double current_angle = 0.0;
 	double finish_angle = 0.0;
 	int rotation_time_left = 0;
-	int z = 0;
+	Drawable::Z_t z;
+//	int z = 0;
 	bool visible = true;
 
 	bool rotate_cw = true;
@@ -1250,7 +1251,9 @@ static bool SetZ(dyn_arg_list args) {
 	auto func = "set_sprite_z";
 	bool okay;
 	std::string id;
-	int z;
+
+	Drawable::Z_t z;
+//	Drawable::Z_t;
 	std::tie(id, z) = DynRpg::ParseArgs<std::string, int>(func, args, &okay);
 	if (!okay) {
 		return true;
@@ -1279,7 +1282,9 @@ static bool SetLayer(dyn_arg_list args) {
 		return true;
 	}
 
-	int z;
+//	Drawable::Z_t;
+
+	Drawable::Z_t z;
 
 	switch (layer) {
 		case 1:
