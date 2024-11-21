@@ -21,19 +21,16 @@
 #include "filefinder.h"
 #include "filefinder_rtp.h"
 #include "filesystem.h"
-#include "game_destiny.h"
 #include "game_system.h"
 #include "game_actors.h"
 #include "game_party.h"
 #include "game_enemyparty.h"
-#include "game_dynrpg.h"
 #include "game_ineluki.h"
 #include "game_player.h"
 #include "game_screen.h"
 #include "game_pictures.h"
 #include "game_map.h"
 #include "game_variables.h"
-#include "game_strings.h"
 #include "game_switches.h"
 #include "game_targets.h"
 #include "game_quit.h"
@@ -43,6 +40,8 @@
 #include "system.h"
 #include "output.h"
 
+#include "game_strings.h" //STRVARS
+
 #ifndef _WIN32
 #  include <unistd.h>
 #endif
@@ -51,7 +50,7 @@
 #  include <SDL_system.h>
 #elif defined(__APPLE__) && TARGET_OS_OSX
 #  include <sys/syslimits.h>
-#  include "platform/macos/macos_utils.h"
+#  include "platform/macos/utils.h"
 #endif
 
 // Global variables.
@@ -62,7 +61,6 @@ namespace Main_Data {
 	std::unique_ptr<Game_System> game_system;
 	std::unique_ptr<Game_Switches> game_switches;
 	std::unique_ptr<Game_Variables> game_variables;
-	std::unique_ptr<Game_Strings> game_strings;
 	std::unique_ptr<Game_Screen> game_screen;
 	std::unique_ptr<Game_Pictures> game_pictures;
 	std::unique_ptr<Game_Windows> game_windows;
@@ -72,13 +70,10 @@ namespace Main_Data {
 	std::unique_ptr<Game_EnemyParty> game_enemyparty;
 	std::unique_ptr<Game_Targets> game_targets;
 	std::unique_ptr<Game_Quit> game_quit;
-	std::unique_ptr<Game_DynRpg> game_dynrpg;
 	std::unique_ptr<Game_Ineluki> game_ineluki;
-	std::unique_ptr<Game_Destiny> game_destiny;
-	bool global_save_opened = false;
 	std::unique_ptr<Game_Switches> game_switches_global;
 	std::unique_ptr<Game_Variables> game_variables_global;
-
+	std::unique_ptr<Game_Strings> game_strings; //STRVARS
 	std::unique_ptr<FileFinder_RTP> filefinder_rtp;
 }
 
@@ -129,12 +124,7 @@ void Main_Data::Cleanup() {
 	game_targets.reset();
 	game_quit.reset();
 	game_system.reset();
-	game_dynrpg.reset();
 	game_ineluki.reset();
-	game_destiny.reset();
-	global_save_opened = false;
-	game_switches_global.reset();
-	game_variables_global.reset();
 }
 
 const std::string& Main_Data::GetDefaultProjectPath() {

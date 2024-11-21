@@ -1,26 +1,7 @@
-/*
- * This file is part of EasyRPG Player.
- *
- * EasyRPG Player is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * EasyRPG Player is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with EasyRPG Player. If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include "pending_message.h"
 #include "game_variables.h"
-#include "game_strings.h"
 #include "game_actors.h"
 #include "game_message.h"
-#include "game_switches.h"
 #include <lcf/data.h>
 #include "output.h"
 #include "utils.h"
@@ -29,7 +10,8 @@
 #include <cassert>
 #include <cctype>
 #include <algorithm>
-#include <utility>
+
+#include "game_strings.h" //STRVARS
 
 static void RemoveControlChars(std::string& s) {
 	// RPG_RT ignores any control characters within messages.
@@ -37,14 +19,9 @@ static void RemoveControlChars(std::string& s) {
 	s.erase(iter, s.end());
 }
 
-PendingMessage::PendingMessage(PendingMessage::CommandInserter cmd_fn) :
-	command_inserter(std::move(cmd_fn)) {
-	// no-op
-};
-
 int PendingMessage::PushLineImpl(std::string msg) {
 	RemoveControlChars(msg);
-	msg = ApplyTextInsertingCommands(std::move(msg), Player::escape_char, command_inserter);
+	msg = ApplyTextInsertingCommands(std::move(msg), Player::escape_char);
 	texts.push_back(std::move(msg));
 	return texts.size();
 }
@@ -94,7 +71,7 @@ void PendingMessage::SetChoiceResetColors(bool value) {
 	choice_reset_color = value;
 }
 
-std::string PendingMessage::ApplyTextInsertingCommands(std::string input, uint32_t escape_char, const CommandInserter& cmd_fn) {
+std::string PendingMessage::ApplyTextInsertingCommands(std::string input, uint32_t escape_char) {
 	if (input.empty()) {
 		return input;
 	}
@@ -128,11 +105,38 @@ std::string PendingMessage::ApplyTextInsertingCommands(std::string input, uint32
 		const auto ch = *iter;
 		++iter;
 
-		auto fn_res = cmd_fn(ch, &iter, end, escape_char);
-		if (fn_res) {
-			output.append(*fn_res);
+		if (ch == 'N' || ch == 'n') {
+			auto parse_ret = Game_Message::ParseActor(iter, end, escape_char, true);
+			iter = parse_ret.next;
+			int value = parse_ret.value;
+
+			const auto* actor = Main_Data::game_actors->GetActor(value);
+			if (!actor) {
+				Output::Warning("Invalid Actor Id {} in message text", value);
+			} else{
+				output.append(ToString(actor->GetName()));
+			}
+
 			start_copy = iter;
-		} 
+		} else if (ch == 'V' || ch == 'v') {
+			auto parse_ret = Game_Message::ParseVariable(iter, end, escape_char, true);
+			iter = parse_ret.next;
+			int value = parse_ret.value;
+
+			int variable_value = Main_Data::game_variables->Get(value);
+			output.append(std::to_string(variable_value));
+
+			start_copy = iter;
+		} else if (ch == 'T' || ch == 't') { //STRVARS
+			auto parse_ret = Game_Message::ParseStringVariable(iter, end, escape_char, true);
+			iter = parse_ret.next;
+			int value = parse_ret.value;
+
+			Game_Strings::Str_t variable_value = Main_Data::game_strings->Get(value);
+			output.append((std::string)variable_value);
+
+			start_copy = iter;
+		}
 	}
 
 	if (start_copy == input.data()) {
@@ -145,27 +149,4 @@ std::string PendingMessage::ApplyTextInsertingCommands(std::string input, uint32
 	return output;
 }
 
-std::optional<std::string> PendingMessage::DefaultCommandInserter(char ch, const char** iter, const char* end, uint32_t escape_char) {
-	if (ch == 'N' || ch == 'n') {
-		auto parse_ret = Game_Message::ParseActor(*iter, end, escape_char, true);
-		*iter = parse_ret.next;
-		int value = parse_ret.value;
 
-		const auto* actor = Main_Data::game_actors->GetActor(value);
-		if (!actor) {
-			Output::Warning("Invalid Actor Id {} in message text", value);
-			return "";
-		} else {
-			return ToString(actor->GetName());
-		}
-	} else if (ch == 'V' || ch == 'v') {
-		auto parse_ret = Game_Message::ParseVariable(*iter, end, escape_char, true);
-		*iter = parse_ret.next;
-		int value = parse_ret.value;
-
-		int variable_value = Main_Data::game_variables->Get(value);
-		return std::to_string(variable_value);
-	}
-
-	return std::nullopt;
-}

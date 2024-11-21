@@ -23,14 +23,13 @@
 #endif
 
 #include <lcf/data.h>
-#include "game_dynrpg.h"
+#include "dynrpg.h"
 #include "filefinder.h"
 #include "game_actor.h"
 #include "game_map.h"
 #include "game_party.h"
 #include "game_switches.h"
 #include "game_variables.h"
-#include "game_strings.h"
 #include "game_party.h"
 #include "game_actors.h"
 #include "game_system.h"
@@ -44,6 +43,8 @@
 #include "scene_save.h"
 #include "translation.h"
 #include "version.h"
+
+#include "game_strings.h" //STRVAR
 
 Scene_Save::Scene_Save() :
 	Scene_File(ToString(lcf::Data::terms.save_game_message)) {
@@ -138,9 +139,10 @@ bool Scene_Save::Save(std::ostream& os, int slot_id, bool prepare_save) {
 	save.system = Main_Data::game_system->GetSaveData();
 	save.system.switches = Main_Data::game_switches->GetData();
 	save.system.variables = Main_Data::game_variables->GetData();
-	save.system.maniac_strings = Main_Data::game_strings->GetLcfData();
+	save.system.maniac_strings = Main_Data::game_strings->GetData(); //STRVAR
 	save.inventory = Main_Data::game_party->GetSaveData();
 	save.actors = Main_Data::game_actors->GetSaveData();
+
 	save.screen = Main_Data::game_screen->GetSaveData();
 	save.pictures = Main_Data::game_pictures->GetSaveData();
 	save.easyrpg_data.windows = Main_Data::game_windows->GetSaveData();
@@ -156,9 +158,15 @@ bool Scene_Save::Save(std::ostream& os, int slot_id, bool prepare_save) {
 	auto lcf_engine = Player::IsRPG2k3() ? lcf::EngineVersion::e2k3 : lcf::EngineVersion::e2k;
 	bool res = lcf::LSD_Reader::Save(os, save, lcf_engine, Player::encoding);
 
-	Main_Data::game_dynrpg->Save(slot_id);
+	DynRpg::Save(slot_id);
 
-	AsyncHandler::SaveFilesystem();
+#ifdef EMSCRIPTEN
+	// Save changed file system
+	EM_ASM({
+		FS.syncfs(function(err) {
+		});
+	});
+#endif
 
 	return res;
 }

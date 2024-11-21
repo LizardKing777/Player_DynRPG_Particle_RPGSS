@@ -47,7 +47,7 @@ public:
 	 * Implementation of abstract methods
 	 */
 	/** @{ */
-	Drawable::Z_t GetScreenZ(int x_offset, int y_offset) const override;
+	Drawable::Z_t GetScreenZ(bool apply_shift = false) const override;
 	bool IsVisible() const override;
 	bool MakeWay(int from_x, int from_y, int to_x, int to_y) override;
 	void UpdateNextMovementAction() override;
@@ -59,8 +59,6 @@ public:
 	bool IsPendingTeleport() const;
 	TeleportTarget GetTeleportTarget() const;
 	void ResetTeleportTarget(TeleportTarget tt = {});
-
-	bool TriggerEventAt(int x, int y);
 
 	/**
 	 * Sets the map, position and direction that the game player must have after the teleport is over
@@ -103,7 +101,7 @@ public:
 	bool IsMenuCalling() const;
 
 	/**
-	 * Set the encounter calling flag
+	 * Set the encounter callling flag
 	 *
 	 * @param value the value of the flag to set
 	 */
@@ -113,14 +111,14 @@ public:
 	bool IsEncounterCalling() const;
 
 	/** @return number of encounter steps scaled by terrain encounter rate percentage. */
-	int GetTotalEncounterRate() const;
+	int GetEncounterSteps() const;
 
 	/**
-	 * Sets accumulated encounter rate
+	 * Sets encounter_steps to steps.
 	 *
-	 * @param rate the rate to set.
+	 * @param steps the steps value to set.
 	 */
-	void SetTotalEncounterRate(int rate);
+	void SetEncounterSteps(int steps);
 
 	enum PanDirection {
 		PanUp,
@@ -197,8 +195,8 @@ inline bool Game_Player::IsEncounterCalling() const {
 	return data()->encounter_calling;
 }
 
-inline int Game_Player::GetTotalEncounterRate() const {
-	return data()->total_encounter_rate;
+inline int Game_Player::GetEncounterSteps() const {
+	return data()->encounter_steps;
 }
 
 inline bool Game_Player::IsPanActive() const {

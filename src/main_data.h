@@ -36,20 +36,17 @@ class Game_Party;
 class Game_EnemyParty;
 class Game_Switches;
 class Game_Variables;
-class Game_Strings;
 class Game_Targets;
 class Game_Quit;
-class Game_DynRpg;
 class Game_Ineluki;
-class Game_Destiny;
 class FileFinder_RTP;
+class Game_Strings; //STRVARS
 
 namespace Main_Data {
 	// Dynamic Game lcf::Data
 	extern std::unique_ptr<Game_System> game_system;
 	extern std::unique_ptr<Game_Switches> game_switches;
 	extern std::unique_ptr<Game_Variables> game_variables;
-	extern std::unique_ptr<Game_Strings> game_strings;
 	extern std::unique_ptr<Game_Screen> game_screen;
 	extern std::unique_ptr<Game_Pictures> game_pictures;
 	extern std::unique_ptr<Game_Windows> game_windows;
@@ -59,14 +56,10 @@ namespace Main_Data {
 	extern std::unique_ptr<Game_EnemyParty> game_enemyparty;
 	extern std::unique_ptr<Game_Targets> game_targets;
 	extern std::unique_ptr<Game_Quit> game_quit;
-	extern std::unique_ptr<Game_DynRpg> game_dynrpg;
 	extern std::unique_ptr<Game_Ineluki> game_ineluki;
-	extern std::unique_ptr<Game_Destiny> game_destiny;
-	extern bool global_save_opened;
 	extern std::unique_ptr<Game_Switches> game_switches_global; // Used by Global Save command
 	extern std::unique_ptr<Game_Variables> game_variables_global;
-
-
+	extern std::unique_ptr<Game_Strings> game_strings; //STRVARS
 	extern std::unique_ptr<FileFinder_RTP> filefinder_rtp;
 
 	void Init();
