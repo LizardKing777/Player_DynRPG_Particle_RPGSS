@@ -17,6 +17,7 @@
 
 #include "maniac_patch.h"
 
+#include "filesystem_stream.h"
 #include "input.h"
 #include "game_actors.h"
 #include "game_interpreter_control_variables.h"
@@ -29,7 +30,9 @@
 #include "output.h"
 #include "player.h"
 
+#include <lcf/reader_lcf.h>
 #include <lcf/reader_util.h>
+#include <lcf/writer_lcf.h>
 #include <vector>
 
 /*
@@ -117,6 +120,8 @@ namespace {
 		Divmul,
 		Between
 	};
+
+	bool global_save_opened = false;
 }
 
 struct ProcessAssignmentRet {
@@ -424,6 +429,7 @@ int Process(std::vector<int32_t>::iterator& it, std::vector<int32_t>::iterator e
 						Output::Warning("Maniac: Expression actor args {} != 2", imm2);
 						return 0;
 					}
+					imm3 = Process(it, end, ip);
 					return ControlVariables::Actor(Process(it, end, ip), imm3);
 				case Fn::Party:
 					if (imm2 != 2) {
@@ -570,6 +576,35 @@ int32_t ManiacPatch::ParseExpression(Span<const int32_t> op_codes, const Game_Ba
 	return Process(beg, ops.end(), interpreter);
 }
 
+std::vector<int32_t> ManiacPatch::ParseExpressions(Span<const int32_t> op_codes, const Game_BaseInterpreterContext& interpreter) {
+	std::vector<int32_t> ops;
+	for (auto& o : op_codes) {
+		auto uo = static_cast<uint32_t>(o);
+		ops.push_back(static_cast<int32_t>(uo & 0x000000FF));
+		ops.push_back(static_cast<int32_t>((uo & 0x0000FF00) >> 8));
+		ops.push_back(static_cast<int32_t>((uo & 0x00FF0000) >> 16));
+		ops.push_back(static_cast<int32_t>((uo & 0xFF000000) >> 24));
+	}
+
+	if (ops.empty()) {
+		return {};
+	}
+
+	auto it = ops.begin();
+
+	std::vector<int32_t> results;
+
+	while (true) {
+		results.push_back(Process(it, ops.end(), interpreter));
+
+		if (it == ops.end() || static_cast<Op>(*it) == Op::Null) {
+			break;
+		}
+	}
+
+	return results;
+}
+
 std::array<bool, 50> ManiacPatch::GetKeyRange() {
 	std::array<Input::Keys::InputKey, 50> keys = {
 		Input::Keys::A,
@@ -638,123 +673,20 @@ std::array<bool, 50> ManiacPatch::GetKeyRange() {
 		pressed[i] = Input::IsRawKeyPressed(keys[i]);
 	}
 
+	if (!pressed[41]) {
+		pressed[41] = Input::IsRawKeyPressed(Input::Keys::LSHIFT) || Input::IsRawKeyPressed(Input::Keys::RSHIFT);
+	}
+	if (!pressed[42]) {
+		pressed[42] = Input::IsRawKeyPressed(Input::Keys::LCTRL) || Input::IsRawKeyPressed(Input::Keys::RCTRL);
+	}
+	if (!pressed[43]) {
+		pressed[43] = Input::IsRawKeyPressed(Input::Keys::LALT) || Input::IsRawKeyPressed(Input::Keys::RALT);
+	}
+
 	return pressed;
 }
 
-bool ManiacPatch::GetKeyState(uint32_t key_id) {
-	Input::Keys::InputKey key;
-
-	// see https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-	switch (key_id) {
-#if defined(USE_MOUSE) && defined(SUPPORT_MOUSE)
-		case 0x1: key = Input::Keys::MOUSE_LEFT; break;
-		case 0x2: key = Input::Keys::MOUSE_RIGHT; break;
-		case 0x4: key = Input::Keys::MOUSE_MIDDLE; break;
-		case 0x5: key = Input::Keys::MOUSE_XBUTTON1; break;
-		case 0x6: key = Input::Keys::MOUSE_XBUTTON2; break;
-#endif
-		case 0x8: key = Input::Keys::BACKSPACE; break;
-		case 0x9: key = Input::Keys::TAB; break;
-		case 0xD: key = Input::Keys::RETURN; break;
-		case 0x10: key = Input::Keys::SHIFT; break;
-		case 0x11: key = Input::Keys::CTRL; break;
-		case 0x12: key = Input::Keys::ALT; break;
-		case 0x13: key = Input::Keys::PAUSE; break;
-		case 0x14: key = Input::Keys::CAPS_LOCK; break;
-		case 0x1B: key = Input::Keys::ESCAPE; break;
-		case 0x20: key = Input::Keys::SPACE; break;
-		case 0x21: key = Input::Keys::PGUP; break;
-		case 0x22: key = Input::Keys::PGDN; break;
-		case 0x23: key = Input::Keys::ENDS; break;
-		case 0x24: key = Input::Keys::HOME; break;
-		case 0x25: key = Input::Keys::LEFT; break;
-		case 0x26: key = Input::Keys::UP; break;
-		case 0x27: key = Input::Keys::RIGHT; break;
-		case 0x28: key = Input::Keys::DOWN; break;
-		case 0x2D: key = Input::Keys::INSERT; break;
-		case 0x2E: key = Input::Keys::DEL; break;
-		case 0x30: key = Input::Keys::N0; break;
-		case 0x31: key = Input::Keys::N1; break;
-		case 0x32: key = Input::Keys::N2; break;
-		case 0x33: key = Input::Keys::N3; break;
-		case 0x34: key = Input::Keys::N4; break;
-		case 0x35: key = Input::Keys::N5; break;
-		case 0x36: key = Input::Keys::N6; break;
-		case 0x37: key = Input::Keys::N7; break;
-		case 0x38: key = Input::Keys::N8; break;
-		case 0x39: key = Input::Keys::N9; break;
-		case 0x41: key = Input::Keys::A; break;
-		case 0x42: key = Input::Keys::B; break;
-		case 0x43: key = Input::Keys::C; break;
-		case 0x44: key = Input::Keys::D; break;
-		case 0x45: key = Input::Keys::E; break;
-		case 0x46: key = Input::Keys::F; break;
-		case 0x47: key = Input::Keys::G; break;
-		case 0x48: key = Input::Keys::H; break;
-		case 0x49: key = Input::Keys::I; break;
-		case 0x4A: key = Input::Keys::J; break;
-		case 0x4B: key = Input::Keys::K; break;
-		case 0x4C: key = Input::Keys::L; break;
-		case 0x4D: key = Input::Keys::M; break;
-		case 0x4E: key = Input::Keys::N; break;
-		case 0x4F: key = Input::Keys::O; break;
-		case 0x50: key = Input::Keys::P; break;
-		case 0x51: key = Input::Keys::Q; break;
-		case 0x52: key = Input::Keys::R; break;
-		case 0x53: key = Input::Keys::S; break;
-		case 0x54: key = Input::Keys::T; break;
-		case 0x55: key = Input::Keys::U; break;
-		case 0x56: key = Input::Keys::V; break;
-		case 0x57: key = Input::Keys::W; break;
-		case 0x58: key = Input::Keys::X; break;
-		case 0x59: key = Input::Keys::Y; break;
-		case 0x5A: key = Input::Keys::Z; break;
-		case 0x60: key = Input::Keys::KP0; break;
-		case 0x61: key = Input::Keys::KP1; break;
-		case 0x62: key = Input::Keys::KP2; break;
-		case 0x63: key = Input::Keys::KP3; break;
-		case 0x64: key = Input::Keys::KP4; break;
-		case 0x65: key = Input::Keys::KP5; break;
-		case 0x66: key = Input::Keys::KP6; break;
-		case 0x67: key = Input::Keys::KP7; break;
-		case 0x68: key = Input::Keys::KP8; break;
-		case 0x69: key = Input::Keys::KP9; break;
-		case 0x6A: key = Input::Keys::KP_MULTIPLY; break;
-		case 0x6B: key = Input::Keys::KP_ADD; break;
-		case 0x6D: key = Input::Keys::KP_SUBTRACT; break;
-		case 0x6E: key = Input::Keys::KP_PERIOD; break;
-		case 0x6F: key = Input::Keys::KP_DIVIDE; break;
-		case 0x70: key = Input::Keys::F1; break;
-		case 0x71: key = Input::Keys::F2; break;
-		case 0x72: key = Input::Keys::F3; break;
-		case 0x73: key = Input::Keys::F4; break;
-		case 0x74: key = Input::Keys::F5; break;
-		case 0x75: key = Input::Keys::F6; break;
-		case 0x76: key = Input::Keys::F7; break;
-		case 0x77: key = Input::Keys::F8; break;
-		case 0x78: key = Input::Keys::F9; break;
-		case 0x79: key = Input::Keys::F10; break;
-		case 0x7A: key = Input::Keys::F11; break;
-		case 0x7B: key = Input::Keys::F12; break;
-		case 0x90: key = Input::Keys::NUM_LOCK; break;
-		case 0x91: key = Input::Keys::SCROLL_LOCK; break;
-		case 0xA0: key = Input::Keys::LSHIFT; break;
-		case 0xA1: key = Input::Keys::RSHIFT; break;
-		case 0xA2: key = Input::Keys::LCTRL; break;
-		case 0xA3: key = Input::Keys::RCTRL; break;
-		default:
-			Output::Debug("Maniac KeyInputProcEx: Unsupported keycode {}", key_id);
-			key = Input::Keys::NONE;
-			break;
-	}
-
-	return Input::IsRawKeyPressed(key);
-
-
-
-}
-
-bool ManiacPatch::CheckString(StringView str_l, StringView str_r, int op, bool ignore_case) {
+bool ManiacPatch::CheckString(std::string_view str_l, std::string_view str_r, int op, bool ignore_case) {
 	auto check = [op](const auto& l, const auto& r) {
 		switch (op) {
 			case 0: // eq
@@ -779,8 +711,8 @@ bool ManiacPatch::CheckString(StringView str_l, StringView str_r, int op, bool i
 	return check(str_l, str_r);
 }
 
-StringView ManiacPatch::GetLcfName(int data_type, int id, bool is_dynamic) {
-	auto get_name = [id](StringView type, const auto& vec) -> StringView {
+std::string_view ManiacPatch::GetLcfName(int data_type, int id, bool is_dynamic) {
+	auto get_name = [&id](std::string_view type, const auto& vec) -> std::string_view {
 		auto* data = lcf::ReaderUtil::GetElement(vec, id);
 		if (!data) {
 			Output::Warning("Unable to read {} name: {}", type, id);
@@ -833,7 +765,7 @@ StringView ManiacPatch::GetLcfName(int data_type, int id, bool is_dynamic) {
 		}
 		break;
 	}
-	case 18: //.member[a].name
+	case 18: //.member[a].name, index starts from 0
 	{
 		auto actor = Main_Data::game_party->GetActor(id);
 		if (actor != nullptr) {
@@ -853,8 +785,8 @@ StringView ManiacPatch::GetLcfName(int data_type, int id, bool is_dynamic) {
 	return {};
 }
 
-StringView ManiacPatch::GetLcfDescription(int data_type, int id, bool is_dynamic) {
-	auto get_desc = [id](StringView type, const auto& vec) -> StringView {
+std::string_view ManiacPatch::GetLcfDescription(int data_type, int id, bool is_dynamic) {
+	auto get_desc = [id](std::string_view type, const auto& vec) -> std::string_view {
 		auto* data = lcf::ReaderUtil::GetElement(vec, id);
 		if (!data) {
 			Output::Warning("Unable to read {} description: {}", type, id);
@@ -900,4 +832,112 @@ StringView ManiacPatch::GetLcfDescription(int data_type, int id, bool is_dynamic
 
 	Output::Warning("GetLcfDescription: Unsupported data_type {} {}", data_type, id);
 	return {};
+}
+
+bool ManiacPatch::GlobalSave::Load() {
+	if (!Player::IsPatchManiac()) {
+		return true;
+	}
+
+	if (global_save_opened) {
+		return true;
+	}
+
+	// Even consider it opened when the file is missing
+	// It will be created on Save
+	global_save_opened = true;
+
+	auto lgs_in = FileFinder::Save().OpenFile("Save.lgs");
+	if (!lgs_in) {
+		return false;
+	}
+
+	return Load(lgs_in);
+}
+
+bool ManiacPatch::GlobalSave::Load(Filesystem_Stream::InputStream& lgs_in) {
+	if (!lgs_in) {
+		return false;
+	}
+
+	lcf::LcfReader reader(lgs_in);
+	std::string header;
+	reader.ReadString(header, reader.ReadInt());
+	if (header.length() != 13 || header != "LcfGlobalSave") {
+		Output::Debug("This is not a valid global save.");
+		return false;
+	}
+
+	lcf::LcfReader::Chunk chunk;
+
+	while (!reader.Eof()) {
+		chunk.ID = reader.ReadInt();
+		chunk.length = reader.ReadInt();
+		switch (chunk.ID) {
+			case 1: {
+				Game_Switches::Switches_t switches;
+				reader.Read(switches, chunk.length);
+				Main_Data::game_switches_global->SetData(std::move(switches));
+				break;
+			}
+			case 2: {
+				Game_Variables::Variables_t variables;
+				reader.Read(variables, chunk.length);
+				Main_Data::game_variables_global->SetData(std::move(variables));
+				break;
+			}
+			default:
+				reader.Skip(chunk, "CommandManiacControlGlobalSave");
+		}
+	}
+
+	return true;
+}
+
+bool ManiacPatch::GlobalSave::Save(bool close_global_save) {
+	if (!Player::IsPatchManiac()) {
+		return true;
+	}
+
+	if (!global_save_opened) {
+		return true;
+	}
+
+	auto savelgs_name = FileFinder::Save().FindFile("Save.lgs");
+	if (savelgs_name.empty()) {
+		savelgs_name = "Save.lgs";
+	}
+
+	auto lgs_out = FileFinder::Save().OpenOutputStream(savelgs_name);
+	if (!Save(lgs_out)) {
+		Output::Warning("Maniac ControlGlobalSave: Saving failed");
+		return false;
+	}
+
+	global_save_opened = !close_global_save;
+
+	AsyncHandler::SaveFilesystem();
+	return true;
+}
+
+bool ManiacPatch::GlobalSave::Save(Filesystem_Stream::OutputStream& lgs_out) {
+	if (!lgs_out) {
+		return false;
+	}
+
+	lcf::LcfWriter writer(lgs_out, lcf::EngineVersion::e2k3);
+	writer.WriteInt(13);
+	const std::string header = "LcfGlobalSave";
+	writer.Write(header);
+	writer.WriteInt(1);
+	writer.WriteInt(Main_Data::game_switches_global->GetSize());
+	writer.Write(Main_Data::game_switches_global->GetData());
+	writer.WriteInt(2);
+	writer.WriteInt(Main_Data::game_variables_global->GetSize() * sizeof(int32_t));
+	writer.Write(Main_Data::game_variables_global->GetData());
+	return true;
+}
+
+void ManiacPatch::GlobalSave::Close() {
+	global_save_opened = false;
 }

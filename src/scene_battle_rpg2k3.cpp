@@ -49,6 +49,7 @@
 #include <algorithm>
 #include <memory>
 #include "feature.h"
+#include "game_message_terms.h"
 
 //#define EP_DEBUG_BATTLE2K3_STATE_MACHINE
 
@@ -60,6 +61,7 @@ Scene_Battle_Rpg2k3::Scene_Battle_Rpg2k3(const BattleArgs& args) :
 
 void Scene_Battle_Rpg2k3::Start() {
 	Scene_Battle::Start();
+	Game_Interpreter_Battle::InitBattle();
 	InitBattleCondition(Game_Battle::GetBattleCondition());
 	CreateEnemySprites();
 	CreateActorSprites();
@@ -420,7 +422,7 @@ void Scene_Battle_Rpg2k3::UpdateAnimations() {
 		}
 	}
 
-	auto frame_counter = Main_Data::game_system->GetFrameCounter();
+	auto frame_counter = static_cast<uint32_t>(Main_Data::game_system->GetFrameCounter());
 
 	bool ally_set = false;
 	if (status_window->GetActive()
@@ -498,7 +500,24 @@ void Scene_Battle_Rpg2k3::UpdateAnimations() {
 	}
 }
 
-void Scene_Battle_Rpg2k3::DrawFloatText(int x, int y, int color, StringView text) {
+void Scene_Battle_Rpg2k3::DrawFloatText(int x, int y, int color, std::string_view text, Game_Battler* battler, FloatTextType type) {
+	std::stringstream ss(ToString(text));
+	int value = 0;
+	ss >> value;
+	bool should_override = Game_Battle::ManiacBattleHook(
+		Game_Interpreter_Battle::ManiacBattleHookType::DamagePop,
+		battler->GetType() == Game_Battler::Type_Enemy,
+		battler->GetPartyIndex(),
+		x,
+		y,
+		static_cast<int>(type),
+		value
+	);
+
+	if (should_override) {
+		return;
+	}
+
 	Rect rect = Text::GetSize(*Font::Default(), text);
 
 	BitmapRef graphic = Bitmap::Create(rect.width, rect.height);
@@ -953,6 +972,12 @@ void Scene_Battle_Rpg2k3::vUpdate() {
 			break;
 		}
 
+		// this is checked separately because we want normal events to be processed
+		// just not sub-events called by maniacs battle hooks.
+		if (state != State_Victory && state != State_Defeat && Game_Battle::ManiacProcessSubEvents()) {
+			break;
+		}
+
 		if (!CheckWait()) {
 			break;
 		}
@@ -1041,7 +1066,7 @@ Scene_Battle_Rpg2k3::SceneActionReturn Scene_Battle_Rpg2k3::ProcessSceneAction()
 	static int last_substate = -1;
 	if (state != last_state || scene_action_substate != last_substate) {
 		int actor_id = active_actor ? active_actor->GetId() : 0;
-		StringView actor_name = active_actor ? StringView(active_actor->GetName()) : "Null";
+		std::string_view actor_name = active_actor ? std::string_view(active_actor->GetName()) : "Null";
 		Output::Debug("Battle2k3 ProcessSceneAction({}, {}) actor={}({}) frames={} auto_battle={}", state, scene_action_substate, actor_name, actor_id, Main_Data::game_system->GetFrameCounter(), auto_battle);
 		last_state = state;
 		last_substate = scene_action_substate;
@@ -1715,8 +1740,7 @@ Scene_Battle_Rpg2k3::SceneActionReturn Scene_Battle_Rpg2k3::ProcessSceneActionBa
 			return SceneActionReturn::eWaitTillNextFrame;
 		}
 
-		auto* battler = pending_battle_action->GetSource();
-		assert(battler != active_actor);
+		assert(pending_battle_action->GetSource() != active_actor);
 
 		pending_battle_action = {};
 		RemoveCurrentAction();
@@ -1830,34 +1854,25 @@ Scene_Battle_Rpg2k3::SceneActionReturn Scene_Battle_Rpg2k3::ProcessSceneActionVi
 		pm.PushLine(ToString(lcf::Data::terms.victory) + Player::escape_symbol + "|");
 		pm.PushPageEnd();
 
-		std::string space = Player::IsRPG2k3E() ? " " : "";
-
-		std::stringstream ss;
 		if (exp > 0) {
-			ss << exp << space << lcf::Data::terms.exp_received;
-			pm.PushLine(ss.str());
+			pm.PushLine(PartyMessage::GetExperienceGainedMessage(exp));
 			pm.PushPageEnd();
 		}
 		if (money > 0) {
-			ss.str("");
-			ss << lcf::Data::terms.gold_recieved_a << " " << money << lcf::Data::terms.gold << lcf::Data::terms.gold_recieved_b;
-			pm.PushLine(ss.str());
+			pm.PushLine(PartyMessage::GetGoldReceivedMessage(money));
 			pm.PushPageEnd();
 		}
 		for (auto& item_id: drops) {
 			const lcf::rpg::Item* item = lcf::ReaderUtil::GetElement(lcf::Data::items, item_id);
-			// No Output::Warning needed here, reported later when the item is added
-			StringView item_name = item ? StringView(item->name) : StringView("??? BAD ITEM ???");
-
-			ss.str("");
-			ss << item_name << space << lcf::Data::terms.item_recieved;
-			pm.PushLine(ss.str());
+			pm.PushLine(PartyMessage::GetItemReceivedMessage(item));
 			pm.PushPageEnd();
 		}
 
 		for (auto* actor: Main_Data::game_party->GetActors()) {
 			if (actor->Exists()) {
-				actor->ChangeExp(actor->GetExp() + exp, &pm);
+				int exp_gain = exp;
+				RuntimePatches::EXPlus::ModifyExpGain(*actor, exp_gain);
+				actor->ChangeExp(actor->GetExp() + exp_gain, &pm);
 			}
 		}
 
@@ -2209,7 +2224,9 @@ Scene_Battle_Rpg2k3::BattleActionReturn Scene_Battle_Rpg2k3::ProcessBattleAction
 					b->GetBattlePosition().x,
 					b->GetBattlePosition().y,
 					damageTaken < 0 ? Font::ColorDefault : Font::ColorHeal,
-					std::to_string(std::abs(damageTaken)));
+					std::to_string(std::abs(damageTaken)),
+					b,
+					damageTaken < 0 ? Scene_Battle_Rpg2k3::FloatTextType::Damage : Scene_Battle_Rpg2k3::FloatTextType::Heal);
 		}
 		if (b->GetType() == Game_Battler::Type_Ally) {
 			auto* sprite = static_cast<Game_Actor*>(b)->GetActorBattleSprite();
@@ -2632,14 +2649,18 @@ Scene_Battle_Rpg2k3::BattleActionReturn Scene_Battle_Rpg2k3::ProcessBattleAction
 						target->GetBattlePosition().x,
 						target->GetBattlePosition().y,
 						hp > 0 ? Font::ColorHeal : Font::ColorDefault,
-						std::to_string(std::abs(hp)));
+						std::to_string(std::abs(hp)),
+						target,
+						hp > 0 ? Scene_Battle_Rpg2k3::FloatTextType::Heal : Scene_Battle_Rpg2k3::FloatTextType::Damage);
 
 				if (action->IsAbsorbHp()) {
 					DrawFloatText(
 							source->GetBattlePosition().x,
 							source->GetBattlePosition().y,
 							hp > 0 ? Font::ColorDefault : Font::ColorHeal,
-							std::to_string(std::abs(hp)));
+							std::to_string(std::abs(hp)),
+							source,
+							hp > 0 ? Scene_Battle_Rpg2k3::FloatTextType::Damage : Scene_Battle_Rpg2k3::FloatTextType::Heal);
 				}
 			}
 
@@ -2660,7 +2681,9 @@ Scene_Battle_Rpg2k3::BattleActionReturn Scene_Battle_Rpg2k3::ProcessBattleAction
 				target->GetBattlePosition().x,
 				target->GetBattlePosition().y,
 				0,
-				lcf::Data::terms.miss);
+				lcf::Data::terms.miss,
+				target,
+				Scene_Battle_Rpg2k3::FloatTextType::Miss);
 	}
 
 	status_window->Refresh();
@@ -2905,7 +2928,9 @@ void Scene_Battle_Rpg2k3::OnEventHpChanged(Game_Battler* battler, int hp) {
 			battler->GetBattlePosition().x,
 			battler->GetBattlePosition().y,
 			hp < 0 ? Font::ColorDefault : Font::ColorHeal,
-			std::to_string(std::abs(hp)));
+			std::to_string(std::abs(hp)),
+			battler,
+			hp < 0 ? Scene_Battle_Rpg2k3::FloatTextType::Damage : Scene_Battle_Rpg2k3::FloatTextType::Heal);
 }
 
 void Scene_Battle_Rpg2k3::RecreateSpWindow(Game_Battler* battler) {

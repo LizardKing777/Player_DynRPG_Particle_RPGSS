@@ -21,7 +21,7 @@
 // Headers
 #include <string>
 #include <iosfwd>
-#include <fmt/core.h>
+#include <fmt/format.h>
 #include "filesystem_stream.h"
 
 enum class LogLevel {
@@ -45,7 +45,7 @@ namespace Output {
 	/**
 	 * Sets the log level for filtering logs
 	 *
-	 * @param ll the new log level
+	 * @param lvl the new log level
 	 */
 	void SetLogLevel(LogLevel lvl);
 
@@ -64,9 +64,10 @@ namespace Output {
 	/**
 	 * Takes screenshot and save it in the save directory.
 	 *
+	 * @param is_auto_screenshot
 	 * @return true if success, otherwise false.
 	 */
-	bool TakeScreenshot();
+	bool TakeScreenshot(bool is_auto_screenshot = false);
 
 	/**
 	 * Takes screenshot and save it to specified file.
@@ -74,7 +75,7 @@ namespace Output {
 	 * @param file file to save.
 	 * @return true if success, otherwise false.
 	 */
-	bool TakeScreenshot(StringView file);
+	bool TakeScreenshot(std::string_view file);
 
 	/**
 	 * Takes screenshot and save it to specified stream.
@@ -83,6 +84,17 @@ namespace Output {
 	 * @return true if success, otherwise false.
 	 */
 	bool TakeScreenshot(std::ostream& os);
+
+	std::string GetScreenshotName(bool is_auto_screenshot);
+
+	/**
+	 * Gets the next available file name for a screenshot
+	 *
+	 * @param fs the output path where to store the file
+	 * @param is_auto_screenshot
+	 * @return the file name
+	 */
+	std::string GetNextScreenshotFileName(FilesystemView fs, bool is_auto_screenshot);
 
 	/**
 	 * Shows/Hides the output log overlay.

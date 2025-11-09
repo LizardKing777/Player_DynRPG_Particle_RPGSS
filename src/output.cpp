@@ -56,23 +56,14 @@ namespace {
 	};
 	LogLevel log_level = LogLevel::Debug;
 
-	Filesystem_Stream::OutputStream LOG_FILE;
-	bool output_recurse = false;
-	bool init = false;
-
 	std::ostream& output_time() {
-		if (!init) {
-			LOG_FILE = FileFinder::Save().OpenOutputStream(OUTPUT_FILENAME, std::ios_base::out | std::ios_base::app);
-			init = true;
-		}
 		std::time_t t = std::time(nullptr);
-		return LOG_FILE << Utils::FormatDate(std::localtime(&t), "[%Y-%m-%d %H:%M:%S] ");
+		return Game_Config::GetLogFileOutput() << Utils::FormatDate(std::localtime(&t), "[%Y-%m-%d %H:%M:%S] ");
 	}
 
 	bool ignore_pause = false;
 	bool colored_log = true;
 
-	std::vector<std::string> log_buffer;
 	// pair of repeat count + message
 	struct {
 		int repeat = 0;
@@ -135,54 +126,34 @@ void Output::IgnorePause(bool const val) {
 }
 
 void Output::SetLogCallback(LogCallbackFn fn, LogCallbackUserData userdata) {
-	log_cb = fn;
-	log_cb_udata = userdata;
+	if (!fn) {
+		log_cb = LogCallback;
+		log_cb_udata = nullptr;
+	} else {
+		log_cb = fn;
+		log_cb_udata = userdata;
+	}
 }
 
 static void WriteLog(LogLevel lvl, std::string const& msg, Color const& c = Color()) {
 // skip writing log file
 #ifndef EMSCRIPTEN
 	std::string prefix = Output::LogLevelToString(lvl) + ": ";
-	bool add_to_buffer = true;
 
-	// Prevent recursion when the Save filesystem writes to the logfile on startup before it is ready
-	if (!output_recurse) {
-		output_recurse = true;
-		if (FileFinder::Save()) {
-			add_to_buffer = false;
-
-			// Only write to file when save path is initialized
-			// (happens after parsing the command line)
-			if (!log_buffer.empty()) {
-				std::vector<std::string> local_log_buffer = std::move(log_buffer);
-				for (std::string& log : local_log_buffer) {
-					output_time() << log << '\n';
-				}
-				local_log_buffer.clear();
-			}
-
-			// Every new message is written once to the file.
-			// When it is repeated increment a counter until a different message appears,
-			// then write the buffered message with the counter.
-			if (msg == last_message.msg) {
-				last_message.repeat++;
-			} else {
-				if (last_message.repeat > 0) {
-					output_time() << Output::LogLevelToString(last_message.lvl) << ": " << last_message.msg << " [" << last_message.repeat + 1 << "x]" << std::endl;
-				}
-				output_time() << prefix << msg << '\n';
-
-				last_message.repeat = 0;
-				last_message.msg = msg;
-				last_message.lvl = lvl;
-			}
+	// Every new message is written once to the file.
+	// When it is repeated increment a counter until a different message appears,
+	// then write the buffered message with the counter.
+	if (msg == last_message.msg) {
+		last_message.repeat++;
+	} else {
+		if (last_message.repeat > 0) {
+			output_time() << Output::LogLevelToString(last_message.lvl) << ": " << last_message.msg << " [" << last_message.repeat + 1 << "x]" << std::endl;
 		}
-		output_recurse = false;
-	}
+		output_time() << prefix << msg << '\n';
 
-	if (add_to_buffer) {
-		// buffer log messages until file system is ready
-		log_buffer.push_back(prefix + msg);
+		last_message.repeat = 0;
+		last_message.msg = msg;
+		last_message.lvl = lvl;
 	}
 #endif
 
@@ -223,51 +194,21 @@ static void HandleErrorOutput(const std::string& err) {
 }
 
 void Output::Quit() {
-	if (LOG_FILE) {
-		LOG_FILE.Close();
-	}
-
-	int log_size = 1024 * 100;
-
-	char* buf = new char[log_size];
-
-	auto in = FileFinder::Save().OpenInputStream(OUTPUT_FILENAME, std::ios_base::in);
-	if (in) {
-		in.seekg(0, std::ios_base::end);
-		if (in.tellg() > log_size) {
-			in.seekg(-log_size, std::ios_base::end);
-			// skip current incomplete line
-			in.getline(buf, 1024 * 100);
-			in.read(buf, 1024 * 100);
-			size_t read = in.gcount();
-			in.Close();
-
-			auto out = FileFinder::Save().OpenOutputStream(OUTPUT_FILENAME, std::ios_base::out);
-			if (out) {
-				out.write(buf, read);
-			}
-		}
-	}
-
-	delete[] buf;
-	init = false;
+	Game_Config::CloseLogFile();
 }
 
-bool Output::TakeScreenshot() {
+bool Output::TakeScreenshot(bool is_auto_screenshot) {
 #ifdef EMSCRIPTEN
-	Emscripten_Interface::TakeScreenshot();
+	Emscripten_Interface::TakeScreenshot(is_auto_screenshot);
 	return true;
 #else
-	int index = 0;
-	std::string p;
-	do {
-		p = "screenshot_" + std::to_string(index++) + ".png";
-	} while(FileFinder::Save().Exists(p));
+	auto fs = FileFinder::Save();
+	auto p = GetNextScreenshotFileName(fs, is_auto_screenshot);
 	return TakeScreenshot(p);
 #endif
 }
 
-bool Output::TakeScreenshot(StringView file) {
+bool Output::TakeScreenshot(std::string_view file) {
 	auto ret = FileFinder::Save().OpenOutputStream(file, std::ios_base::binary | std::ios_base::out | std::ios_base::trunc);
 
 	if (ret) {
@@ -278,7 +219,47 @@ bool Output::TakeScreenshot(StringView file) {
 }
 
 bool Output::TakeScreenshot(std::ostream& os) {
-	return DisplayUi->GetDisplaySurface()->WritePNG(os);
+	int scale = Player::player_config.screenshot_scale.Get();
+	if (scale > 1) {
+		auto& disp = DisplayUi->GetDisplaySurface();
+		auto scaled_disp = Bitmap::Create(disp->GetWidth() * scale, disp->GetHeight() * scale, false);
+		scaled_disp->ZoomOpacityBlit(0, 0, 0, 0, *disp, disp->GetRect(), scale, scale, Opacity::Opaque());
+		return scaled_disp->WritePNG(os);
+	} else {
+		return DisplayUi->GetDisplaySurface()->WritePNG(os);
+	}
+}
+
+std::string Output::GetScreenshotName(bool is_auto_screenshot) {
+	std::string prefix = is_auto_screenshot ? "auto" : "screenshot";
+
+	if (Player::player_config.screenshot_timestamp.Get()) {
+		std::time_t t = std::time(nullptr);
+		std::tm* tm = std::localtime(&t);
+		prefix += "_" + Utils::FormatDate(tm, Utils::DateFormat_YYYYMMDD_HHMMSS);
+	}
+
+	return prefix;
+}
+
+std::string Output::GetNextScreenshotFileName(FilesystemView fs, bool is_auto_screenshot) {
+	std::string output_path;
+	int index = 0;
+	std::string name = GetScreenshotName(is_auto_screenshot);
+
+	if (Player::player_config.screenshot_timestamp.Get()) {
+		output_path = name + ".png";
+		if (!fs.Exists(output_path)) {
+			return output_path;
+		}
+		index++;
+	}
+	name += "_";
+
+	do {
+		output_path = name + std::to_string(index++) + ".png";
+	} while (fs.Exists(output_path));
+	return output_path;
 }
 
 void Output::ToggleLog() {
