@@ -591,8 +591,8 @@ private:
 
 		sprite.reset(new Sprite());
 //		sprite->SetBitmap(Bitmap::Create(FileFinder::Game().OpenInputStream(file)));
-		sprite->SetBitmap(Cache::Image(file));
-//		sprite->SetBitmap(Cache::Picture(file, true));
+//		sprite->SetBitmap(Cache::Image(file));
+		sprite->SetBitmap(Cache::Picture(file, true));
 
 		image_loaded = true;
 		return true;
@@ -1414,7 +1414,7 @@ static bool SetSpritePosition(dyn_arg_list args) {
 //      easing_funcs["circular in/out"] = circular_in_out_easing;
 //      }
 
-bool DynRpg::Rpgss::Invoke(StringView func, dyn_arg_list args, bool&, Game_Interpreter*)
+bool DynRpg::Rpgss::Invoke(std::string_view func, dyn_arg_list args, bool&, Game_Interpreter*)
 {
     if (func == "add_sprite")         {
                 return AddSprite(args);

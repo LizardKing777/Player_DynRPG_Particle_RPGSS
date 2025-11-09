@@ -226,9 +226,9 @@ alpha(0), theta(0), fade(30), delay(0), amount(50) {
 
 void ParticleEffect::setTexture(std::string filename) {
 	// When the name ends with .png, remove it
-	if (StringView(filename).ends_with(".png")) {
-		filename = filename.substr(0, filename.length() - 4);
-	}
+//	if (std::string_view(filename).ends_with(".png")) {
+//		filename = filename.substr(0, filename.length() - 4);
+//	}
 	FileRequestAsync* req = AsyncHandler::RequestFile("Picture", filename);
 	req->Start();
 	image = Cache::Picture(filename, true);
@@ -994,9 +994,9 @@ void Burst::draw_texture(Bitmap& dst, int cam_x, int cam_y) {
 
 void Burst::setTexture(std::string filename) {
 	// When the name ends with .png, remove it
-	if (StringView(filename).ends_with(".png")) {
-		filename = filename.substr(0, filename.length() - 4);
-	}
+//	if (std::string_view(filename).ends_with(".png")) {
+//		filename = filename.substr(0, filename.length() - 4);
+//	}
 	FileRequestAsync* req = AsyncHandler::RequestFile("Picture", filename);
 	req->Start();
 
@@ -1671,7 +1671,7 @@ static bool SetLayer(dyn_arg_list args) {
 // }
 
 
-bool DynRpg::Particle::Invoke(StringView func, dyn_arg_list args, bool&, Game_Interpreter*)
+bool DynRpg::Particle::Invoke(std::string_view func, dyn_arg_list args, bool&, Game_Interpreter*)
 {
     if (func == "pfx_destroy_all") {
                 return destroy_all(args);

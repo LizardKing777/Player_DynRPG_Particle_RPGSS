@@ -67,10 +67,12 @@ Game_Vehicle::Game_Vehicle(Type type)
 			break;
 	}
 
-	if (true) { //TODO - PIXELMOVE
+
+//	if (true) { // TODO - PIXELMOVE
 		real_x = (float)GetX();
 		real_y = (float)GetY();
-	}
+//	} // END PIXELMOVE
+
 }
 
 void Game_Vehicle::SetSaveData(lcf::rpg::SaveVehicleLocation save) {
@@ -135,10 +137,12 @@ void Game_Vehicle::SyncWithRider(const Game_Character* rider) {
 	SetFacing(rider->GetFacing());
 	SetRemainingStep(rider->GetRemainingStep());
 
-	if (true) { //TODO - PIXELMOVE
+        if (true) { // TODO - PIXELMOVE
 		real_x = rider->real_x;
 		real_y = rider->real_y;
-	}
+        } // END - PIXELMOVE
+
+
 
 	// RPG_RT doesn't copy jumping chunks
 
@@ -157,8 +161,17 @@ int Game_Vehicle::GetAltitude() const {
 		return SCREEN_TILE_SIZE / (SCREEN_TILE_SIZE / TILE_SIZE);
 }
 
-int Game_Vehicle::GetScreenY(bool apply_shift, bool apply_jump) const {
-	return Game_Character::GetScreenY(apply_shift, apply_jump) - GetAltitude();
+// int Game_Vehicle::GetYOffset() const {
+//	return Game_Character::GetYOffset();
+// }
+
+int Game_Vehicle::GetScreenY(bool apply_jump) const {
+//	return Game_Character::GetScreenY(apply_jump) - GetAltitude();
+	if (apply_jump) {
+		return Game_Character::GetScreenY(apply_jump) - GetAltitude();
+	}
+	return Game_Character::GetScreenY(apply_jump);
+
 }
 
 bool Game_Vehicle::CanLand() const {
@@ -213,7 +226,7 @@ void Game_Vehicle::Update() {
 	Game_Character::Update();
 }
 
-StringView Game_Vehicle::GetOrigSpriteName() const {
+std::string_view Game_Vehicle::GetOrigSpriteName() const {
 	if (!data()->orig_sprite_name.empty()) {
 		return data()->orig_sprite_name;
 	}

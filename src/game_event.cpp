@@ -45,21 +45,21 @@ Game_Event::Game_Event(int map_id, const lcf::rpg::Event* event) :
 	SetX(event->x);
 	SetY(event->y);
 
-	if (true) { //TODO PIXELMOVE
+	if (true) { //TODO - PIXELMOVE
 		real_x = (float)GetX();
 		real_y = (float)GetY();
 		//Output::Warning("Event Pos = {}x{}", real_x, real_y);
-	}
+	}// END - PIXELMOVE
 
-	
 
 	RefreshPage();
 
-	Output::Debug("event[{}].name: {}", data()->ID, GetSpriteName());
+	Output::Debug("event[{}].name: {}", data()->ID, GetSpriteName()); //TODO - PIXELMOVE
+
 }
 
 void Game_Event::SanitizeData() {
-	StringView name = event->name;
+	std::string_view name = event->name;
 	Game_Character::SanitizeData(name);
 	if (page != nullptr) {
 		SanitizeMoveRoute(name, page->move_route, data()->original_move_route_index, "original_move_route_index");
@@ -104,10 +104,11 @@ void Game_Event::SetSaveData(lcf::rpg::SaveMapEvent save)
 		}
 	}
 
-	if (true) { //TODO - PIXELMOVE
+    if (true) { // TODO - PIXELMOVE
 		real_x = (float)GetX();
 		real_y = (float)GetY();
-	}
+	} // END - PIXELMOVE
+
 }
 
 lcf::rpg::SaveMapEvent Game_Event::GetSaveData() const {
@@ -116,7 +117,7 @@ lcf::rpg::SaveMapEvent Game_Event::GetSaveData() const {
 	lcf::rpg::SaveEventExecState state;
 	if (page && page->trigger == lcf::rpg::EventPage::Trigger_parallel) {
 		if (interpreter) {
-			state = interpreter->GetState();
+			state = interpreter->GetSaveState();
 		}
 
 		if (state.stack.empty() && page->event_commands.empty()) {
@@ -131,10 +132,10 @@ lcf::rpg::SaveMapEvent Game_Event::GetSaveData() const {
 	return save;
 }
 
-Drawable::Z_t Game_Event::GetScreenZ(bool apply_shift) const {
+Drawable::Z_t Game_Event::GetScreenZ(int x_offset, int y_offset) const {
 	// Lowest 16 bit are reserved for the ID
 	// See base function for full explanation
-	return Game_Character::GetScreenZ(apply_shift) + GetId();
+	return Game_Character::GetScreenZ(x_offset, y_offset) + GetId();
 }
 
 int Game_Event::GetOriginalMoveRouteIndex() const {
@@ -272,33 +273,9 @@ bool Game_Event::AreConditionsMet(const lcf::rpg::EventPage& page) {
 			return false;
 		}
 	} else {
-		if (page.condition.flags.variable) {
-			switch (page.condition.compare_operator) {
-			case 0: // ==
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) == page.condition.variable_value))
-					return false;
-				break;
-			case 1: // >=
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) >= page.condition.variable_value))
-					return false;
-				break;
-			case 2: // <=
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) <= page.condition.variable_value))
-					return false;
-				break;
-			case 3: // >
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) > page.condition.variable_value))
-					return false;
-				break;
-			case 4: // <
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) < page.condition.variable_value))
-					return false;
-				break;
-			case 5: // !=
-				if (!(Main_Data::game_variables->Get(page.condition.variable_id) != page.condition.variable_value))
-					return false;
-				break;
-			}
+		if (page.condition.flags.variable && page.condition.compare_operator >= 0 && page.condition.compare_operator <= 5) {
+			if (!Game_Interpreter_Shared::CheckOperator(Main_Data::game_variables->Get(page.condition.variable_id), page.condition.variable_value, page.condition.compare_operator))
+				return false;
 		}
 	}
 
@@ -337,7 +314,7 @@ int Game_Event::GetId() const {
 	return data()->ID;
 }
 
-StringView Game_Event::GetName() const {
+std::string_view Game_Event::GetName() const {
 	return event->name;
 }
 
@@ -365,7 +342,7 @@ bool Game_Event::ScheduleForegroundExecution(bool by_decision_key, bool face_pla
 	}
 
 	if (face_player && !(IsFacingLocked() || IsSpinning())) {
-		SetFacing(GetDirectionToHero());
+		SetFacing(GetDirectionToCharacter(GetPlayer()));
 	}
 
 	data()->waiting_execution = true;
@@ -508,7 +485,12 @@ void Game_Event::MoveTypeRandom() {
 		SetStopCount(Rand::GetRandomNumber(0, GetMaxStopCount()));
 		return;
 	}
-	if (true) { //TODO - PIXELMOVE
+
+/*
+	Move(GetDirection());
+*/
+
+	if (true) { // TODO - PIXELMOVE
 		c2v target = c2V(
 			round(real_x + GetDxFromDirection(GetDirection())),
 			round(real_y + GetDyFromDirection(GetDirection()))
@@ -518,8 +500,9 @@ void Game_Event::MoveTypeRandom() {
 	}
 	else {
 		Move(GetDirection());
-	}
-	
+	} // END - PIXELMOVE
+
+
 
 	if (IsStopping()) {
 		if (IsWaitingForegroundExecution() || (GetStopCount() >= GetMaxStopCount() + 60)) {
@@ -585,6 +568,26 @@ void Game_Event::MoveTypeTowardsOrAwayPlayer(bool towards) {
 
 	const auto prev_dir = GetDirection();
 
+    /*
+	int dir = 0;
+	if (!in_sight) {
+		dir = Rand::GetRandomNumber(0, 3);
+	} else {
+		int draw = Rand::GetRandomNumber(0, 9);
+		if (draw == 0) {
+			dir = GetDirection();
+		} else if(draw == 1) {
+			dir = Rand::GetRandomNumber(0, 3);
+		} else {
+			dir = towards
+				? GetDirectionToCharacter(GetPlayer())
+				: GetDirectionAwayCharacter(GetPlayer());
+		}
+	}
+
+	Move(dir);
+    */
+
 
 	if (true) { //TODO - PIXELMOVE
 		int dir = 0;
@@ -603,10 +606,10 @@ void Game_Event::MoveTypeTowardsOrAwayPlayer(bool towards) {
 			}
 		}
 		if (towards) {
-			TurnTowardHero();
+			TurnTowardCharacter(GetPlayer());
 		}
 		else {
-			TurnAwayFromHero();
+			TurnAwayFromCharacter(GetPlayer());
 		}
 		if (draw > 1) {
 			int flag = towards ? 1 : -1;
@@ -637,13 +640,15 @@ void Game_Event::MoveTypeTowardsOrAwayPlayer(bool towards) {
 			}
 			else {
 				dir = towards
-					? GetDirectionToHero()
-					: GetDirectionAwayHero();
+					? GetDirectionToCharacter(GetPlayer())
+					: GetDirectionAwayCharacter(GetPlayer());
 			}
 		}
 
 		Move(dir);
-	}
+	} // END - PIXEL MOVE
+
+
 
 
 	if (IsStopping()) {
@@ -680,7 +685,7 @@ AsyncOp Game_Event::Update(bool resume_async) {
 	// the wait will tick by 1 each time the interpreter is invoked.
 	if ((resume_async || GetTrigger() == lcf::rpg::EventPage::Trigger_parallel) && interpreter) {
 		if (!interpreter->IsRunning() && page && !page->event_commands.empty()) {
-			interpreter->Push(this);
+			interpreter->Push<InterpreterExecutionType::Parallel>(this);
 		}
 		interpreter->Update(!resume_async);
 

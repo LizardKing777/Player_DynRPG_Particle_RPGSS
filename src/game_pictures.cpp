@@ -149,7 +149,7 @@ Game_Pictures::Picture& Game_Pictures::GetPicture(int id) {
 	if (EP_UNLIKELY(id > static_cast<int>(pictures.size()))) {
 		pictures.reserve(id);
 		while (static_cast<int>(pictures.size()) < id) {
-			pictures.emplace_back(pictures.size() + 1);
+			pictures.emplace_back(static_cast<int>(pictures.size()) + 1);
 		}
 	}
 	return pictures[id - 1];
@@ -334,6 +334,11 @@ void Game_Pictures::Picture::Erase() {
 		data.easyrpg_type = lcf::rpg::SavePicture::EasyRpgType_default;
 		Main_Data::game_windows->Erase(data.ID);
 	}
+
+		if (pic3D) {
+		pic3D = nullptr;
+	}
+
 }
 
 void Game_Pictures::Erase(int id) {
@@ -598,6 +603,14 @@ void Game_Pictures::Picture::Update(bool is_battle) {
 			}
 		}
 	}
+
+
+	if (pic3D != nullptr) {
+		pic3D->Update(false);
+		sprite->SetBitmap(pic3D->sprite);
+	}
+
+
 }
 
 void Game_Pictures::Update(bool is_battle) {
@@ -656,3 +669,55 @@ void Game_Pictures::Picture::SetNonEffectParams(const Params& params, bool set_p
 int Game_Pictures::Picture::NumSpriteSheetFrames() const {
 	return data.spritesheet_cols * data.spritesheet_rows;
 }
+
+void Game_Pictures::Show3D(std::string n, int picID, int zoom, int dx, int dy, int rx, int ry, int rz) {
+	auto& pic = GetPicture(picID);
+	pic.Show3D(n, zoom, dx, dy, rx, ry, rz);
+}
+
+void Game_Pictures::Rotate3D(int picID, int rx, int ry, int rz) {
+	auto& pic = GetPicture(picID);
+	pic.Rotate3D(rx, ry, rz);
+}
+
+void Game_Pictures::Get3DRotation(int picID, int vx, int vy, int vz) {
+	auto& pic = GetPicture(picID);
+	pic.Get3DRotation(vx, vy, vz);
+}
+void Game_Pictures::ShowDoomMap(int picID) {
+	auto& pic = GetPicture(picID);
+	pic.ShowDoomMap();
+}
+
+void Game_Pictures::Picture::Show3D(std::string n, int zoom, int dx, int dy, int rx, int ry, int rz) {
+	pic3D = new Spriteset_MapDoom(n, zoom, dx, dy, rx, ry, rz);
+
+	if (!sprite) {
+		CreateSprite();
+		needs_update = true;
+	}
+}
+
+void Game_Pictures::Picture::Rotate3D(int rx, int ry, int rz) {
+	if (pic3D) {
+		pic3D->setRotation(rx, ry, rz);
+	}
+}
+
+void Game_Pictures::Picture::Get3DRotation(int vx, int vy, int vz) {
+	if (pic3D) {
+		pic3D->getRotation(vx, vy, vz);
+	}
+}
+
+void Game_Pictures::Picture::ShowDoomMap() {
+	pic3D = new Spriteset_MapDoom();
+
+	if (!sprite) {
+		CreateSprite();
+		needs_update = true;
+	}
+
+}
+
+

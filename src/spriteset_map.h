@@ -29,6 +29,8 @@
 #include "sprite_timer.h"
 #include "system.h"
 #include "tilemap.h"
+#include "spritesetmap_doom.h"
+
 
 class Game_Character;
 class FileRequestAsync;
@@ -46,10 +48,18 @@ public:
 
 	void Update();
 
+	Spriteset_MapDoom* doom;
+
+
+
 	/**
 	 * Notifies that the map's chipset has changed.
 	 */
 	void ChipsetUpdated();
+
+
+	void doomUpdate();
+
 
 	/**
 	 * Notifies that the map's parallax has changed.
@@ -72,6 +82,16 @@ public:
 	void SubstituteUp(int old_id, int new_id);
 
 	/**
+	 * Replaces a single tile in lower layer at the given coordinates.
+	 */
+	void ReplaceDownAt(int x, int y, int tile_index, bool disable_autotile);
+
+	/**
+	 * Replaces a single tile in upper layer at the given coordinates.
+	 */
+	void ReplaceUpAt(int x, int y, int tile_index);
+
+	/**
 	 * @return true if we should clear the screen before drawing the map
 	 */
 	bool RequireClear(DrawableList& drawable_list);
@@ -91,6 +111,16 @@ public:
 
 	/** @return y offset for the rendering of the tilemap and events */
 	int GetRenderOy() const;
+
+
+
+	BitmapRef GetEventSprite(int i);
+	BitmapRef GetChipset();
+	BitmapRef GetTile(int x, int y, int layer);
+	int GetTileID(int x, int y, int layer);
+	TilemapLayer* GetTilemap(int i);
+
+
 
 protected:
 	std::unique_ptr<Tilemap> tilemap;
@@ -123,6 +153,12 @@ protected:
 	bool vehicle_loaded[3] = {};
 
 	Tone last_tone;
+
+    std::unique_ptr<Plane> doom_lower;
+	std::unique_ptr<Plane> doom_upper;
+//	std::unique_ptr<Plane> doom_upper2;
+	std::unique_ptr<Plane> doom_sprite;
+
 };
 
 inline int Spriteset_Map::GetRenderOx() const {

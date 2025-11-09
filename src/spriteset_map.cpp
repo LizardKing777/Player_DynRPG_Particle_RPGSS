@@ -30,10 +30,20 @@
 #include "bitmap.h"
 #include "player.h"
 #include "drawable_list.h"
+#include "map_data.h"
 
 Spriteset_Map::Spriteset_Map() {
 	panorama = std::make_unique<Plane>();
 	panorama->SetZ(Priority_Background);
+
+
+	doom_lower = std::make_unique<Plane>();
+	doom_upper = std::make_unique<Plane>();
+	doom_lower->SetZ(Priority_Background);
+	doom_upper->SetZ(Priority_BattleAnimation);
+
+
+
 
 	timer1 = std::make_unique<Sprite_Timer>(0);
 	timer2 = std::make_unique<Sprite_Timer>(1);
@@ -43,6 +53,9 @@ Spriteset_Map::Spriteset_Map() {
 	if (Player::IsRPG2k3()) {
 		frame = std::make_unique<Frame>();
 	}
+
+	//doom = new Spriteset_MapDoom();
+
 
 	ParallaxUpdated();
 
@@ -115,6 +128,17 @@ void Spriteset_Map::Update() {
 	}
 
 	Main_Data::game_dynrpg->Update();
+
+
+
+	//doomUpdate();
+}
+
+void Spriteset_Map::doomUpdate() {
+	doom->Update(true);
+	doom_lower->SetBitmap(doom->sprite);
+	doom_upper->SetBitmap(doom->spriteUpper);
+
 }
 
 void Spriteset_Map::ChipsetUpdated() {
@@ -171,6 +195,21 @@ void Spriteset_Map::SubstituteUp(int old_id, int new_id) {
 	if (num_subst) {
 		tilemap->OnSubstituteUp();
 	}
+}
+
+void Spriteset_Map::ReplaceDownAt(int x, int y, int tile_index, bool disable_autotile) {
+	if (tile_index >= BLOCK_F_INDEX) tile_index = BLOCK_F_INDEX - 1;
+
+	auto tile_id = IndexToChipId(tile_index);
+	tilemap->SetMapTileDataDownAt(x, y, tile_id, disable_autotile);
+}
+
+void Spriteset_Map::ReplaceUpAt(int x, int y, int tile_index) {
+	tile_index += BLOCK_F_INDEX;
+	if (tile_index >= NUM_UPPER_TILES + BLOCK_F_INDEX) tile_index = BLOCK_F_INDEX;
+
+	auto tile_id = IndexToChipId(tile_index);
+	tilemap->SetMapTileDataUpAt(x, y, tile_id);
 }
 
 bool Spriteset_Map::RequireClear(DrawableList& drawable_list) {
@@ -318,4 +357,83 @@ void Spriteset_Map::CalculatePanoramaRenderOffset() {
 			panorama->SetRenderOy((Player::screen_height - SCREEN_TARGET_HEIGHT) / 2);
 		}
 	}
+}
+
+
+
+BitmapRef Spriteset_Map::GetEventSprite(int evid) {
+
+	for (int i = 0;i< character_sprites.size();i++) {
+		bool setBmp = false;
+		if (character_sprites[i]->GetCharacter()->GetType() == Game_Character::Type::Event) {
+			int id = ((Game_Event*)character_sprites[i]->GetCharacter())->GetId();
+			if (id == evid) {
+				setBmp = true;
+			}
+		}
+		else if (character_sprites[i]->GetCharacter()->GetType() == Game_Character::Type::Player && evid == 0) {
+			setBmp = true;
+		}
+		if (setBmp) {
+			BitmapRef bitmap = character_sprites[i]->GetBitmap();
+			int DoomEventWidth = character_sprites[i]->GetWidth();
+			int DoomEventHeight = character_sprites[i]->GetHeight();
+			//BitmapRef b = Bitmap::Create(DoomEventWidth, DoomEventHeight, Color(0, 0, 0, 0));
+			BitmapRef b;
+			if (DoomEventWidth > 24 || DoomEventHeight > 32) {
+				b = Bitmap::Create(DoomEventWidth, DoomEventHeight, Color(0, 0, 0, 0));
+			}
+			else
+				b = Bitmap::Create(24, 32, Color(0, 0, 0, 0));
+			Rect r = character_sprites[i]->GetSrcRect();
+
+			// If it's not a tileSprite, and sprite isn't fixed, we need to calc the rotation
+			if (Main_Data::game_player->doomMoveType != 2 && Main_Data::game_player->GetDirection() > 0 && !character_sprites[i]->GetCharacter()->HasTileSprite()
+				&& character_sprites[i]->GetCharacter()->GetAnimationType() != Game_Character::AnimType::AnimType_fixed_continuous
+				&& character_sprites[i]->GetCharacter()->GetAnimationType() != Game_Character::AnimType::AnimType_fixed_graphic
+				&& character_sprites[i]->GetCharacter()->GetAnimationType() != Game_Character::AnimType::AnimType_fixed_non_continuous
+				&& character_sprites[i]->GetCharacter()->GetAnimationType() != Game_Character::AnimType::AnimType_spin
+				&& character_sprites[i]->GetCharacter()->GetAnimationType() != Game_Character::AnimType::AnimType_step_frame_fix) {
+				int data[3][4] = { {{3}, {-1}, {-1}, {-1}},
+					{{2}, {2}, {-2}, {-2}},
+					{{1}, {1}, {1}, {-3}}};
+
+				int d = data[Main_Data::game_player->GetDirection() - 1][character_sprites[i]->GetCharacter()->GetDirection()];
+
+				r.y += d * DoomEventHeight;
+				r.y = r.y % (DoomEventHeight * 4);
+
+			}
+
+			if (!character_sprites[i]->GetCharacter()->HasTileSprite()) {
+				if (character_sprites[i]->GetCharacter()->GetSpriteIndex() > 0)
+					r.x += (character_sprites[i]->GetCharacter()->GetSpriteIndex() * 72) % 288;
+				if (character_sprites[i]->GetCharacter()->GetSpriteIndex() >= 4)
+					r.y += DoomEventHeight * 4;
+			}
+
+			b->Blit(0, 0, *bitmap, r, 255);
+			return b;
+		}
+
+	}
+
+	return nullptr;
+}
+
+BitmapRef Spriteset_Map::GetChipset() {
+	return tilemap->GetChipset();
+}
+
+
+BitmapRef Spriteset_Map::GetTile(int x, int y, int layer) {
+	return tilemap->GetTile(x, y, layer);
+}
+
+int Spriteset_Map::GetTileID(int x, int y, int layer) {
+	return tilemap->GetTileID(x, y, layer);
+}
+
+TilemapLayer* Spriteset_Map::GetTilemap(int i) {
+	return tilemap->GetTilemap(i);
 }

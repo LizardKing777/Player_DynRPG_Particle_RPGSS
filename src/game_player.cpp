@@ -61,43 +61,43 @@ void Game_Player::SetSaveData(lcf::rpg::SavePartyLocation save)
 	// a move route changed the graphic.
 	ResetGraphic();
 
-	
-	if (true) { //TODO - PIXELMOVE
+
+	if (true) { // TODO - PIXELMOVE
 		real_x = (float)GetX();
 		real_y = (float)GetY();
-	}
+	} // END - PIXELMOVE
+
 }
 
 lcf::rpg::SavePartyLocation Game_Player::GetSaveData() const {
 	return *data();
 }
 
-Drawable::Z_t Game_Player::GetScreenZ(bool apply_shift) const {
+Drawable::Z_t Game_Player::GetScreenZ(int x_offset, int y_offset) const {
 	// Player is always "same layer as hero".
 	// When the Player is on the same Y-coordinate as an event the Player is always rendered first.
 	// This is different to events where, when Y is the same, the highest X-coordinate is rendered first.
 	// To ensure this, fake a very high X-coordinate of 65535 (all bits set)
 	// See base function for full explanation of the bitmask
-	return Game_Character::GetScreenZ(apply_shift) | (0xFFFFu << 16u);
+	return Game_Character::GetScreenZ(x_offset, y_offset) | (0xFFFFu << 16u);
 }
 
 void Game_Player::ReserveTeleport(int map_id, int x, int y, int direction, TeleportTarget::Type tt) {
 	teleport_target = TeleportTarget(map_id, x, y, direction, tt);
 
 	FileRequestAsync* request = Game_Map::RequestMap(map_id);
-	request->SetImportantFile(true);
 	request->Start();
 }
 
 void Game_Player::ReserveTeleport(const lcf::rpg::SaveTarget& target) {
-	int map_id = target.map_id;
+	const auto* target_map_info = &Game_Map::GetMapInfo(target.map_id);
 
-	if (Game_Map::GetMapType(target.map_id) == lcf::rpg::TreeMap::MapType_area) {
+	if (target_map_info->type == lcf::rpg::TreeMap::MapType_area) {
 		// Area: Obtain the map the area belongs to
-		map_id = Game_Map::GetParentId(target.map_id);
+		target_map_info = &Game_Map::GetParentMapInfo(*target_map_info);
 	}
 
-	ReserveTeleport(map_id, target.map_x, target.map_y, Down, TeleportTarget::eSkillTeleport);
+	ReserveTeleport(target_map_info->ID, target.map_x, target.map_y, Down, TeleportTarget::eSkillTeleport);
 
 	if (target.switch_on) {
 		Main_Data::game_switches->Set(target.switch_id, true);
@@ -138,10 +138,11 @@ void Game_Player::MoveTo(int map_id, int x, int y) {
 	const auto map_changed = (GetMapId() != map_id);
 
 	Game_Character::MoveTo(map_id, x, y);
-	SetEncounterSteps(0);
+	SetTotalEncounterRate(0);
 	SetMenuCalling(false);
 
-	//UpdateScroll(1, 0); //PIXELMOVE
+//   UpdateScroll(1, 0); // TODO - PIXELMOVE
+
 
 	auto* vehicle = GetVehicle();
 	if (vehicle) {
@@ -158,10 +159,12 @@ void Game_Player::MoveTo(int map_id, int x, int y) {
 		data()->pan_finish_y = GetDefaultPanY();
 		data()->pan_current_x = GetDefaultPanX();
 		data()->pan_current_y = GetDefaultPanY();
+		maniac_pan_current_x = static_cast<double>(GetDefaultPanX());
+		maniac_pan_current_y = static_cast<double>(GetDefaultPanY());
 
 		ResetAnimation();
 
-		auto map = Game_Map::loadMapFile(GetMapId());
+		auto map = Game_Map::LoadMapFile(GetMapId());
 
 		Game_Map::Setup(std::move(map));
 		Game_Map::PlayBgm();
@@ -170,14 +173,21 @@ void Game_Player::MoveTo(int map_id, int x, int y) {
 		// if you change maps during a jump
 		SetJumping(false);
 	} else {
-		if (true) { //TODO - PIXELMOVE
+
+	/*
+		Game_Map::SetPositionX(GetSpriteX() - GetPanX());
+		Game_Map::SetPositionY(GetSpriteY() - GetPanY());
+	*/
+
+		if (true) { // TODO - PIXELMOVE
 			Game_Map::SetPositionX(real_x * SCREEN_TILE_SIZE - SCREEN_TILE_SIZE / 2 - GetPanX());
 			Game_Map::SetPositionY(real_y * SCREEN_TILE_SIZE + SCREEN_TILE_SIZE / 2 - GetPanY());
 		}
 		else {
 			Game_Map::SetPositionX(GetSpriteX() - GetPanX());
 			Game_Map::SetPositionY(GetSpriteY() - GetPanY());
-		}
+		} // END PIXELMOVE
+
 
 	}
 
@@ -203,14 +213,15 @@ void Game_Player::MoveRouteSetSpriteGraphic(std::string sprite_name, int index) 
 
 void Game_Player::UpdateScroll(int amount, bool was_jumping) {
 
-	if (true) { //TODO - PIXELMOVE
+    if (true) { // TODO - PIXELMOVE
 
 		float dx = real_x * SCREEN_TILE_SIZE - Game_Map::GetPositionX() - (Player::screen_width / 2) * TILE_SIZE + SCREEN_TILE_SIZE / 2;
 		float dy = real_y * SCREEN_TILE_SIZE - Game_Map::GetPositionY() - (Player::screen_height / 2) * TILE_SIZE + SCREEN_TILE_SIZE;
 
 		Game_Map::Scroll(floor(dx), floor(dy));
 		return;
-	}
+	} // END - PIXELMOVE
+
 
 	if (IsPanLocked()) {
 		return;
@@ -219,8 +230,8 @@ void Game_Player::UpdateScroll(int amount, bool was_jumping) {
 	auto dx = (GetX() * SCREEN_TILE_SIZE) - Game_Map::GetPositionX() - GetPanX();
 	auto dy = (GetY() * SCREEN_TILE_SIZE) - Game_Map::GetPositionY() - GetPanY();
 
-	const auto w = Game_Map::GetWidth() * SCREEN_TILE_SIZE;
-	const auto h = Game_Map::GetHeight() * SCREEN_TILE_SIZE;
+	const auto w = Game_Map::GetTilesX() * SCREEN_TILE_SIZE;
+	const auto h = Game_Map::GetTilesY() * SCREEN_TILE_SIZE;
 
 	dx = Utils::PositiveModulo(dx + w / 2, w) - w / 2;
 	dy = Utils::PositiveModulo(dy + h / 2, h) - h / 2;
@@ -290,6 +301,13 @@ bool Game_Player::UpdateAirship() {
 }
 
 void Game_Player::UpdateNextMovementAction() {
+
+    canMove = false;
+
+	if (doomWait > 0) {
+		doomWait--;
+	}
+
 	if (UpdateAirship()) {
 		return;
 	}
@@ -321,17 +339,67 @@ void Game_Player::UpdateNextMovementAction() {
 
 		ResetAnimation();
 		Main_Data::game_system->SePlay(Main_Data::game_system->GetSystemSE(Main_Data::game_system->SFX_Decision));
-		Scene::instance->SetRequestedScene(std::make_shared<Scene_Menu>());
+		Game_Map::GetInterpreter().RequestMainMenuScene();
 		return;
 	}
 
-	CheckEventTriggerHere({ lcf::rpg::EventPage::Trigger_collision }, false);
+//	CheckEventTriggerHere({ lcf::rpg::EventPage::Trigger_collision }, false);
+
+
+
+
+           	int collision_x = GetX();
+            int collision_y = GetY();
+
+//          int collision_x = Game_Map::XwithDirection(GetX(), 0);
+//      	int collision_y = Game_Map::YwithDirection(GetY(), 0);
+            int collision_up     = collision_y + 1;
+			int collision_down = collision_y - 1;
+            int collision_right  = collision_x + 1;
+			int collision_left = collision_x - 1;
+
+
+
+            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_x, collision_y, false);
+            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_x, collision_up, false);
+            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_x, collision_down, false);
+            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_right, collision_y, false);
+ 			CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_left, collision_y, false);
+
+//            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_right,     collision_up, false);
+//            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision},  collision_left, collision_down, false);
+//            CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_left, collision_up, false);
+// 			CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_collision}, collision_right, collision_down, false);
+
+
 
 	if (Game_Map::IsAnyEventStarting()) {
 		return;
 	}
 
+	canMove = true;
+
+
 	int move_dir = -1;
+
+/*
+	switch (Input::dir4) {
+		case 2:
+			move_dir = Down;
+			break;
+		case 4:
+			move_dir = Left;
+			break;
+		case 6:
+			move_dir = Right;
+			break;
+		case 8:
+			move_dir = Up;
+			break;
+	}
+
+*/
+
 
 	if (true) { //TODO - PIXELMOVE
 
@@ -340,7 +408,8 @@ void Game_Player::UpdateNextMovementAction() {
 
 		int dir8 = 5 + dx - dy * 3;
 
-		switch (dir8) {
+//		switch (dir8) {
+        switch (GetInputDirection()) {          // This is the only code from pixelmovement that I had to change - LK
 		case 2:
 			move_dir = Down;
 			break;
@@ -366,8 +435,10 @@ void Game_Player::UpdateNextMovementAction() {
 			move_dir = UpRight;
 			break;
 		}
-	} else {
-		switch (Input::dir4) {
+	}
+	else {
+//      switch (Input::dir4) {
+		switch (Input::dir8) {
 		case 2:
 			move_dir = Down;
 			break;
@@ -380,30 +451,154 @@ void Game_Player::UpdateNextMovementAction() {
 		case 8:
 			move_dir = Up;
 			break;
+        case 1:
+			move_dir = DownLeft;
+			break;
+		case 3:
+			move_dir = DownRight;
+			break;
+		case 7:
+			move_dir = UpLeft;
+			break;
+		case 9:
+			move_dir = UpRight;
+			break;
 		}
 	}
 
 
 
-	if (move_dir >= 0) {
+//	if (move_dir >= 0) {
+
+	if (move_dir >= 0 && ((doomMoveType <= 0 || doomMoveType == 2) && doomWait <= 0)) {
+
 		SetThrough((Player::debug_flag && Input::IsPressed(Input::DEBUG_THROUGH)) || data()->move_route_through);
 		Move(move_dir);
 		ResetThrough();
 		if (IsStopping()) {
 			int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
 			int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+
+			            int self_x = GetX();
+            int self_y = GetY();
+            int self_dir = GetDirection();
+
+        	int front_id = Game_Map::CheckEvent(front_x, front_y);
+
+
+            for (auto& ev : Game_Map::GetEvents()) {
+//          const auto facing = ev.GetFacing();
+            if (ev.IsActive()
+                && ev.GetX() == front_x
+				&& ev.GetY() == front_y
+				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
+                 && ev.GetTrigger() == lcf::rpg::EventPage::Trigger_touched
+//              && ev.GetFacing() > 0
+				|| ev.IsMoving()
+//              || ev.GetDirection() ==  self_dir
+//              || ev.GetDirection() !=  self_dir
+
+//      		|| ev.IsStopping()
+//      		|| IsMoving()
+                )
+				 {
+
+
 			CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_touched, lcf::rpg::EventPage::Trigger_collision}, front_x, front_y, false);
+				 }
+
+
+
+		if (doomMoveType == 0) {
+
+			static const int turn_speed[] = { 64, 32, 24, 16, 12, 8 };
+			static const int move_speed[] = { 16, 8, 6, 4, 3, 2 };
+
+			if (move_dir == Left) {
+				if (Input::IsPressed(Input::SHIFT)) {
+					int d = GetDirection();
+					Turn90DegreeLeft();
+					Move(GetDirection());
+					doomWait = move_speed[GetMoveSpeed() - 1];
+					SetDirection(d);
+				}
+				else {
+					Turn90DegreeLeft();
+					SetFacing(GetDirection());
+					doomWait = turn_speed[GetMoveSpeed() - 1];//1 << (1 + GetMoveSpeed());
+				}
+			}
+			else if (move_dir == Right) {
+
+				if (Input::IsPressed(Input::SHIFT)) {
+					int d = GetDirection();
+					Turn90DegreeRight();
+					Move(GetDirection());
+					doomWait = move_speed[GetMoveSpeed() - 1];
+					SetDirection(d);
+				}
+				else {
+					Turn90DegreeRight();
+					SetFacing(GetDirection());
+					doomWait = turn_speed[GetMoveSpeed() - 1];
+				}
+
+			}
+			else if (move_dir == Up) {
+
+				Move(GetDirection());
+				doomWait = move_speed[GetMoveSpeed() - 1];
+
+			}
+			else if (move_dir == Down) {
+				if (Input::IsPressed(Input::SHIFT)) {
+					int d = GetDirection();
+					Turn180Degree();
+					Move(GetDirection());
+					doomWait = move_speed[GetMoveSpeed() - 1];
+					SetDirection(d);
+				}
+				else {
+					Turn180Degree();
+					SetFacing(GetDirection());
+					doomWait = turn_speed[GetMoveSpeed() - 1];
+				}
+
+			}
+
+			ResetThrough();
+			if (IsStopping() && move_dir != Left && move_dir != Right && move_dir != Down) {
+				int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+				int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+				CheckEventTriggerThere({ lcf::rpg::EventPage::Trigger_touched, lcf::rpg::EventPage::Trigger_collision }, front_x, front_y, false);
+			}
+		}
+		else {
+			Move(move_dir);
+			if (doomMoveType == 2) {
+				static const int move_speed[] = { 12, 10, 4, 3, 2, 1 };
+				doomWait = move_speed[GetMoveSpeed() - 1];
+			}
+			ResetThrough();
+			if (IsStopping()) {
+				int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+				int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+				CheckEventTriggerThere({ lcf::rpg::EventPage::Trigger_touched, lcf::rpg::EventPage::Trigger_collision }, front_x, front_y, false);
+			}
+
+		}
+
+
 		}
 	}
 
-	if (IsStopping()) {
-		if (Input::IsTriggered(Input::DECISION)) {
+//	if (IsStopping()) {             // This was preventing activating events while moving		if (Input::IsTriggered(Input::DECISION)) {
 			if (!GetOnOffVehicle()) {
 				CheckActionEvent();
 			}
 		}
-		return;
-	}
+//		return;
+//	}
 
 	Main_Data::game_party->IncSteps();
 	if (Main_Data::game_party->ApplyStateDamage()) {
@@ -411,6 +606,15 @@ void Game_Player::UpdateNextMovementAction() {
 	}
 	UpdateEncounterSteps();
 }
+
+
+
+int Game_Player::GetInputDirection() {
+// 	return Game_Map::GetMoveDirection(Input::dir4);
+	return Game_Map::GetMoveDirection(Input::dir8);     // This is the only part of Mode7 I had to change - LK
+}
+
+
 
 void Game_Player::UpdateMovement(int amount) {
 	const bool was_jumping = IsJumping();
@@ -461,6 +665,26 @@ void Game_Player::Update() {
 		if (Input::IsTriggered(Input::CANCEL)) {
 			SetMenuCalling(true);
 		}
+
+		if (Input::IsPressed(Input::PLUS)) {
+			Game_Map::RotateMode7(200);
+		}
+		if (Input::IsPressed(Input::MINUS)) {
+			Game_Map::RotateMode7(-200);
+		}
+		if (Input::IsPressed(Input::N1)) {
+			Game_Map::TiltMode7(-100);
+		}
+		if (Input::IsPressed(Input::N3)) {
+			Game_Map::TiltMode7(100);
+		}
+		if (Input::IsPressed(Input::N5)) {
+			Game_Map::RotateTowardsMode7(0, 20);
+			Game_Map::TiltTowardsMode7(6000, 20);
+		}
+
+
+
 	}
 }
 
@@ -470,56 +694,154 @@ bool Game_Player::CheckActionEvent() {
 	}
 
 	bool result = false;
-	int front_x;
-	int front_y;
+/*
 
-	if (true) { //TODO PIXELMOVE
-		front_x = real_x * SCREEN_TILE_SIZE;
-		front_y = real_y * SCREEN_TILE_SIZE;
-		front_x = round(front_x + GetDxFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
-		front_y = round(front_y + GetDyFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
-	}
-	else {
-		front_x = Game_Map::XwithDirection(GetX(), GetDirection());
-		front_y = Game_Map::YwithDirection(GetY(), GetDirection());
-	}
-
+	int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+	int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
 
 	result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_touched, lcf::rpg::EventPage::Trigger_collision}, front_x, front_y, true);
 	result |= CheckEventTriggerHere({lcf::rpg::EventPage::Trigger_action}, true);
+*/
+
+    int front_x;  // TODO - PIXELMOVE
+	int front_y;
+
+//	if (true) {
+//		front_x = real_x * SCREEN_TILE_SIZE;
+//		front_y = real_y * SCREEN_TILE_SIZE;
+//		front_x = round(front_x + GetDxFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
+//		front_y = round(front_y + GetDyFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
+//	}
+//	else {
+
+		front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+		front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+        int action_x = GetX();
+        int action_y = GetY();
+        int action_up     = action_y + 1;
+        int action_down = action_y - 1;
+        int action_right  = action_x + 1;
+        int action_left = action_x - 1;
+        int self_dir = GetDirection();
+       	int front_id = Game_Map::CheckEvent(front_x, front_y);
+//        c2Circle self;
+//		c2Circle other;
+
+//
+            for (auto& ev : Game_Map::GetEvents()) {
+//          const auto facing = ev.GetFacing();
+            if (ev.IsActive()
+                && ev.GetX() == front_x
+				&& ev.GetY() == front_y
+				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
+                && ev.GetTrigger() == lcf::rpg::EventPage::Trigger_action
+//                && c2CircletoCircle(self, other)
+                || ev.IsMoving()
+//              || ev.GetDirection() ==  self_dir
+//              || ev.GetDirection() !=  self_dir
+                || ev.IsStopping()
+        		|| IsMoving()
+                )
+				 {
+                if (Input::IsTriggered(Input::DECISION)
+                || Input::IsPressed(Input::RIGHT)
+                || Input::IsPressed(Input::LEFT)
+                || Input::IsPressed(Input::DOWN)
+                || Input::IsPressed(Input::UP)               ) {
+
+//          CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_touched}, front_x, front_y, false);
+
+// This was the culprit for why activating events wasn't working! - LK
+//	} // END - PIXELMOVE
+
+//  	result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_touched, lcf::rpg::EventPage::Trigger_collision}, front_x, front_y, true);
+
+        result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, front_x, front_y, true);
+
+        result |= CheckEventTriggerHere({lcf::rpg::EventPage::Trigger_action}, true);
+    }
+
+            }
+
+             if (ev.IsActive()
+                && ev.GetX() == action_x
+				&& ev.GetY() == action_x
+				&& ev.GetLayer() != lcf::rpg::EventPage::Layers_same
+                && ev.GetTrigger() == lcf::rpg::EventPage::Trigger_action
+//              && ev.GetFacing() > 0
+				|| ev.IsMoving()
+//              || ev.GetDirection() ==  self_dir
+//              || ev.GetDirection() !=  self_dir
+
+                || ev.IsStopping()
+        		|| IsMoving()
+                )
+                {
+        result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_x, action_y, true);
+
+        result |= CheckEventTriggerHere({lcf::rpg::EventPage::Trigger_action}, true);
+                }
+
+//            result |=CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_x, action_y, false);
+//            result |=CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_x, action_up, false);
+//            result |=CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_x, action_down, false);
+//            result |=CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_right, action_y, false);
+// 			result |=CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, action_left, action_y, false);
+
+// }
+
+//          }
+
 
 	// Counter tile loop stops only if you talk to an action event.
 	bool got_action = CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, front_x, front_y, true);
 	// RPG_RT allows maximum of 3 counter tiles
 	for (int i = 0; !got_action && i < 3; ++i) {
+		if (!Game_Map::IsCounter(front_x, front_y)) {
+			break;
+		}
 
-		if (true) { //TODO PIXELMOVE
-			if (!Game_Map::IsCounter(front_x / SCREEN_TILE_SIZE, front_y / SCREEN_TILE_SIZE)) {
-				break;
-			}
-			front_x = round(front_x + GetDxFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
-			front_y = round(front_y + GetDyFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
-		}
-		else {
-			if (!Game_Map::IsCounter(front_x, front_y)) {
-				break;
-			}
-			front_x = Game_Map::XwithDirection(front_x, GetDirection());
-			front_y = Game_Map::YwithDirection(front_y, GetDirection());
-		}
+		front_x = Game_Map::XwithDirection(front_x, GetDirection());
+		front_y = Game_Map::YwithDirection(front_y, GetDirection());
+
+
+
+
+//		if (true) { // TODO - PIXELMOVE
+
+// This code was making counters not work. -LK
+
+//			if (!Game_Map::IsCounter(front_x / SCREEN_TILE_SIZE, front_y / SCREEN_TILE_SIZE)) {
+//				break;
+//			}
+//			front_x = round(front_x + GetDxFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
+//			front_y = round(front_y + GetDyFromDirection(GetDirection()) * SCREEN_TILE_SIZE);
+//		}
+//		else {
+	//		if (!Game_Map::IsCounter(front_x, front_y)) {
+	//			break;
+//			}
+//  		front_x = Game_Map::XwithDirection(front_x, GetDirection());
+//          front_y = Game_Map::YwithDirection(front_y, GetDirection());
+//          } // END PIXELMOVE
+
+
+
 
 		got_action |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, front_x, front_y, true);
 	}
 	return result || got_action;
 }
+	}
 
-bool Game_Player::CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_decision_key) {
+bool Game_Player::CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_decision_key, bool face_player) {
 	if (InAirship()) {
 		return false;
 	}
 
 	bool result = false;
 
+/*
 	for (auto& ev: Game_Map::GetEvents()) {
 		const auto trigger = ev.GetTrigger();
 		if (ev.IsActive()
@@ -529,33 +851,32 @@ bool Game_Player::CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_d
 				&& trigger >= 0
 				&& triggers[trigger]) {
 			SetEncounterCalling(false);
-			result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, true);
+			result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, face_player);
 		}
 	}
-	return result;
-}
 
-bool Game_Player::CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool triggered_by_decision_key) {
-	if (InAirship()) {
-		return false;
-	}
-	bool result = false;
+*/
+
+        int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+        int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
 	if (true) {
 		c2Circle self;
 		c2Circle other;
-		self.p  = c2V(((float)x / (float)SCREEN_TILE_SIZE) + 0.5, ((float)y / (float)SCREEN_TILE_SIZE) + 0.5);
-		self.r  = 0.25 - Epsilon;
+
+		self.p = c2V(((float)GetX() / (float)SCREEN_TILE_SIZE) + 0.5, ((float)GetY() / (float)SCREEN_TILE_SIZE) + 0.5);
+		self.r = 0.25 - Epsilon;
 		other.r = 0.5;
 		for (auto& ev : Game_Map::GetEvents()) {
 			const auto trigger = ev.GetTrigger();
 			other.p = c2V(ev.real_x + 0.5, ev.real_y + 0.5);
 			if (ev.IsActive()
-				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
+//				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
 				&& trigger >= 0
 				&& triggers[trigger]
 				&& c2CircletoCircle(self, other)) {
 				SetEncounterCalling(false);
-				result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, true);
+//      		result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, true);
+                result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, front_x, front_y, true);
 			}
 		}
 	}
@@ -563,17 +884,41 @@ bool Game_Player::CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool
 		for (auto& ev : Game_Map::GetEvents()) {
 			const auto trigger = ev.GetTrigger();
 			if (ev.IsActive()
-				&& ev.GetX() == x
-				&& ev.GetY() == y
-				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
+				&& ev.GetX() == GetX()
+				&& ev.GetY() == GetY()
+//				&& ev.GetLayer() != lcf::rpg::EventPage::Layers_same
 				&& trigger >= 0
 				&& triggers[trigger]) {
 				SetEncounterCalling(false);
-				result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, true);
+//      		result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, true);
+                result |= CheckEventTriggerThere({lcf::rpg::EventPage::Trigger_action}, front_x, front_y, true);
 			}
 		}
-	}
+	} // END - PIXELMOVE
 
+
+
+	return result;
+}
+
+bool Game_Player::CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool triggered_by_decision_key, bool face_player) {
+	if (InAirship()) {
+		return false;
+	}
+	bool result = false;
+
+	for (auto& ev : Game_Map::GetEvents()) {
+		const auto trigger = ev.GetTrigger();
+		if (ev.IsActive()
+				&& ev.GetX() == x
+				&& ev.GetY() == y
+//				&& ev.GetLayer() == lcf::rpg::EventPage::Layers_same
+				&& trigger >= 0
+				&& triggers[trigger]) {
+			SetEncounterCalling(false);
+			result |= ev.ScheduleForegroundExecution(triggered_by_decision_key, face_player);
+		}
+	}
 	return result;
 }
 
@@ -589,7 +934,8 @@ void Game_Player::ResetGraphic() {
 	SetSpriteGraphic(ToString(actor->GetSpriteName()), actor->GetSpriteIndex());
 	SetTransparency(actor->GetSpriteTransparency());
 
-	Output::Debug("player.name: {}", GetSpriteName());
+	Output::Debug("player.name: {}", GetSpriteName()); // TODO - PIXELMOVE
+
 }
 
 bool Game_Player::GetOnOffVehicle() {
@@ -620,8 +966,16 @@ bool Game_Player::GetOnVehicle() {
 		vehicle->StartAscent();
 		Main_Data::game_player->SetFlying(vehicle->IsFlying());
 	} else {
-		const auto front_x = Game_Map::XwithDirection(GetX(), GetDirection());
-		const auto front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+
+//		const auto front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+//		const auto front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+
+        int begin_x = Main_Data::game_player->GetX();
+        int begin_y = Main_Data::game_player->GetY();
+
+        int front_x = Game_Map::XwithDirection(GetX(), GetDirection());
+        int front_y = Game_Map::YwithDirection(GetY(), GetDirection());
+
 
 		vehicle = Game_Map::GetVehicle(Game_Vehicle::Ship);
 		if (!vehicle->IsInPosition(front_x, front_y)) {
@@ -636,7 +990,26 @@ bool Game_Player::GetOnVehicle() {
 		}
 
 		SetThrough(true);
-		Move(GetDirection());
+
+
+
+//   	SetX(front_x);
+//      SetY(front_y);
+//		Move(GetDirection());
+//      Move(GetDirection());
+ //		Move(GetDirection());
+//		Move(GetDirection());
+
+        c2v vector = c2V(GetDxFromDirection(GetDirection()), GetDyFromDirection(GetDirection()));
+//		c2v vector = c2V(front_x - begin_x, front_y - begin_x);
+//		float length = c2Len(vector);
+//        c2v vectorNorm = c2Div(vector, length);
+		float step_size = 384   / 256.0;
+        MoveVector(c2Mulvs(vector, step_size));
+
+//		SetThrough(false);
+		// FIXME: RPG_RT resets through to move_route_through || not visible?
+
 		// FIXME: RPG_RT resets through to move_route_through || not visible?
 		ResetThrough();
 
@@ -683,7 +1056,15 @@ bool Game_Player::GetOffVehicle() {
 	data()->unboarding = true;
 
 	SetThrough(true);
-	Move(GetDirection());
+//	Move(GetDirection());
+
+
+    c2v vector = c2V(GetDxFromDirection(GetDirection()), GetDyFromDirection(GetDirection()));
+    float step_size = 384   / 256.0;
+    MoveVector(c2Mulvs(vector, step_size));
+
+
+
 	ResetThrough();
 
 	data()->vehicle = 0;
@@ -792,10 +1173,10 @@ void Game_Player::UpdateEncounterSteps() {
 		return;
 	}
 
-	const auto encounter_rate = Game_Map::GetEncounterRate();
+	const auto encounter_steps = Game_Map::GetEncounterSteps();
 
-	if (encounter_rate <= 0) {
-		SetEncounterSteps(0);
+	if (encounter_steps <= 0) {
+		SetTotalEncounterRate(0);
 		return;
 	}
 
@@ -808,7 +1189,7 @@ void Game_Player::UpdateEncounterSteps() {
 		return;
 	}
 
-	data()->encounter_steps += terrain->encounter_rate;
+	data()->total_encounter_rate += terrain->encounter_rate;
 
 	struct Row {
 		int ratio;
@@ -839,7 +1220,7 @@ void Game_Player::UpdateEncounterSteps() {
 		{ INT_MAX, 3.0 / 2.0 }
 	};
 #endif
-	const auto ratio = GetEncounterSteps() / encounter_rate;
+	const auto ratio = GetTotalEncounterRate() / encounter_steps;
 
 	auto& idx = last_encounter_idx;
 	while (ratio > enc_table[idx+1].ratio) {
@@ -848,27 +1229,27 @@ void Game_Player::UpdateEncounterSteps() {
 	const auto& row = enc_table[idx];
 
 	const auto pmod = row.pmod;
-	const auto p = (1.0f / float(encounter_rate)) * pmod * (float(terrain->encounter_rate) / 100.0f);
+	const auto p = (1.0f / float(encounter_steps)) * pmod * (float(terrain->encounter_rate) / 100.0f);
 
 	if (!Rand::PercentChance(p)) {
 		return;
 	}
 
-	SetEncounterSteps(0);
+	SetTotalEncounterRate(0);
 	SetEncounterCalling(true);
 }
 
-void Game_Player::SetEncounterSteps(int steps) {
+void Game_Player::SetTotalEncounterRate(int rate) {
 	last_encounter_idx = 0;
-	data()->encounter_steps = steps;
+	data()->total_encounter_rate = rate;
 }
 
 int Game_Player::GetDefaultPanX() {
-	return (Utils::RoundTo<int>(static_cast<float>(Player::screen_width) / TILE_SIZE / 2) - 1) * SCREEN_TILE_SIZE;
+	return static_cast<int>(std::ceil(static_cast<float>(Player::screen_width) / TILE_SIZE / 2) - 1) * SCREEN_TILE_SIZE;
 }
 
 int Game_Player::GetDefaultPanY() {
-	return (Utils::RoundTo<int>(static_cast<float>(Player::screen_height) / TILE_SIZE / 2) - 1) * SCREEN_TILE_SIZE;
+	return static_cast<int>(std::ceil(static_cast<float>(Player::screen_height) / TILE_SIZE / 2) - 1) * SCREEN_TILE_SIZE;
 }
 
 void Game_Player::LockPan() {
@@ -897,19 +1278,87 @@ void Game_Player::StartPan(int direction, int distance, int speed) {
 	}
 
 	data()->pan_speed = 2 << speed;
+
+	if (Player::IsPatchManiac()) {
+		// Maniac uses separate horizontal/vertical pan for everything
+		data()->maniac_horizontal_pan_speed = data()->pan_speed;
+		data()->maniac_vertical_pan_speed = data()->pan_speed;
+	}
+}
+
+void Game_Player::StartPixelPan(int h, int v, int speed, bool interpolated, bool centered, bool relative) {
+	if (!Player::IsPatchManiac()) {
+		return;
+	}
+
+	h *= TILE_SIZE;
+	v *= TILE_SIZE;
+
+	maniac_pan_current_x = static_cast<double>(data()->pan_current_x);
+	maniac_pan_current_y = static_cast<double>(data()->pan_current_y);
+
+	int new_pan_x;
+	int new_pan_y;
+
+	if (relative && centered) {
+		int screen_width = static_cast<int>(std::ceil(static_cast<float>(Player::screen_width) / 2)) * TILE_SIZE;
+		int screen_height = static_cast<int>(std::ceil(static_cast<float>(Player::screen_height) / 2)) * TILE_SIZE;
+		new_pan_x = data()->pan_finish_x - (h - screen_width) * 0.5;
+		new_pan_y = data()->pan_finish_y - (v - screen_height) * 0.5;
+	} else if (relative) {
+		new_pan_x = data()->pan_finish_x - h;
+		new_pan_y = data()->pan_finish_y - v;
+	} else if (centered) {
+		new_pan_x = GetSpriteX() + GetDefaultPanX() - h;
+		new_pan_y = GetSpriteY() + GetDefaultPanY() - v;
+	} else {
+		new_pan_x = GetSpriteX() - h;
+		new_pan_y = GetSpriteY() - v;
+	}
+
+	double h_speed;
+	double v_speed;
+
+	if (speed == 0) {
+		// Instant pan if speed is zero
+		h_speed = std::abs((static_cast<double>(new_pan_x) - maniac_pan_current_x));
+		v_speed = std::abs((static_cast<double>(new_pan_y) - maniac_pan_current_y));
+	} else if (interpolated) {
+		// Interpolate distance by number of frames
+		h_speed = std::abs((static_cast<double>(new_pan_x) - maniac_pan_current_x)) / (speed + 1);
+		v_speed = std::abs((static_cast<double>(new_pan_y) - maniac_pan_current_y)) / (speed + 1);
+	} else {
+		// Multiply speed by 0.001
+		h_speed = std::max(static_cast<double>(speed * TILE_SIZE * 0.001), 1.0);
+		v_speed = std::max(static_cast<double>(speed * TILE_SIZE * 0.001), 1.0);
+	}
+
+	data()->pan_finish_x = new_pan_x;
+	data()->pan_finish_y = new_pan_y;
+	data()->maniac_horizontal_pan_speed = h_speed;
+	data()->maniac_vertical_pan_speed = v_speed;
 }
 
 void Game_Player::ResetPan(int speed) {
 	data()->pan_finish_x = GetDefaultPanX();
 	data()->pan_finish_y = GetDefaultPanY();
 	data()->pan_speed = 2 << speed;
+
+	if (Player::IsPatchManiac()) {
+		// Maniac uses separate horizontal/vertical pan for everything
+		data()->maniac_horizontal_pan_speed = data()->pan_speed;
+		data()->maniac_vertical_pan_speed = data()->pan_speed;
+	}
 }
 
 int Game_Player::GetPanWait() {
+	bool is_maniac = Player::IsPatchManiac();
 	const auto distance = std::max(
 			std::abs(data()->pan_current_x - data()->pan_finish_x),
 			std::abs(data()->pan_current_y - data()->pan_finish_y));
-	const auto speed = data()->pan_speed;
+	const auto speed = !is_maniac ? data()->pan_speed : static_cast<int>(std::max(
+			std::abs(data()->maniac_horizontal_pan_speed),
+			std::abs(data()->maniac_vertical_pan_speed)));
 	assert(speed > 0);
 	return distance / speed + (distance % speed != 0);
 }
@@ -922,10 +1371,33 @@ void Game_Player::UpdatePan() {
 	const int pan_remain_x = data()->pan_current_x - data()->pan_finish_x;
 	const int pan_remain_y = data()->pan_current_y - data()->pan_finish_y;
 
-	int dx = std::min(step, std::abs(pan_remain_x));
-	dx = pan_remain_x >= 0 ? dx : -dx;
-	int dy = std::min(step, std::abs(pan_remain_y));
-	dy = pan_remain_y >= 0 ? dy : -dy;
+	int dx;
+	int dy;
+
+	if (Player::IsPatchManiac()) {
+		const double step_x = data()->maniac_horizontal_pan_speed;
+		const double step_y = data()->maniac_vertical_pan_speed;
+
+		// Maniac uses doubles for smoother screen scrolling
+		double dx2 = std::min(step_x, std::abs(static_cast<double>(pan_remain_x)));
+		double dy2 = std::min(step_y, std::abs(static_cast<double>(pan_remain_y)));
+
+		dx2 = pan_remain_x >= 0 ? dx2 : -dx2;
+		dy2 = pan_remain_y >= 0 ? dy2 : -dy2;
+
+		maniac_pan_current_x -= dx2;
+		maniac_pan_current_y -= dy2;
+
+		// Depending on the position, floor or ceil the value
+		dx = Utils::RoundTo<double>(std::abs(maniac_pan_current_x)) == std::ceil(std::abs(maniac_pan_current_x)) ? static_cast<int>(std::floor(dx2)) : static_cast<int>(std::ceil(dx2));
+		dy = Utils::RoundTo<double>(std::abs(maniac_pan_current_y)) == std::ceil(std::abs(maniac_pan_current_y)) ? static_cast<int>(std::floor(dy2)) : static_cast<int>(std::ceil(dy2));
+	} else {
+		dx = std::min(step, std::abs(pan_remain_x));
+		dy = std::min(step, std::abs(pan_remain_y));
+
+		dx = pan_remain_x >= 0 ? dx : -dx;
+		dy = pan_remain_y >= 0 ? dy : -dy;
+	}
 
 	int screen_x = Game_Map::GetPositionX();
 	int screen_y = Game_Map::GetPositionY();
@@ -944,3 +1416,6 @@ void Game_Player::UpdatePan() {
 	data()->pan_current_y -= dy;
 }
 
+bool Game_Player::TriggerEventAt(int x, int y, bool triggered_by_decision_key, bool face_player) {
+	return CheckEventTriggerThere({ lcf::rpg::EventPage::Trigger_action }, x, y, triggered_by_decision_key, face_player);
+}

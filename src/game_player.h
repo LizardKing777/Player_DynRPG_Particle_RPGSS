@@ -47,11 +47,12 @@ public:
 	 * Implementation of abstract methods
 	 */
 	/** @{ */
-	Drawable::Z_t GetScreenZ(bool apply_shift = false) const override;
+	Drawable::Z_t GetScreenZ(int x_offset, int y_offset) const override;
 	bool IsVisible() const override;
 	bool MakeWay(int from_x, int from_y, int to_x, int to_y) override;
 	void UpdateNextMovementAction() override;
 	void UpdateMovement(int amount) override;
+    int GetInputDirection();
 	void MoveRouteSetSpriteGraphic(std::string sprite_name, int index) override;
 	bool Move(int dir) override;
 	/** @} */
@@ -59,6 +60,8 @@ public:
 	bool IsPendingTeleport() const;
 	TeleportTarget GetTeleportTarget() const;
 	void ResetTeleportTarget(TeleportTarget tt = {});
+
+	bool TriggerEventAt(int x, int y, bool triggered_by_decision_key, bool face_player);
 
 	/**
 	 * Sets the map, position and direction that the game player must have after the teleport is over
@@ -101,7 +104,7 @@ public:
 	bool IsMenuCalling() const;
 
 	/**
-	 * Set the encounter callling flag
+	 * Set the encounter calling flag
 	 *
 	 * @param value the value of the flag to set
 	 */
@@ -111,14 +114,14 @@ public:
 	bool IsEncounterCalling() const;
 
 	/** @return number of encounter steps scaled by terrain encounter rate percentage. */
-	int GetEncounterSteps() const;
+	int GetTotalEncounterRate() const;
 
 	/**
-	 * Sets encounter_steps to steps.
+	 * Sets accumulated encounter rate
 	 *
-	 * @param steps the steps value to set.
+	 * @param rate the rate to set.
 	 */
-	void SetEncounterSteps(int steps);
+	void SetTotalEncounterRate(int rate);
 
 	enum PanDirection {
 		PanUp,
@@ -137,9 +140,14 @@ public:
 	static int GetDefaultPanX();
 	static int GetDefaultPanY();
 
+	// Maniac uses these coordinates for smooth panning
+	double maniac_pan_current_x;
+	double maniac_pan_current_y;
+
 	void LockPan();
 	void UnlockPan();
 	void StartPan(int direction, int distance, int speed);
+	void StartPixelPan(int h, int v, int speed, bool interpolated, bool centered, bool relative);
 	void ResetPan(int speed);
 
 	/** @return how many frames it'll take to finish the current pan */
@@ -149,15 +157,33 @@ public:
 	bool IsDatabaseCompatibleWithSave(int database_save_count) const;
 
 	void UpdateSaveCounts(int db_save_count, int map_save_count);
-private:
+
+// private:
+
+	bool canMove = false;
+	int doomMoveType = -1;
+
+	// Move things here
+	bool CheckActionEvent();
+
+
 	using TriggerSet = lcf::FlagSet<lcf::rpg::EventPage::Trigger>;
+
+//	bool CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_decision_key);
+//	bool CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool triggered_by_decision_key);
+
+	bool CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_decision_key, bool face_player = true);
+	bool CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool triggered_by_decision_key, bool face_player = true);
+
+private:
+
+
 
 	void UpdateScroll(int amount, bool was_jumping);
 	void UpdatePan();
 	void UpdateEncounterSteps();
-	bool CheckActionEvent();
-	bool CheckEventTriggerHere(TriggerSet triggers, bool triggered_by_decision_key);
-	bool CheckEventTriggerThere(TriggerSet triggers, int x, int y, bool triggered_by_decision_key);
+	// bool CheckActionEvent();
+
 	bool GetOnVehicle();
 	bool GetOffVehicle();
 	bool UpdateAirship();
@@ -195,8 +221,8 @@ inline bool Game_Player::IsEncounterCalling() const {
 	return data()->encounter_calling;
 }
 
-inline int Game_Player::GetEncounterSteps() const {
-	return data()->encounter_steps;
+inline int Game_Player::GetTotalEncounterRate() const {
+	return data()->total_encounter_rate;
 }
 
 inline bool Game_Player::IsPanActive() const {

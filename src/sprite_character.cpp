@@ -37,7 +37,9 @@ Sprite_Character::Sprite_Character(Game_Character* character, int x_offset, int 
 
 void Sprite_Character::Draw(Bitmap &dst) {
 	if (UsesCharset()) {
-		int row = character->GetFacing();
+//		int row = character->GetFacing();
+		int row = (character->GetFacing());
+		row = Game_Map::GetGraphicDirection(row);
 		auto frame = character->GetAnimFrame();
 		if (frame >= lcf::rpg::EventPage::Frame_middle2) frame = lcf::rpg::EventPage::Frame_middle;
 		SetSrcRect({frame * chara_width, row * chara_height, chara_width, chara_height});
@@ -47,8 +49,52 @@ void Sprite_Character::Draw(Bitmap &dst) {
 
 	SetOpacity(character->GetOpacity());
 
-	SetX(character->GetScreenX() + x_offset);
-	SetY(character->GetScreenY() + y_offset);
+//	SetX(character->GetScreenX() + x_offset);
+//	SetY(character->GetScreenY() + y_offset);
+
+	bool mode7 = Game_Map::GetIsMode7();
+	if (!mode7) {
+		SetX(character->GetScreenX() + x_offset);
+		SetY(character->GetScreenY() + y_offset);
+	}
+	else {
+		int originalX = character->GetScreenX();
+		int originalY = character->GetScreenY(false);
+		int originalYOff = character->GetScreenY(true);
+		int originalOX = x_offset;
+		int originalOY = y_offset + (originalYOff-originalY);
+		// Get map properties.
+		const int center_x = Player::screen_width / 2 - 8;
+		const int center_y = Player::screen_height / 2 + 8;
+		float yaw = Game_Map::GetMode7Yaw();
+		int slant = Game_Map::GetMode7Slant();
+		int horizon = Game_Map::GetMode7Horizon();
+		horizon = (horizon * (90 - slant)) / 90;
+		int baseline = center_y + Game_Map::GetMode7Baseline();
+		double scale = Game_Map::GetMode7Scale();
+		// Rotate.
+		double angle = (yaw * (2 * M_PI) / 360);
+		int xx = originalX - center_x;
+		int yy = originalY - center_y;
+		double cosA = cos(-angle);
+		double sinA = sin(-angle);
+		int rotatedX = (cosA * xx) + (sinA * yy);
+		int rotatedY = (cosA * yy) - (sinA * xx);
+		// Transform
+		double iConst = 1 + (slant / (baseline + horizon));
+		double distanceBase = slant * scale / (baseline + horizon);
+		double syBase = distanceBase * 2;
+		double distance = (syBase - rotatedY) / 2;
+		double zoom = (iConst - (distance / scale)) * 2.0;
+		int sy = ((slant * scale) / distance) - horizon - 120 - 4;
+		int sx = rotatedX * zoom;
+		// Set
+		SetX(center_x + sx + originalOX * zoom);
+		SetY(center_y + sy + originalOY * zoom);
+		SetZoomX(zoom);
+		SetZoomY(zoom);
+	}
+
 
 	int bush_split = 4 - character->GetBushDepth();
 	SetBushDepth(bush_split > 3 ? 0 : GetHeight() / bush_split);
@@ -128,7 +174,7 @@ void Sprite_Character::ChipsetUpdated() {
 	refresh_bitmap = true;
 }
 
-Rect Sprite_Character::GetCharacterRect(StringView name, int index, const Rect bitmap_rect) {
+Rect Sprite_Character::GetCharacterRect(std::string_view name, int index, const Rect bitmap_rect) {
 	Rect rect;
 	rect.width = 24 * (TILE_SIZE / 16) * 3;
 	rect.height = 32 * (TILE_SIZE / 16) * 4;

@@ -72,6 +72,7 @@ public:
 	bool IsAboard() const;
 	void SyncWithRider(const Game_Character* rider);
 	bool AnimateAscentDescent();
+	int GetYOffset() const;
 	int GetScreenY(bool apply_jump = true) const override;
 	bool CanLand() const;
 	void StartAscent();
@@ -88,7 +89,7 @@ public:
 	void SetOrigSpriteGraphic(std::string sprite_name, int index);
 
 	/** Gets the original sprite graphic name */
-	StringView GetOrigSpriteName() const;
+	std::string_view GetOrigSpriteName() const;
 
 	/** Gets the original sprite graphic index */
 	int GetOrigSpriteIndex() const;

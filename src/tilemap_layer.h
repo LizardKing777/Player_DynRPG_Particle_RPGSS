@@ -66,6 +66,7 @@ public:
 	void SetChipset(BitmapRef const& nchipset);
 	const std::vector<short>& GetMapData() const;
 	void SetMapData(std::vector<short> nmap_data);
+	void SetMapTileDataAt(int x, int y, int tile_id, bool disable_autotile);
 	const std::vector<unsigned char>& GetPassable() const;
 	void SetPassable(std::vector<unsigned char> npassable);
 	bool IsVisible() const;
@@ -98,9 +99,16 @@ public:
 
 	void SetTone(Tone tone);
 
+	BitmapRef DrawTileDoom(int x, int y, bool allow_fast_blit = true);
+	int GetTileDoom(int map_x, int map_y, int layer);
+
+
+
 private:
 	BitmapRef chipset;
 	BitmapRef chipset_effect;
+	BitmapRef work_bitmap;
+	BitmapRef work_bitmap2;
 	std::unordered_set<uint32_t> chipset_tone_tiles;
 	std::vector<short> map_data;
 	std::vector<uint8_t> passable;
@@ -115,10 +123,13 @@ private:
 	bool fast_blit = false;
 
 	void CreateTileCache(const std::vector<short>& nmap_data);
+	void CreateTileCacheAt(int x, int y, int tile_id);
+	void RecreateTileDataAt(int x, int y, int tile_id);
 	void GenerateAutotileAB(short ID, short animID);
 	void GenerateAutotileD(short ID);
 	void DrawTile(Bitmap& dst, Bitmap& tile, Bitmap& tone_tile, int x, int y, int row, int col, uint32_t tone_hash, bool allow_fast_blit = true);
 	void DrawTileImpl(Bitmap& dst, Bitmap& tile, Bitmap& tone_tile, int x, int y, int row, int col, uint32_t tone_hash, ImageOpacity op, bool allow_fast_blit);
+	void RecalculateAutotile(int x, int y, int tile_id);
 
 	static const int TILES_PER_ROW = 64;
 
@@ -161,6 +172,8 @@ private:
 	TilemapSubLayer upper_layer;
 
 	Tone tone;
+
+	bool IsInMapBounds(int x, int y) const;
 };
 
 inline BitmapRef const& TilemapLayer::GetChipset() const {
@@ -259,5 +272,8 @@ inline TilemapLayer::TileData& TilemapLayer::GetDataCache(int x, int y) {
 	return data_cache_vec[x + y * width];
 }
 
+inline bool TilemapLayer::IsInMapBounds(int x, int y) const {
+	return x >= 0 && x < width && y >= 0 && y < height;
+}
 
 #endif

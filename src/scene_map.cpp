@@ -16,15 +16,12 @@
  */
 
 // Headers
-#include "scene_gameover.h"
 #include "scene_map.h"
-#include "scene_menu.h"
 #include "scene_save.h"
 #include "scene_debug.h"
 #include "scene_settings.h"
 #include "main_data.h"
 #include "game_map.h"
-#include "game_actors.h"
 #include "game_message.h"
 #include "game_party.h"
 #include "game_player.h"
@@ -38,9 +35,6 @@
 #include "transition.h"
 #include "audio.h"
 #include "input.h"
-#include "screen.h"
-#include "scene_load.h"
-#include "output.h"
 #include "game_dynrpg.h"
 
 using namespace std::chrono_literals;
@@ -183,7 +177,8 @@ void Scene_Map::TransitionOut(SceneType next_scene) {
 
 	if (next_scene != Scene::Battle
 			&& next_scene != Scene::Debug
-			&& next_scene != Scene::Settings) {
+			&& next_scene != Scene::Settings
+			&& next_scene != Scene::LanguageMenu) {
 		screen_erased_by_event = false;
 	}
 
@@ -527,4 +522,26 @@ void Scene_Map::UpdateInn() {
 
 	Main_Data::game_system->BgmStop();
 	FinishInn();
+}
+
+BitmapRef Scene_Map::GetEventSprite(int i) {
+	auto s = spriteset->GetEventSprite(i);
+	return s;
+}
+
+
+BitmapRef Scene_Map::GetChipset() {
+	return spriteset->GetChipset();
+}
+
+BitmapRef Scene_Map::GetTile(int x, int y, int layer) {
+	return spriteset->GetTile(x, y, layer);
+}
+
+int Scene_Map::GetTileID(int x, int y, int layer) {
+	return spriteset->GetTileID(x, y, layer);
+}
+
+TilemapLayer* Scene_Map::GetTilemap(int i) {
+	return spriteset->GetTilemap(i);
 }
