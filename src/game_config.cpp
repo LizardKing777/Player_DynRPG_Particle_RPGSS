@@ -18,10 +18,13 @@
 #include "game_config.h"
 #include "cmdline_parser.h"
 #include "filefinder.h"
+#include "filesystem_stream.h"
 #include "input_buttons.h"
 #include "keys.h"
+#include "options.h"
 #include "output.h"
 #include "input.h"
+#include "player.h"
 #include <lcf/inireader.h>
 #include <cstring>
 
@@ -37,7 +40,19 @@ namespace {
 	std::string config_path;
 	std::string soundfont_path;
 	std::string font_path;
-	StringView config_name = "config.ini";
+
+	struct {
+		bool started = false;
+		std::string path;
+		Filesystem_Stream::OutputStream handle;
+	} logging;
+
+#if USE_SDL == 1
+	// For SDL1 hardcode a different config file because it uses a completely different mapping for gamepads
+	std::string_view config_name = "config_sdl1.ini";
+#else
+	std::string_view config_name = EASYRPG_CONFIG_NAME;
+#endif
 }
 
 void Game_ConfigPlayer::Hide() {
@@ -48,6 +63,9 @@ void Game_ConfigPlayer::Hide() {
 	font2.SetOptionVisible(false);
 	font2_size.SetOptionVisible(false);
 #endif
+	if (automatic_screenshots.IsOptionVisible()) {
+		automatic_screenshots_interval.SetLocked(!automatic_screenshots.Get());
+	}
 }
 
 void Game_ConfigVideo::Hide() {
@@ -66,6 +84,7 @@ void Game_ConfigVideo::Hide() {
 	touch_ui.SetOptionVisible(false);
 	pause_when_focus_lost.SetOptionVisible(false);
 	game_resolution.SetOptionVisible(false);
+	screen_scale.SetOptionVisible(false);
 }
 
 void Game_ConfigAudio::Hide() {
@@ -93,6 +112,12 @@ Game_Config Game_Config::Create(CmdlineParser& cp) {
 	cfg.input.gamepad_swap_ab_and_xy.Set(true);
 #endif
 
+#if defined(USE_CUSTOM_FILEBUF) || defined(USE_LIBRETRO)
+	// Disable logging by default on
+	// - platforms with slow IO or bad FS drivers
+	// - libretro because the frontend handles the logging
+	cfg.player.log_enabled.Set(false);
+#endif
 
 	cp.Rewind();
 
@@ -256,6 +281,127 @@ Filesystem_Stream::OutputStream Game_Config::GetGlobalConfigFileOutput() {
 	return Filesystem_Stream::OutputStream();
 }
 
+Filesystem_Stream::OutputStream& Game_Config::GetLogFileOutput() {
+	// Invalid stream that consumes the output when logging is disabled or an error occurs
+	static Filesystem_Stream::OutputStream noop_stream;
+
+	if (!Player::player_config.log_enabled.Get()) {
+		return noop_stream;
+	}
+
+	if (!logging.started) {
+		logging.started = true;
+
+		std::string path;
+
+		if (logging.path.empty()) {
+	#if defined(_WIN32)
+			PWSTR knownPath;
+			const auto hresult = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &knownPath);
+			if (SUCCEEDED(hresult)) {
+				path = Utils::FromWideString(knownPath);
+				CoTaskMemFree(knownPath);
+			} else {
+				Output::Debug("LogFile: SHGetKnownFolderPath failed");
+			}
+	#elif defined(SYSTEM_DESKTOP_LINUX_BSD_MACOS)
+			char* home = getenv("XDG_STATE_HOME");
+			if (home) {
+				path = home;
+			} else {
+				home = getenv("HOME");
+				if (home) {
+					path = FileFinder::MakePath(home, ".local/state");
+				}
+			}
+	#endif
+
+			if (path.empty()) {
+				// Fallback: Use the config directory
+				// Can still fail in the rare case that the config path is invalid
+				if (auto fs = GetGlobalConfigFilesystem(); fs) {
+					path = fs.GetFullPath();
+				}
+			}
+
+			if (!path.empty()) {
+				path = FileFinder::MakePath(path, OUTPUT_FILENAME);
+			}
+		} else {
+			path = logging.path;
+		}
+
+		auto print_err = [&path]() {
+			if (path.empty()) {
+				Output::Warning("Could not determine logfile path");
+			} else {
+				Output::Warning("Could not access logfile path {}", path);
+			}
+		};
+
+		if (path.empty()) {
+			print_err();
+			return noop_stream;
+		}
+
+#ifndef ANDROID
+		// Make Directory not supported on Android, assume the path exists
+		if (!FileFinder::Root().MakeDirectory(FileFinder::GetPathAndFilename(path).first, true)) {
+			print_err();
+			return noop_stream;
+		}
+#endif
+
+		logging.handle = FileFinder::Root().OpenOutputStream(path, std::ios_base::out | std::ios_base::app);
+
+		if (!logging.handle) {
+			Output::Warning("Could not open logfile {}", path);
+			return logging.handle;
+		}
+
+		logging.path = path;
+	}
+
+	return logging.handle;
+}
+
+void Game_Config::CloseLogFile() {
+	if (!Game_Config::GetLogFileOutput()) {
+		return;
+	}
+
+	Game_Config::GetLogFileOutput().Close();
+
+	// Truncate the logfile when it is too large
+	const std::streamoff log_size = 1024 * 1024; // 1 MB
+	std::vector<char> buf(log_size);
+
+	auto in = FileFinder::Root().OpenInputStream(logging.path);
+	if (in) {
+		in.seekg(0, std::ios_base::end);
+		if (in.tellg() > log_size) {
+			in.seekg(-log_size, std::ios_base::end);
+			// skip current incomplete line
+			std::string line;
+			Utils::ReadLine(in, line);
+
+			// Read the remaining logfile into the buffer
+			in.read(buf.data(), buf.size());
+			size_t read = in.gcount();
+			in.Close();
+
+			// Truncate the logfile and write the data into the logfile
+			auto out = FileFinder::Root().OpenOutputStream(logging.path);
+			if (out) {
+				out.write(buf.data(), read);
+			}
+		}
+	}
+
+	logging.started = false;
+	logging.handle = Filesystem_Stream::OutputStream();
+}
+
 std::string Game_Config::GetConfigPath(CmdlineParser& cp) {
 	std::string path;
 
@@ -377,7 +523,7 @@ void Game_Config::LoadFromArgs(CmdlineParser& cp) {
 		}
 		if (cp.ParseNext(arg, 1, "--sound-volume")) {
 			if (arg.ParseValue(0, li_value)) {
-				audio.music_volume.Set(li_value);
+				audio.sound_volume.Set(li_value);
 			}
 			continue;
 		}
@@ -423,6 +569,12 @@ void Game_Config::LoadFromArgs(CmdlineParser& cp) {
 			}
 			continue;
 		}
+		if (cp.ParseNext(arg, 1, "--log-file")) {
+			if (arg.NumValues() > 0) {
+				logging.path = FileFinder::MakeCanonical(arg.Value(0), 0);
+			}
+			continue;
+		}
 
 		cp.SkipNext();
 	}
@@ -447,6 +599,7 @@ void Game_Config::LoadFromStream(Filesystem_Stream::InputStream& is) {
 	video.touch_ui.FromIni(ini);
 	video.pause_when_focus_lost.FromIni(ini);
 	video.game_resolution.FromIni(ini);
+	video.screen_scale.FromIni(ini);
 
 	if (ini.HasValue("Video", "WindowX") && ini.HasValue("Video", "WindowY") && ini.HasValue("Video", "WindowWidth") && ini.HasValue("Video", "WindowHeight")) {
 		video.window_x.FromIni(ini);
@@ -516,11 +669,18 @@ void Game_Config::LoadFromStream(Filesystem_Stream::InputStream& is) {
 	player.settings_autosave.FromIni(ini);
 	player.settings_in_title.FromIni(ini);
 	player.settings_in_menu.FromIni(ini);
+	player.lang_select_on_start.FromIni(ini);
+	player.lang_select_in_title.FromIni(ini);
 	player.show_startup_logos.FromIni(ini);
 	player.font1.FromIni(ini);
 	player.font1_size.FromIni(ini);
 	player.font2.FromIni(ini);
 	player.font2_size.FromIni(ini);
+	player.log_enabled.FromIni(ini);
+	player.screenshot_scale.FromIni(ini);
+	player.screenshot_timestamp.FromIni(ini);
+	player.automatic_screenshots.FromIni(ini);
+	player.automatic_screenshots_interval.FromIni(ini);
 }
 
 void Game_Config::WriteToStream(Filesystem_Stream::OutputStream& os) const {
@@ -537,6 +697,7 @@ void Game_Config::WriteToStream(Filesystem_Stream::OutputStream& os) const {
 	video.touch_ui.ToIni(os);
 	video.pause_when_focus_lost.ToIni(os);
 	video.game_resolution.ToIni(os);
+	video.screen_scale.ToIni(os);
 
 	// only preserve when toggling between window and fullscreen is supported
 	if (video.fullscreen.IsOptionVisible()) {
@@ -601,11 +762,18 @@ void Game_Config::WriteToStream(Filesystem_Stream::OutputStream& os) const {
 	player.settings_autosave.ToIni(os);
 	player.settings_in_title.ToIni(os);
 	player.settings_in_menu.ToIni(os);
+	player.lang_select_on_start.ToIni(os);
+	player.lang_select_in_title.ToIni(os);
 	player.show_startup_logos.ToIni(os);
 	player.font1.ToIni(os);
 	player.font1_size.ToIni(os);
 	player.font2.ToIni(os);
 	player.font2_size.ToIni(os);
+	player.log_enabled.ToIni(os);
+	player.screenshot_scale.ToIni(os);
+	player.screenshot_timestamp.ToIni(os);
+	player.automatic_screenshots.ToIni(os);
+	player.automatic_screenshots_interval.ToIni(os);
 
 	os << "\n";
 }

@@ -142,28 +142,28 @@ namespace Destiny
 
 	struct Version
 	{
-		uint16_t major;
-		uint16_t minor;
+		uint16_t ver_major;
+		uint16_t ver_minor;
 
 		Version()
-			: major(0), minor(0) {}
+			: ver_major(0), ver_minor(0) {}
 		Version(uint32_t version)
 		{
-			major = version >> 0x10;
-			minor = version & 0xFFFF;
+			ver_major = version >> 0x10;
+			ver_minor = version & 0xFFFF;
 		}
 
 		std::string toString() const
 		{
 			std::stringstream ss;
 
-			ss << major << '.' << minor;
+			ss << ver_major << '.' << ver_minor;
 			return ss.str();
 		}
 
 		inline bool operator==(Version& other) const
 		{
-			return major == other.major && minor == other.minor;
+			return ver_major == other.ver_major && ver_minor == other.ver_minor;
 		}
 
 		inline bool operator!=(Version& other) const
@@ -173,16 +173,16 @@ namespace Destiny
 
 		inline bool operator>(Version& other) const
 		{
-			return minor == other.minor
-				? major > other.major
-				: minor > other.minor;
+			return ver_minor == other.ver_minor
+				? ver_major > other.ver_major
+				: ver_minor > other.ver_minor;
 		}
 
 		inline bool operator<(Version& other) const
 		{
-			return minor == other.minor
-				? major < other.major
-				: minor < other.minor;
+			return ver_minor == other.ver_minor
+				? ver_major < other.ver_major
+				: ver_minor < other.ver_minor;
 		}
 
 		inline bool operator>=(Version& other) const
@@ -238,14 +238,14 @@ namespace Destiny
 			 *
 			 * @returns The word found length.
 			 */
-			const size_t GetWordLen();
+			size_t GetWordLen();
 
 			/*
 			 * Evaluates the DestinyScript code.
 			 *
 			 * @returns The interpreter state flag.
 			 */
-			const InterpretFlag Interpret();
+			InterpretFlag Interpret();
 
 			/**
 			 * Loads the interpreter stack.
@@ -286,7 +286,7 @@ namespace Destiny
 			 *
 			 * @return
 			 */
-			inline const bool IsEndOfLine() const
+			inline bool IsEndOfLine() const
 			{
 				return _scriptPtr && *_scriptPtr == ';';
 			}
@@ -297,7 +297,7 @@ namespace Destiny
 			 *
 			 * @return
 			 */
-			inline const bool IsEndOfScript() const
+			inline bool IsEndOfScript() const
 			{
 				return _scriptPtr && *_scriptPtr == '\0';
 			}
@@ -325,21 +325,21 @@ namespace Destiny
 			 *
 			 * @return Flag to finish spaces skipping.
 			 */
-			const bool LineComment();
+			bool LineComment();
 
 			/**
 			 * Read a line block.
 			 *
 			 * @return Flag to finish spaces skipping.
 			 */
-			const bool BlockComment();
+			bool BlockComment();
 
 			/**
 			 * Check whether character is a whitespace.
 			 *
 			 * @return Flag of whitespace character.
 			 */
-			inline const bool IsWhiteSpace(const char ch) const
+			inline bool IsWhiteSpace(const char ch) const
 			{
 				return ch == ' ' ||
 					ch == 0x09 ||		// Horizontal Tabulator (HT)
@@ -353,7 +353,7 @@ namespace Destiny
 			 *
 			 * @return Flag of word character.
 			 */
-			inline const bool IsWordChar(const char ch) const
+			inline bool IsWordChar(const char ch) const
 			{
 				return ch == '_' ||
 					(ch >= '0' && ch <= '9') ||

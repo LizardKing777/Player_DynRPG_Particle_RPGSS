@@ -64,42 +64,52 @@ namespace {
 	}
 
 	// This is the last-resort function for finding a glyph, all the other fonts should fallback on it.
-	// It tries to display a WenQuanYi glyph, and if it’s not found, returns a replacement glyph.
+	// It tries to display a WenQuanYi glyph, and if it's not found, returns a replacement glyph.
 	BitmapFontGlyph const* find_fallback_glyph(char32_t code) {
 		auto* wqy = find_glyph(BITMAPFONT_WQY, code);
 		if (wqy != NULL) {
 			return wqy;
 		}
 		else {
-			static BitmapFontGlyph const replacement_glyph = { 65533, true, { 96, 240, 504, 924, 1902, 3967, 4031, 1982, 1020, 440, 240, 96 } };
 			Output::Debug("glyph not found: {:#x}", uint32_t(code));
-			return &replacement_glyph;
+			return &BITMAPFONT_REPLACEMENT_GLYPH;
 		}
+	}
+
+	BitmapFontGlyph const* find_baekmuk_glyph(char32_t code) {
+		// Korean
+		auto* baekmuk = find_glyph(BITMAPFONT_BAEKMUK, code);
+		return baekmuk != NULL ? baekmuk : find_fallback_glyph(code);
 	}
 
 	BitmapFontGlyph const* find_gothic_glyph(char32_t code) {
 		if (Player::IsCP936()) {
+			// For simplified chinese prefer WQY
 			auto* wqy = find_glyph(BITMAPFONT_WQY, code);
 			if (wqy != NULL) {
 				return wqy;
 			}
 		}
+		// Shinonome Gothic -> Baekmuk (Korean) -> Fallback (WQY)
 		auto* gothic = find_glyph(SHINONOME_GOTHIC, code);
-		return gothic != NULL ? gothic : find_fallback_glyph(code);
+		return gothic != NULL ? gothic : find_baekmuk_glyph(code);
 	}
 
 	BitmapFontGlyph const* find_mincho_glyph(char32_t code) {
 		if (Player::IsCP936()) {
+			// For simplified chinese prefer WQY
 			auto* wqy = find_glyph(BITMAPFONT_WQY, code);
 			if (wqy != NULL) {
 				return wqy;
 			}
 		}
+		// Shinonome Mincho -> Shinonome Gothic (see above)
 		auto* mincho = find_glyph(SHINONOME_MINCHO, code);
 		return mincho == NULL ? find_gothic_glyph(code) : mincho;
 	}
 
 	BitmapFontGlyph const* find_rmg2000_glyph(char32_t code) {
+		// rmg2000 -> ttyp0 -> Shinonome Mincho (see above)
 		auto* rmg2000 = find_glyph(BITMAPFONT_RMG2000, code);
 		if (rmg2000 != NULL) {
 			return rmg2000;
@@ -110,6 +120,7 @@ namespace {
 	}
 
 	BitmapFontGlyph const* find_ttyp0_glyph(char32_t code) {
+		// ttyp0 -> Shinonome Gothic (see above)
 		auto* ttyp0 = find_glyph(BITMAPFONT_TTYP0, code);
 		return ttyp0 != NULL ? ttyp0 : find_gothic_glyph(code);
 	}
@@ -119,7 +130,7 @@ namespace {
 
 		using function_type = BitmapFontGlyph const*(*)(char32_t);
 
-		BitmapFont(StringView name, function_type func);
+		BitmapFont(std::string_view name, function_type func);
 
 		Rect vGetSize(char32_t glyph) const override;
 		GlyphRet vRender(char32_t glyph) const override;
@@ -142,7 +153,7 @@ namespace {
 		GlyphRet vRenderShaped(char32_t glyph) const override;
 		bool vCanShape() const override;
 #ifdef HAVE_HARFBUZZ
-		std::vector<ShapeRet> vShape(U32StringView txt) const override;
+		std::vector<ShapeRet> vShape(std::u32string_view txt) const override;
 #endif
 		void vApplyStyle(const Style& style) override;
 
@@ -173,7 +184,7 @@ namespace {
 	FontRef const mincho = std::make_shared<BitmapFont>("Shinonome Mincho", &find_mincho_glyph);
 
 	/* Bitmap fonts used for non-Japanese games.
-	   Compatible with RMG2000 and RM2000 shipped with Don Miguel’s unofficial translation.
+	   Compatible with RMG2000 and RM2000 shipped with Don Miguel's unofficial translation.
 	   Feature a half-width Cyrillic and half-width ellipsis at the bottom of the line.
 	*/
 	FontRef const rmg2000 = std::make_shared<BitmapFont>("RMG2000-compatible", &find_rmg2000_glyph);
@@ -237,7 +248,7 @@ namespace {
 	}
 } // anonymous namespace
 
-BitmapFont::BitmapFont(StringView name, function_type func)
+BitmapFont::BitmapFont(std::string_view name, function_type func)
 	: Font(name, HEIGHT, false, false), func(func)
 {}
 
@@ -491,7 +502,7 @@ bool FTFont::vCanShape() const {
 }
 
 #ifdef HAVE_HARFBUZZ
-std::vector<Font::ShapeRet> FTFont::vShape(U32StringView txt) const {
+std::vector<Font::ShapeRet> FTFont::vShape(std::u32string_view txt) const {
 	hb_buffer_clear_contents(hb_buffer);
 
 	hb_buffer_add_utf32(hb_buffer, reinterpret_cast<const uint32_t*>(txt.data()), txt.size(), 0, txt.size());
@@ -691,7 +702,7 @@ void Font::Dispose() {
 }
 
 // Constructor.
-Font::Font(StringView name, int size, bool bold, bool italic)
+Font::Font(std::string_view name, int size, bool bold, bool italic)
 	: name(ToString(name))
 {
 	original_style.size = size;
@@ -700,7 +711,7 @@ Font::Font(StringView name, int size, bool bold, bool italic)
 	current_style = original_style;
 }
 
-StringView Font::GetName() const {
+std::string_view Font::GetName() const {
 	return name;
 }
 
@@ -884,7 +895,7 @@ bool Font::CanShape() const {
 	return vCanShape();
 }
 
-std::vector<Font::ShapeRet> Font::Shape(U32StringView text) const {
+std::vector<Font::ShapeRet> Font::Shape(std::u32string_view text) const {
 	assert(vCanShape());
 
 	return vShape(text);

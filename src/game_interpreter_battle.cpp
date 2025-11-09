@@ -15,7 +15,7 @@
  * along with EasyRPG Player. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Headers
+ // Headers
 #include "game_actors.h"
 #include "game_battle.h"
 #include "game_enemyparty.h"
@@ -33,6 +33,8 @@
 #include <cassert>
 #include "scene_battle.h"
 
+using namespace Game_Interpreter_Shared;
+
 enum BranchBattleSubcommand {
 	eOptionBranchBattleElse = 1
 };
@@ -43,14 +45,40 @@ enum TargetType {
 	Enemy,
 };
 
+// Implemented as a static map, since maniac hooks can only have one common event callback at a time.
+// Subsequent calls will simply override the previous common event callback.
+std::map<Game_Interpreter_Battle::ManiacBattleHookType, std::tuple<int, int>> Game_Interpreter_Battle::maniac_hooks;
+
+void Game_Interpreter_Battle::InitBattle() {
+	if (Player::IsPatchManiac()) {
+		Game_Interpreter_Battle::maniac_hooks = {
+			{Game_Interpreter_Battle::ManiacBattleHookType::AtbIncrement, std::make_tuple(0, 0)},
+			{Game_Interpreter_Battle::ManiacBattleHookType::DamagePop, std::make_tuple(0, 0)},
+			{Game_Interpreter_Battle::ManiacBattleHookType::Targetting, std::make_tuple(0, 0)},
+			{Game_Interpreter_Battle::ManiacBattleHookType::SetState, std::make_tuple(0, 0)},
+			{Game_Interpreter_Battle::ManiacBattleHookType::StatChange, std::make_tuple(0, 0)}
+		};
+	}
+}
+
 static const char* target_text[] = { "actor", "party member", "enemy" };
 
-static const void MissingTargetWarning(const char* command_name, TargetType target_type, int target_id) {
+static void MissingTargetWarning(const char* command_name, TargetType target_type, int target_id) {
 	Output::Warning("{}: Invalid {} ID: {}", command_name, target_text[target_type], target_id);
 }
 
+// Provides a facility for battle sub-events to be run immediately
+// without blocking the standard interpreter from actually processing them.
+std::unique_ptr<Game_Interpreter_Battle> maniac_interpreter;
+
 Game_Interpreter_Battle::Game_Interpreter_Battle(Span<const lcf::rpg::TroopPage> pages)
 	: Game_Interpreter(true), pages(pages), executed(pages.size(), false)
+{
+	maniac_interpreter.reset(new Game_Interpreter_Battle());
+}
+
+Game_Interpreter_Battle::Game_Interpreter_Battle()
+	: Game_Interpreter(true)
 {
 }
 
@@ -185,7 +213,7 @@ int Game_Interpreter_Battle::ScheduleNextPage(lcf::rpg::TroopPageCondition::Flag
 			continue;
 		}
 		Clear();
-		Push(page.event_commands, 0);
+		Push<ExecutionType::Action, EventType::BattleEvent>(page.event_commands, 0);
 		executed[i] = true;
 		return i + 1;
 	}
@@ -196,39 +224,39 @@ int Game_Interpreter_Battle::ScheduleNextPage(lcf::rpg::TroopPageCondition::Flag
 bool Game_Interpreter_Battle::ExecuteCommand(lcf::rpg::EventCommand const& com) {
 	switch (static_cast<Cmd>(com.code)) {
 		case Cmd::CallCommonEvent:
-			return CommandCallCommonEvent(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandCallCommonEvent, 1>(com);
 		case Cmd::ForceFlee:
-			return CommandForceFlee(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandForceFlee, 3>(com);
 		case Cmd::EnableCombo:
-			return CommandEnableCombo(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandEnableCombo, 3>(com);
 		case Cmd::ChangeMonsterHP:
-			return CommandChangeMonsterHP(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandChangeMonsterHP, 5>(com);
 		case Cmd::ChangeMonsterMP:
-			return CommandChangeMonsterMP(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandChangeMonsterMP, 4>(com);
 		case Cmd::ChangeMonsterCondition:
-			return CommandChangeMonsterCondition(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandChangeMonsterCondition, 3>(com);
 		case Cmd::ShowHiddenMonster:
-			return CommandShowHiddenMonster(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandShowHiddenMonster, 1>(com);
 		case Cmd::ChangeBattleBG:
-			return CommandChangeBattleBG(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandChangeBattleBG, 0>(com);
 		case Cmd::ShowBattleAnimation_B:
-			return CommandShowBattleAnimation(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandShowBattleAnimation, 3>(com);
 		case Cmd::TerminateBattle:
-			return CommandTerminateBattle(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandTerminateBattle, 0>(com);
 		case Cmd::ConditionalBranch_B:
-			return CommandConditionalBranchBattle(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandConditionalBranchBattle, 5>(com);
 		case Cmd::ElseBranch_B:
-			return CommandElseBranchBattle(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandElseBranchBattle, 0>(com);
 		case Cmd::EndBranch_B:
-			return CommandEndBranchBattle(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandEndBranchBattle, 0>(com);
 		case Cmd::Maniac_ControlBattle:
-			return CommandManiacControlBattle(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandManiacControlBattle, 4>(com);
 		case Cmd::Maniac_ControlAtbGauge:
-			return CommandManiacControlAtbGauge(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandManiacControlAtbGauge, 7>(com);
 		case Cmd::Maniac_ChangeBattleCommandEx:
-			return CommandManiacChangeBattleCommandEx(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandManiacChangeBattleCommandEx, 2>(com);
 		case Cmd::Maniac_GetBattleInfo:
-			return CommandManiacGetBattleInfo(com);
+			return CmdSetup<&Game_Interpreter_Battle::CommandManiacGetBattleInfo, 5>(com);
 		default:
 			return Game_Interpreter::ExecuteCommand(com);
 	}
@@ -249,7 +277,7 @@ bool Game_Interpreter_Battle::CommandCallCommonEvent(lcf::rpg::EventCommand cons
 		return true;
 	}
 
-	Push(common_event);
+	Push<ExecutionType::Call>(common_event);
 
 	return true;
 }
@@ -444,7 +472,7 @@ bool Game_Interpreter_Battle::CommandShowBattleAnimation(lcf::rpg::EventCommand 
 	bool waiting_battle_anim = com.parameters[2] != 0;
 	bool allies = false;
 
-	if (Player::IsRPG2k3()) {
+	if (Player::IsRPG2k3() && com.parameters.size() > 3) {
 		allies = com.parameters[3] != 0;
 	}
 
@@ -600,12 +628,95 @@ bool Game_Interpreter_Battle::CommandEndBranchBattle(lcf::rpg::EventCommand cons
 	return true;
 }
 
-bool Game_Interpreter_Battle::CommandManiacControlBattle(lcf::rpg::EventCommand const&) {
+bool Game_Interpreter_Battle::ManiacBattleHook(ManiacBattleHookType hook_type, int var1, int var2, int var3, int var4, int var5, int var6) {
+	if (!Player::IsPatchManiac()) {
+		return false;
+	}
+
+	int common_event_id = std::get<0>(maniac_hooks[hook_type]);
+	int variable_start_id = std::get<1>(maniac_hooks[hook_type]);
+
+	if (common_event_id <= 0) {
+		return false;
+	}
+
+	Game_CommonEvent* common_event = lcf::ReaderUtil::GetElement(Game_Map::GetCommonEvents(), common_event_id);
+	if (!common_event) {
+		Output::Warning("CommandManiacControlBattle: Can't call invalid common event {}", common_event_id);
+		return false;
+	}
+	
+	// pushes the common event to be run into the queue of events.
+	maniac_interpreter->Push<ExecutionType::ManiacHook>(common_event);
+
+	// pushes the change variable events into the interpreters
+	// event queue, so we don't run into a race condition.
+	std::vector<lcf::rpg::EventCommand> pre_commands;
+	for (size_t i = 0; i < 6; i++)
+	{
+		auto event_command = lcf::rpg::EventCommand();
+		event_command.code = static_cast<int>(lcf::rpg::EventCommand::Code::ControlVars);
+		event_command.parameters = lcf::DBArray<int32_t>(7);
+		event_command.parameters[1] = variable_start_id + i;
+		switch (i)
+		{
+			case 0:
+				event_command.parameters[5] = var1;
+				break;
+			case 1:
+				event_command.parameters[5] = var2;
+				break;
+			case 2:
+				event_command.parameters[5] = var3;
+				break;
+			case 3:
+				event_command.parameters[5] = var4;
+				break;
+			case 4:
+				event_command.parameters[5] = var5;
+				break;
+			case 5:
+				event_command.parameters[5] = var6;
+				break;
+			default:
+				break;
+		}
+		pre_commands.push_back(event_command);
+	}
+
+	// Push is actually "push_back", so this gets added before other events.
+	maniac_interpreter->Push<ExecutionType::ManiacHook, EventType::None>(pre_commands, 0);
+
+	// Necessary to start the sub-event.
+	maniac_interpreter->Update();
+
+	return true;
+}
+
+bool Game_Interpreter_Battle::ProcessManiacSubEvents() {
+	// If we have sub-events we're going to update them immediately
+	// until the queue is empty while making the rest of the game wait.
+	if (Player::IsPatchManiac() && maniac_interpreter->IsRunning()) {
+		maniac_interpreter->Update();
+		return true;
+	}
+	return false;
+}
+
+bool Game_Interpreter_Battle::CommandManiacControlBattle(lcf::rpg::EventCommand const& com) {
 	if (!Player::IsPatchManiac()) {
 		return true;
 	}
 
-	Output::Warning("Maniac Patch: Command ControlBattle not supported");
+	ManiacBattleHookType control_type_flags = static_cast<ManiacBattleHookType>(com.parameters[0]);
+	int common_event_identifier = ValueOrVariable(com.parameters[1], com.parameters[2]);
+	int value_reference_identifier = com.parameters[3];
+
+	// Sets the maniacs battle event hook to:
+	// the common event id and the variable id the developer would like to use.
+	std::get<0>(maniac_hooks[control_type_flags]) = common_event_identifier;
+	std::get<1>(maniac_hooks[control_type_flags]) = value_reference_identifier;
+
 	return true;
 }
 

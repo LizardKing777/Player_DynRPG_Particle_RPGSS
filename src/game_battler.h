@@ -234,14 +234,14 @@ public:
 	 *
 	 * @return Character name
 	 */
-	virtual StringView GetName() const = 0;
+	virtual std::string_view GetName() const = 0;
 
 	/**
 	 * Gets the filename of the character sprite
 	 *
 	 * @return Filename of character sprite
 	 */
-	virtual StringView GetSpriteName() const = 0;
+	virtual std::string_view GetSpriteName() const = 0;
 
 	/**
 	 * Gets battler HP.
@@ -768,6 +768,13 @@ public:
 	 * @return Party this member probably belongs to.
 	 */
 	Game_Party_Base& GetParty() const;
+
+	/**
+	 * Convenience function to access the battlers party member index.
+	 *
+	 * @return Index of this member in their party.
+	 */
+	int GetPartyIndex();
 
 	/**
 	 * Gets the maximal atb gauge value.

@@ -21,6 +21,7 @@
 // Headers
 #include <string>
 #include <vector>
+#include "game_interpreter_debug.h"
 #include "game_interpreter_map.h"
 #include <lcf/rpg/commonevent.h>
 #include <lcf/rpg/saveeventexecstate.h>
@@ -73,7 +74,7 @@ public:
 	 *
 	 * @return event name.
 	 */
-	StringView GetName() const;
+	std::string_view GetName() const;
 
 	/**
 	 * Gets trigger condition.
@@ -120,7 +121,7 @@ private:
 	/** Interpreter for parallel common events. */
 	std::unique_ptr<Game_Interpreter_Map> interpreter;
 
-	friend class Scene_Debug;
+	friend class Game_Interpreter_Inspector;
 };
 
 #endif

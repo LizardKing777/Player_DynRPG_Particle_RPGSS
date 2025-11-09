@@ -92,7 +92,7 @@ Game_Windows::Window_User& Game_Windows::GetWindow(int id) {
 	if (EP_UNLIKELY(id > static_cast<int>(windows.size()))) {
 		windows.reserve(id);
 		while (static_cast<int>(windows.size()) < id) {
-			windows.emplace_back(windows.size() + 1);
+			windows.emplace_back(static_cast<int>(windows.size()) + 1);
 		}
 	}
 	return windows[id - 1];
@@ -355,16 +355,17 @@ void Game_Windows::Window_User::Refresh(bool& async_wait) {
 	window->SetVisible(false);
 
 	BitmapRef system;
-	// FIXME: Transparency setting is currently not applied to the system graphic
-	// Disabling transparency breaks the rendering of the system graphic
 	if (!data.system_name.empty()) {
 		system = Cache::System(data.system_name);
 	} else {
 		system = Cache::SystemOrBlack();
 	}
 
+	auto& pic = Main_Data::game_pictures->GetPicture(data.ID);
+
 	window->SetWindowskin(system);
 	window->SetStretch(data.message_stretch == lcf::rpg::System::Stretch_stretch);
+	window->SetBackgroundAlpha(pic.data.use_transparent_color);
 
 	if (data.message_stretch == lcf::rpg::System::Stretch_easyrpg_none) {
 		window->SetBackOpacity(0);
@@ -455,7 +456,6 @@ void Game_Windows::Window_User::Refresh(bool& async_wait) {
 	}
 
 	// Add to picture
-	auto& pic = Main_Data::game_pictures->GetPicture(data.ID);
 	pic.AttachWindow(*window);
 }
 

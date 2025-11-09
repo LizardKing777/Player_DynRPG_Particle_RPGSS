@@ -58,6 +58,14 @@ namespace ConfigEnum {
 		All
 	};
 
+	enum class StartupLangSelect {
+		Never,
+		/* Shows language screen when no saves are found */
+		FirstStartup,
+		/* Always show the language screen before the title */
+		Always
+	};
+
 	enum class ShowFps {
 		/** Do not show */
 		OFF,
@@ -89,6 +97,17 @@ struct Game_ConfigPlayer {
 	RangeConfigParam<int> font1_size { "Font 1 Size", "", "Player", "Font1Size", 12, 6, 16};
 	PathConfigParam font2 { "Font 2", "The game chooses whether it wants font 1 or 2", "Player", "Font2", "" };
 	RangeConfigParam<int> font2_size { "Font 2 Size", "", "Player", "Font2Size", 12, 6, 16};
+	EnumConfigParam<ConfigEnum::StartupLangSelect, 3> lang_select_on_start {
+		"Startup Language Menu", "Show language menu before booting up a game", "Player", "StartupLangSelect", ConfigEnum::StartupLangSelect::FirstStartup,
+		Utils::MakeSvArray("Never", "First Start", "Always"),
+		Utils::MakeSvArray("never", "FirstStartup", "always"),
+		Utils::MakeSvArray("Never show language menu on start", "Show on first start (when no save files are found)", "Always show language menu prior to the title screen") };
+	BoolConfigParam lang_select_in_title{ "Show language menu on title screen", "Display language menu item on the title screen", "Player", "LanguageInTitle", true };
+	BoolConfigParam log_enabled{ "Logging", "Write diagnostic messages into a logfile", "Player", "Logging", true };
+	RangeConfigParam<int> screenshot_scale { "Screenshot scaling factor", "Scale screenshots by the given factor", "Player", "ScreenshotScale", 1, 1, 24};
+	BoolConfigParam screenshot_timestamp{ "Screenshot timestamp", "Add the current date and time to the file name", "Player", "ScreenshotTimestamp", true };
+	BoolConfigParam automatic_screenshots{ "Automatic screenshots", "Periodically take screenshots", "Player", "AutomaticScreenshots", false };
+	RangeConfigParam<int> automatic_screenshots_interval{ "Screenshot interval", "The interval between automatic screenshots (seconds)", "Player", "AutomaticScreenshotsInterval", 30, 1, 999999 };
 
 	void Hide();
 };
@@ -115,6 +134,7 @@ struct Game_ConfigVideo {
 		Utils::MakeSvArray("Original (Recommended)", "Widescreen (Experimental)", "Ultrawide (Experimental)"),
 		Utils::MakeSvArray("original", "widescreen", "ultrawide"),
 		Utils::MakeSvArray("The default resolution (320x240, 4:3)", "Can cause glitches (416x240, 16:9)", "Can cause glitches (560x240, 21:9)")};
+	RangeConfigParam<int> screen_scale{ "Scaling", "Adjust screen scaling (Overscan/Underscan)", "Video", "ScreenScale", 100, 50, 150 };
 
 	// These are never shown and are used to restore the window to the previous position
 	ConfigParam<int> window_x{ "", "", "Video", "WindowX", -1 };
@@ -187,7 +207,6 @@ struct Game_Config {
 	 */
 	static FilesystemView GetFontFilesystem();
 
-
 	/**
 	 * Returns a handle to the global config file for reading.
 	 * The file is created if it does not exist.
@@ -203,6 +222,10 @@ struct Game_Config {
 	 * @return handle to the global file
 	 */
 	static Filesystem_Stream::OutputStream GetGlobalConfigFileOutput();
+
+	static Filesystem_Stream::OutputStream& GetLogFileOutput();
+
+	static void CloseLogFile();
 
 	/**
 	 * Load configuration values from a stream;
