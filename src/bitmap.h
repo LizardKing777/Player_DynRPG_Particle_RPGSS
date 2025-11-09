@@ -149,6 +149,10 @@ public:
 		// Special handling for chipset graphic.
 		// Generates a tile opacity list.
 		Flag_Chipset = 1 << 2,
+		// Disables premultiplied alpha for the background section of the system
+		// graphic (at 0,0,32,32) to preserve the colors of the transparent
+		// pixels in RPG2k and in RPG2k3 with semi-transparent message box.
+		Flag_SystemBgPreserveColor = 1 << 3,
 		// Bitmap will not be written to. This allows blit optimisations because the
 		// opacity information will not change.
 		Flag_ReadOnly = 1 << 16
@@ -223,7 +227,7 @@ public:
 	 *
 	 * @return Bitmap identifier
 	 */
-	StringView GetId() const;
+	std::string_view GetId() const;
 
 	/**
 	 * Sets the identifier of the bitmap.
@@ -259,7 +263,7 @@ public:
 	 * @param align text alignment.
 	 * @return Where to draw the next glyph
 	 */
-	Point TextDraw(int x, int y, int color, StringView text, Text::Alignment align = Text::AlignLeft);
+	Point TextDraw(int x, int y, int color, std::string_view text, Text::Alignment align = Text::AlignLeft);
 
 	/**
 	 * Draws text to bitmap using the configured Font or the Font::Default() font.
@@ -270,7 +274,7 @@ public:
 	 * @param align text alignment inside bounding rectangle.
 	 * @return Where to draw the next glyph
 	 */
-	Point TextDraw(Rect const& rect, int color, StringView text, Text::Alignment align = Text::AlignLeft);
+	Point TextDraw(Rect const& rect, int color, std::string_view text, Text::Alignment align = Text::AlignLeft);
 
 	/**
 	 * Draws text to bitmap using the configured Font or the Font::Default() font.
@@ -281,7 +285,7 @@ public:
 	 * @param text text to draw.
 	 * @return Where to draw the next glyph
 	 */
-	Point TextDraw(int x, int y, Color color, StringView text);
+	Point TextDraw(int x, int y, Color color, std::string_view text);
 
 	/**
 	 * Draws text to bitmap using the configured Font or the Font::Default() font.
@@ -291,7 +295,7 @@ public:
 	 * @param text text to draw.
 	 * @param align text alignment inside bounding rectangle.
 	 */
-	Point TextDraw(Rect const& rect, Color color, StringView, Text::Alignment align = Text::AlignLeft);
+	Point TextDraw(Rect const& rect, Color color, std::string_view, Text::Alignment align = Text::AlignLeft);
 
 	/**
 	 * Blits source bitmap to this one.
@@ -627,7 +631,7 @@ protected:
 	pixman_format_code_t pixman_format;
 
 	void Init(int width, int height, void* data, int pitch = 0, bool destroy = true);
-	void ConvertImage(int& width, int& height, void*& pixels, bool transparent);
+	void ConvertImage(int& width, int& height, void*& pixels, bool transparent, uint32_t flags);
 
 	static PixmanImagePtr GetSubimage(Bitmap const& src, const Rect& src_rect);
 	static inline void MultiplyAlpha(uint8_t &r, uint8_t &g, uint8_t &b, const uint8_t &a) {
@@ -698,7 +702,7 @@ inline bool Bitmap::GetTransparent() const {
 	return format.alpha_type != PF::NoAlpha;
 }
 
-inline StringView Bitmap::GetId() const {
+inline std::string_view Bitmap::GetId() const {
 	return id;
 }
 

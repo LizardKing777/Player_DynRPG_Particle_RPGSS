@@ -44,7 +44,7 @@ BattleAnimation::BattleAnimation(const lcf::rpg::Animation& anim, bool only_soun
 
 	SetZ(Priority_BattleAnimation);
 
-	StringView name = animation.animation_name;
+	std::string_view name = animation.animation_name;
 	BitmapRef graphic;
 
 	if (name.empty()) return;
@@ -109,7 +109,7 @@ void BattleAnimation::DrawAt(Bitmap& dst, int x, int y) {
 			continue;
 		}
 
-		SetX(cell.x + x);
+		SetX(invert ? x - cell.x : cell.x + x);
 		SetY(cell.y + y);
 		int sx = cell.cell_id % 5;
 		int sy = cell.cell_id / 5;

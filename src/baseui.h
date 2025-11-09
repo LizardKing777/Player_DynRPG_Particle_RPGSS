@@ -243,7 +243,7 @@ public:
 	 * @param url URL to open
 	 * @return true when successful
 	 */
-	virtual bool OpenURL(StringView path) { (void)path; return false; }
+	virtual bool OpenURL(std::string_view path) { (void)path; return false; }
 
 	/** Toggles "stretch to screen width" on or off */
 	virtual void ToggleStretch() {};
@@ -253,6 +253,15 @@ public:
 
 	/** Turns a touch ui on or off. */
 	virtual void ToggleTouchUi() {};
+
+	/**
+	 * Adjusts the scaling of the screen (for overscan/underscan)
+	 *
+	 * @param scale Screen scaling in percent (50 - 150)
+	 */
+	virtual void SetScreenScale(int scale) {
+		(void)scale;
+	}
 
 	/**
 	 * @return current video options.

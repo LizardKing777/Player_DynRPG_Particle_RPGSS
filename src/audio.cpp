@@ -33,7 +33,7 @@ AudioInterface& Audio() {
 	return default_;
 }
 
-void EmptyAudio::BGM_Play(Filesystem_Stream::InputStream, int, int, int) {
+void EmptyAudio::BGM_Play(Filesystem_Stream::InputStream, int, int, int, int) {
 	bgm_starttick = Player::GetFrames();
 	playing = true;
 }
@@ -139,7 +139,7 @@ std::string AudioInterface::GetFluidsynthSoundfont() const {
 	return cfg.soundfont.Get();
 }
 
-void AudioInterface::SetFluidsynthSoundfont(StringView sf) {
+void AudioInterface::SetFluidsynthSoundfont(std::string_view sf) {
 	cfg.soundfont.Set(ToString(sf));
 	MidiDecoder::ChangeFluidsynthSoundfont(sf);
 }

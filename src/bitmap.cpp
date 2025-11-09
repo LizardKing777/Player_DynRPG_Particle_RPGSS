@@ -123,7 +123,7 @@ Bitmap::Bitmap(Filesystem_Stream::InputStream stream, bool transparent, uint32_t
 
 	Init(image_out.width, image_out.height, nullptr);
 
-	ConvertImage(image_out.width, image_out.height, image_out.pixels, transparent);
+	ConvertImage(image_out.width, image_out.height, image_out.pixels, transparent, flags);
 
 	CheckPixels(flags);
 
@@ -156,7 +156,7 @@ Bitmap::Bitmap(const uint8_t* data, unsigned bytes, bool transparent, uint32_t f
 
 	Init(image_out.width, image_out.height, nullptr);
 
-	ConvertImage(image_out.width, image_out.height, image_out.pixels, transparent);
+	ConvertImage(image_out.width, image_out.height, image_out.pixels, transparent, flags);
 
 	original_bpp = image_out.bpp;
 
@@ -178,7 +178,13 @@ bool Bitmap::WritePNG(std::ostream& os) const {
 
 	std::vector<uint32_t> data(width * height);
 
-	auto dst = PixmanImagePtr{pixman_image_create_bits(PIXMAN_b8g8r8, width, height, &data.front(), stride)};
+#ifdef WORDS_BIGENDIAN
+	auto format = PIXMAN_r8g8b8;
+#else
+	auto format = PIXMAN_b8g8r8;
+#endif
+
+	auto dst = PixmanImagePtr{pixman_image_create_bits(format, width, height, &data.front(), stride)};
 	pixman_image_composite32(PIXMAN_OP_SRC, bitmap.get(), NULL, dst.get(),
 							 0, 0, 0, 0, 0, 0, width, height);
 
@@ -194,12 +200,16 @@ size_t Bitmap::GetSize() const {
 }
 
 ImageOpacity Bitmap::ComputeImageOpacity() const {
+	if (!GetTransparent()) {
+		return ImageOpacity::Opaque;
+	}
+
 	bool all_opaque = true;
 	bool all_transp = true;
 	bool alpha_1bit = true;
 
 	auto* p = reinterpret_cast<const uint32_t*>(pixels());
-	const auto mask = pixel_format.rgba_to_uint32_t(0, 0, 0, 0xFF);
+	const auto mask = format.rgba_to_uint32_t(0, 0, 0, 0xFF);
 
 	int n = GetSize() / sizeof(uint32_t);
 	for (int i = 0; i < n; ++i ) {
@@ -219,6 +229,10 @@ ImageOpacity Bitmap::ComputeImageOpacity() const {
 }
 
 ImageOpacity Bitmap::ComputeImageOpacity(Rect rect) const {
+	if (!GetTransparent()) {
+		return ImageOpacity::Opaque;
+	}
+
 	bool all_opaque = true;
 	bool all_transp = true;
 	bool alpha_1bit = true;
@@ -228,7 +242,7 @@ ImageOpacity Bitmap::ComputeImageOpacity(Rect rect) const {
 
 	auto* p = reinterpret_cast<const uint32_t*>(pixels());
 	const int stride = pitch() / sizeof(uint32_t);
-	const auto mask = pixel_format.rgba_to_uint32_t(0, 0, 0, 0xFF);
+	const auto mask = format.rgba_to_uint32_t(0, 0, 0, 0xFF);
 
 	int xend = (rect.x + rect.width);
 	int yend = (rect.y + rect.height);
@@ -332,7 +346,7 @@ void Bitmap::HueChangeBlit(int x, int y, Bitmap const& src, Rect const& src_rect
 	Blit(dst_rect.x, dst_rect.y, bmp, bmp.GetRect(), Opacity::Opaque());
 }
 
-Point Bitmap::TextDraw(Rect const& rect, int color, StringView text, Text::Alignment align) {
+Point Bitmap::TextDraw(Rect const& rect, int color, std::string_view text, Text::Alignment align) {
 	switch (align) {
 	case Text::AlignLeft:
 		return TextDraw(rect.x, rect.y, color, text);
@@ -357,13 +371,13 @@ Point Bitmap::TextDraw(Rect const& rect, int color, StringView text, Text::Align
 	return {};
 }
 
-Point Bitmap::TextDraw(int x, int y, int color, StringView text, Text::Alignment align) {
+Point Bitmap::TextDraw(int x, int y, int color, std::string_view text, Text::Alignment align) {
 	auto f = font ? font : Font::Default();
 	auto system = Cache::SystemOrBlack();
 	return Text::Draw(*this, x, y, *f, *system, color, text, align);
 }
 
-Point Bitmap::TextDraw(Rect const& rect, Color color, StringView text, Text::Alignment align) {
+Point Bitmap::TextDraw(Rect const& rect, Color color, std::string_view text, Text::Alignment align) {
 	switch (align) {
 	case Text::AlignLeft:
 		return TextDraw(rect.x, rect.y, color, text);
@@ -388,7 +402,7 @@ Point Bitmap::TextDraw(Rect const& rect, Color color, StringView text, Text::Ali
 	return {};
 }
 
-Point Bitmap::TextDraw(int x, int y, Color color, StringView text) {
+Point Bitmap::TextDraw(int x, int y, Color color, std::string_view text) {
 	auto f = font ? font : Font::Default();
 	return Text::Draw(*this, x, y, *f, color, text);
 }
@@ -529,18 +543,37 @@ void Bitmap::Init(int width, int height, void* data, int pitch, bool destroy) {
 		pixman_image_set_destroy_function(bitmap.get(), destroy_func, data);
 }
 
-void Bitmap::ConvertImage(int& width, int& height, void*& pixels, bool transparent) {
+void Bitmap::ConvertImage(int& width, int& height, void*& pixels, bool transparent, uint32_t flags) {
 	const DynamicFormat& img_format = transparent ? image_format : opaque_image_format;
 
 	// premultiply alpha
-	for (int y = 0; y < height; y++) {
-		uint8_t* dst = (uint8_t*) pixels + y * width * 4;
-		for (int x = 0; x < width; x++) {
-			uint8_t &r = *dst++;
-			uint8_t &g = *dst++;
-			uint8_t &b = *dst++;
-			uint8_t &a = *dst++;
-			MultiplyAlpha(r, g, b, a);
+	if ((flags & Flag_SystemBgPreserveColor) == 0) {
+		for (int y = 0; y < height; y++) {
+			uint8_t* dst = (uint8_t*) pixels + y * width * 4;
+			for (int x = 0; x < width; x++) {
+				uint8_t &r = *dst++;
+				uint8_t &g = *dst++;
+				uint8_t &b = *dst++;
+				uint8_t &a = *dst++;
+				MultiplyAlpha(r, g, b, a);
+			}
+		}
+	} else {
+		for (int y = 0; y < height; y++) {
+			uint8_t* dst = (uint8_t*) pixels + y * width * 4;
+			for (int x = 0; x < width; x++) {
+				uint8_t &r = *dst++;
+				uint8_t &g = *dst++;
+				uint8_t &b = *dst++;
+				uint8_t &a = *dst++;
+
+				// Skip alpha calculation for 32x32 system background graphic
+				if (x < 32 && y < 32) {
+					continue;
+				}
+
+				MultiplyAlpha(r, g, b, a);
+			}
 		}
 	}
 

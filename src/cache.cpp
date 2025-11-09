@@ -40,11 +40,11 @@
 using namespace std::chrono_literals;
 
 namespace {
-	std::string MakeHashKey(StringView folder_name, StringView filename, bool transparent) {
-		return ToString(folder_name) + ":" + ToString(filename) + ":" + (transparent ? "T" : " ");
+	std::string MakeHashKey(std::string_view folder_name, std::string_view filename, bool transparent, uint32_t extra_flags = 0) {
+		return fmt::format("{}:{}:{}:{}", folder_name, filename, transparent, extra_flags);
 	}
 
-	std::string MakeTileHashKey(StringView chipset_name, int id) {
+	std::string MakeTileHashKey(std::string_view chipset_name, int id) {
 		std::string key;
 		key.reserve(chipset_name.size() + sizeof(int) + 2);
 		key.append(reinterpret_cast<char*>(&id), sizeof(id));
@@ -54,7 +54,7 @@ namespace {
 		return key;
 	}
 
-	int IdFromTileHash(StringView key) {
+	int IdFromTileHash(std::string_view key) {
 		int id = 0;
 		if (key.size() > sizeof(id)) {
 			std::memcpy(&id, key.data(), sizeof(id));
@@ -62,7 +62,7 @@ namespace {
 		return id;
 	}
 
-	const char* NameFromTileHash(StringView key) {
+	const char* NameFromTileHash(std::string_view key) {
 		int offset = sizeof(int) + 1;
 		if (static_cast<int>(key.size()) < offset) {
 			return "";
@@ -229,14 +229,14 @@ namespace {
 	}
 
 	template<Material::Type T>
-	BitmapRef LoadDummyBitmap(StringView, StringView, bool) {
+	BitmapRef LoadDummyBitmap(std::string_view, std::string_view, bool) {
 		static_assert(Material::REND < T && T < Material::END, "Invalid material.");
 		const Spec& s = spec[T];
 		return s.dummy_renderer();
 	}
 
 	template<Material::Type T>
-	BitmapRef LoadBitmap(StringView filename, bool transparent) {
+	BitmapRef LoadBitmap(std::string_view filename, bool transparent, uint32_t extra_flags = 0) {
 		static_assert(Material::REND < T && T < Material::END, "Invalid material.");
 		const Spec& s = spec[T];
 
@@ -247,7 +247,7 @@ namespace {
 
 		BitmapRef bmp;
 
-		const auto key = MakeHashKey(s.directory, filename, transparent);
+		const auto key = MakeHashKey(s.directory, filename, transparent, extra_flags);
 		auto it = cache.find(key);
 		if (it == cache.end()) {
 			if (filename == CACHE_DEFAULT_BITMAP) {
@@ -270,6 +270,8 @@ namespace {
 					auto flags = Bitmap::Flag_ReadOnly | (
 							T == Material::Chipset ? Bitmap::Flag_Chipset :
 							T == Material::System ? Bitmap::Flag_System : 0);
+					flags |= extra_flags;
+
 					bmp = Bitmap::Create(std::move(is), transparent, flags);
 					if (!bmp) {
 						Output::Warning("Invalid image: {}/{}", s.directory, filename);
@@ -328,77 +330,82 @@ namespace {
 	}
 
 	template<Material::Type T>
-	BitmapRef LoadBitmap(StringView f) {
+	BitmapRef LoadBitmap(std::string_view f, uint32_t extra_flags = 0) {
 		static_assert(Material::REND < T && T < Material::END, "Invalid material.");
 		const Spec& s = spec[T];
-		return LoadBitmap<T>(f, s.transparent);
+		return LoadBitmap<T>(f, s.transparent, extra_flags);
 	}
 }
 
 std::vector<uint8_t> Cache::exfont_custom;
 
-BitmapRef Cache::Backdrop(StringView file) {
+BitmapRef Cache::Backdrop(std::string_view file) {
 	return LoadBitmap<Material::Backdrop>(file);
 }
 
-BitmapRef Cache::Battle(StringView file) {
+BitmapRef Cache::Battle(std::string_view file) {
 	return LoadBitmap<Material::Battle>(file);
 }
 
-BitmapRef Cache::Battle2(StringView file) {
+BitmapRef Cache::Battle2(std::string_view file) {
 	return LoadBitmap<Material::Battle2>(file);
 }
 
-BitmapRef Cache::Battlecharset(StringView file) {
+BitmapRef Cache::Battlecharset(std::string_view file) {
 	return LoadBitmap<Material::Battlecharset>(file);
 }
 
-BitmapRef Cache::Battleweapon(StringView file) {
+BitmapRef Cache::Battleweapon(std::string_view file) {
 	return LoadBitmap<Material::Battleweapon>(file);
 }
 
-BitmapRef Cache::Charset(StringView file) {
+BitmapRef Cache::Charset(std::string_view file) {
 	return LoadBitmap<Material::Charset>(file);
 }
 
-BitmapRef Cache::Chipset(StringView file) {
+BitmapRef Cache::Chipset(std::string_view file) {
 	return LoadBitmap<Material::Chipset>(file);
 }
 
-BitmapRef Cache::Faceset(StringView file) {
+BitmapRef Cache::Faceset(std::string_view file) {
 	return LoadBitmap<Material::Faceset>(file);
 }
 
-BitmapRef Cache::Frame(StringView file, bool transparent) {
+BitmapRef Cache::Frame(std::string_view file, bool transparent) {
 	return LoadBitmap<Material::Frame>(file, transparent);
 }
 
-BitmapRef Cache::Gameover(StringView file) {
+BitmapRef Cache::Gameover(std::string_view file) {
 	return LoadBitmap<Material::Gameover>(file);
 }
 
-BitmapRef Cache::Monster(StringView file) {
+BitmapRef Cache::Monster(std::string_view file) {
 	return LoadBitmap<Material::Monster>(file);
 }
 
-BitmapRef Cache::Panorama(StringView file) {
+BitmapRef Cache::Panorama(std::string_view file) {
 	return LoadBitmap<Material::Panorama>(file);
 }
 
-BitmapRef Cache::Picture(StringView file, bool transparent) {
+BitmapRef Cache::Picture(std::string_view file, bool transparent) {
 	return LoadBitmap<Material::Picture>(file, transparent);
 }
 
-BitmapRef Cache::System2(StringView file) {
+BitmapRef Cache::System2(std::string_view file) {
 	return LoadBitmap<Material::System2>(file);
 }
 
-BitmapRef Cache::Title(StringView file) {
+BitmapRef Cache::Title(std::string_view file) {
 	return LoadBitmap<Material::Title>(file);
 }
 
-BitmapRef Cache::System(StringView file) {
-	return LoadBitmap<Material::System>(file);
+BitmapRef Cache::System(std::string_view file, bool bg_preserve_transparent_color) {
+	uint32_t flags = 0;
+	if (bg_preserve_transparent_color || Player::IsRPG2k()) {
+		flags = Bitmap::Flag_SystemBgPreserveColor;
+	}
+
+	return LoadBitmap<Material::System>(file, flags);
 }
 
 BitmapRef Cache::Exfont() {
@@ -425,7 +432,7 @@ BitmapRef Cache::Exfont() {
 	}
 }
 
-BitmapRef Cache::Tile(StringView filename, int tile_id) {
+BitmapRef Cache::Tile(std::string_view filename, int tile_id) {
 	const auto key = MakeTileHashKey(filename, tile_id);
 	auto it = cache_tiles.find(key);
 
@@ -463,8 +470,17 @@ BitmapRef Cache::Tile(StringView filename, int tile_id) {
 }
 
 BitmapRef Cache::SpriteEffect(const BitmapRef& src_bitmap, const Rect& rect, bool flip_x, bool flip_y, const Tone& tone, const Color& blend) {
+	std::string id = ToString(src_bitmap->GetId());
+
+	if (id.empty()) {
+		// Log causes false positives when empty bitmaps or placeholder (checkerboard)
+		// bitmaps are used.
+		//Output::Debug("Bitmap has no ID. Please report a bug!");
+		id = fmt::format("{}", (void*)(src_bitmap.get()));
+	}
+
 	const effect_key_type key {
-		src_bitmap->GetId(),
+		id,
 		src_bitmap->GetTransparent(),
 		rect,
 		flip_x,
@@ -472,8 +488,6 @@ BitmapRef Cache::SpriteEffect(const BitmapRef& src_bitmap, const Rect& rect, boo
 		tone,
 		blend
 	};
-
-	assert(!src_bitmap->GetId().empty());
 
 	const auto it = cache_effects.find(key);
 
@@ -547,9 +561,9 @@ void Cache::SetSystem2Name(std::string filename) {
 	system2_name = std::move(filename);
 }
 
-BitmapRef Cache::System() {
+BitmapRef Cache::System(bool bg_preserve_transparent_color) {
 	if (!system_name.empty()) {
-		return Cache::System(system_name);
+		return Cache::System(system_name, bg_preserve_transparent_color);
 	} else {
 		return nullptr;
 	}
@@ -560,8 +574,8 @@ BitmapRef Cache::SysBlack() {
 	return system_black;
 }
 
-BitmapRef Cache::SystemOrBlack() {
-	auto system = Cache::System();
+BitmapRef Cache::SystemOrBlack(bool bg_preserve_transparent_color) {
+	auto system = Cache::System(bg_preserve_transparent_color);
 	if (system) {
 		return system;
 	}
@@ -574,42 +588,4 @@ BitmapRef Cache::System2() {
 	} else {
 		return nullptr;
 	}
-}
-
-BitmapRef Cache::Image(StringView filename) {
-	BitmapRef bmp;
-
-		const auto key = MakeHashKey("File", filename, true);
-	auto it = cache.find(key);
-	if (it == cache.end()) {
-		if (!bmp) {
-			auto is = FileFinder::Game().OpenFile(filename);
-
-			FreeBitmapMemory();
-
-			if (!is) {
-				Output::Warning("Image not found: {}", filename);
-			} else {
-				auto flags = Bitmap::Flag_ReadOnly;
-				bmp = Bitmap::Create(std::move(is), true, flags);
-				if (!bmp) {
-					Output::Warning("Invalid image: {}", filename);
-				}
-			}
-		}
-
-		if (!bmp) {
-			// Even for images without "warn_missing" this still creates a checkboard for invalid images
-			bmp = LoadDummyBitmap<Material::Picture>("File", filename, true);
-		}
-
-		bmp = AddToCache(key, bmp);
-	} else {
-		it->second.last_access = Game_Clock::GetFrameTime();
-		bmp = it->second.bitmap;
-	}
-
-	assert(bmp);
-
-	return bmp;
 }
