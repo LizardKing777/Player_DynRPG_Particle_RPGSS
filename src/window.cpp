@@ -57,6 +57,23 @@ void Window::SetCloseAnimation(int frames) {
 	}
 }
 
+void Window::SetBackgroundAlpha(bool alpha) {
+	if (alpha == background_alpha) {
+		return;
+	}
+
+	background_needs_refresh = true;
+	background_alpha = alpha;
+}
+
+void Window::SetBackgroundPreserveTransparentColor(bool preserve) {
+	if (preserve == bg_preserve_transparent_color) {
+		return;
+	}
+
+	bg_preserve_transparent_color = preserve;
+}
+
 void Window::Draw(Bitmap& dst) {
 	if (width <= 0 || height <= 0) return;
 	if (x < -width || x > dst.GetWidth() || y < -height || y > dst.GetHeight()) return;
@@ -178,7 +195,7 @@ void Window::Draw(Bitmap& dst) {
 void Window::RefreshBackground() {
 	background_needs_refresh = false;
 
-	BitmapRef bitmap = Bitmap::Create(width, height);
+	BitmapRef bitmap = Bitmap::Create(width, height, background_alpha);
 
 	if (stretch) {
 		bitmap->StretchBlit(*windowskin, Rect(0, 0, 32, 32), 255);
@@ -330,6 +347,7 @@ void Window::SetWindowskin(BitmapRef const& nwindowskin) {
 	if (windowskin == nwindowskin) {
 		return;
 	}
+
 	background_needs_refresh = true;
 	frame_needs_refresh = true;
 	cursor_needs_refresh = true;
